@@ -6,7 +6,6 @@ CREATE TABLE `albumdb`.`users` (
   `nickname` VARCHAR(100) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `isactive` TINYINT NOT NULL DEFAULT 1,
-  `userscol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC));
@@ -59,4 +58,12 @@ CREATE TABLE `albumdb`.`childandparent` (
     REFERENCES `albumdb`.`users` (`username`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION);
+    
+    
+INSERT INTO `albumdb`.`users` (`username`, `nickname`, `email`) VALUES ('MiriK', 'miri', 'm@gmail.com');
+INSERT INTO `albumdb`.`users` (`username`, `nickname`, `email`) VALUES ('ayalaSch', 'ayala', 'a@gmail.com');
+
+INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('ayalaSch', 'ayala');
+INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('MiriK', 'qwerty');
+
     
