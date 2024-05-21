@@ -6,10 +6,10 @@ export const verifyToken = (req, res, next) => {
         return res.sendStatus(403).send("not access Token");
 
     try {
-            const verified = jwt.verify(token, "privateKey");
-            if (!verified) {
-                return res.status(401).send("Invalid Token");
-            }
+        const verified = jwt.verify(token, "privateKey");
+        if (!verified) {
+            return res.status(401).send("Invalid Token");
+        }
         return next();
     } catch (err) {
         return res.status(401).send("Invalid Token");
