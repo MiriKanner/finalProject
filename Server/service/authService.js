@@ -10,7 +10,6 @@ export class AuthService {
 
     async verifyUserAuth(authItem) {
         const authQuery = getPasswordQuery();
-
         const password = SHA256(authItem.password).toString(enc.Hex);
         const result = await executeQuery(authQuery, [authItem.name,password]);
         if (result.length == 0) throw new Error

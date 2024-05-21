@@ -1,5 +1,5 @@
 export function getPasswordQuery() {
-    const query = `select users.username,nickname,email from users,auth
+    const query = `select users.username,nickname,email from albumdb.users,albumdb.auth
     where users.username = auth.username and users.isActive = 1 and auth.username = ? and auth.password=?;`;
     return query
 }

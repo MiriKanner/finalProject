@@ -3,6 +3,7 @@ import 'dotenv/config'
 
 async function executeQuery(query, params){
     let results;
+    console.log(process.env.PASSWORD)
     const connection = await mysql.createConnection({
         host: 'localhost',
         user: 'root',

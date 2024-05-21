@@ -10,7 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(logActions);
-
 app.use('/auth',authRouter);
 app.use(verifyToken)
 app.use(logErrors);
