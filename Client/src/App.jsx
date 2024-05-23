@@ -5,6 +5,8 @@ import Login from "./componnents/Login/Login.jsx";
 export const UserContext = createContext(null);
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./componnents/SignUp/SignUp.jsx";
+import Home from "./componnents/Home/Home.jsx";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -32,7 +34,9 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<SignUp />} />
             </Route>
-          
+            {user&&
+            (<Route path="/home/:username" element={<Home />}> </Route>)
+            }
             <Route path="/*" element={<p>not found</p>} />
           </Routes>
         </UserContext.Provider>
