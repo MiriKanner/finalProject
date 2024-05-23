@@ -33,8 +33,7 @@ import { UserContext } from "../../App";
 //       });
 //   };
 
-function Login() {
-  const navigate=useNavigate()
+function SignUp() {
   const user = useContext(UserContext);
   const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
@@ -92,4 +91,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

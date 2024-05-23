@@ -1,9 +1,10 @@
-import './App.css'
-import './componnents/Login/Login.jsx'
+import "./App.css";
+import "./componnents/Login/Login.jsx";
 import { useState, createContext, useContext } from "react";
-import Login from './componnents/Login/Login.jsx'
+import Login from "./componnents/Login/Login.jsx";
 export const UserContext = createContext(null);
-
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import SignUp from "./componnents/SignUp/SignUp.jsx";
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -22,13 +23,56 @@ function App() {
   }
 
   return (
-
     <>
-      <UserContext.Provider value={{user, setUser}}>
-      <Login />
-      </UserContext.Provider>
+      <BrowserRouter>
+        <UserContext.Provider value={{ user, setUser }}>
+          <Routes>
+            <Route path="/">
+              <Route index element={<Login />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+            </Route>
+          
+            <Route path="/*" element={<p>not found</p>} />
+          </Routes>
+        </UserContext.Provider>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
+// {
+//   user && (
+//     <Route path="/home/users/:userId" element={<Home />}>
+//       <Route path="info" element={<Info />} />
+//       <Route path="albums">
+//         <Route index element={<Albums />} />
+//         <Route path="search/:field/:data" element={<Albums />} />
+//         <Route path="search/:field/" element={<Albums />}></Route>
+//         <Route path=":albumId" element={<SingleAlbum />}>
+//           <Route path="photos" element={<Photos />}>
+//             <Route path=":photoId" element={<Photos />} />
+//           </Route>
+//         </Route>
+//       </Route>
+//       <Route path="posts">
+//         <Route index element={<Posts />} />
+//         <Route path="search/:field/:data" element={<Posts />} />
+//         <Route path="search/:field/" element={<Posts />}></Route>
+//         <Route path=":postId" element={<SinglePost />}>
+//           <Route path="comments" element={<Comments />}>
+//             <Route path=":commentId" element={<SingleComment />} />
+//           </Route>
+//         </Route>
+//       </Route>
+//       <Route path="todos">
+//         <Route index element={<Todos />} />
+//         <Route path="search/:field/:data" element={<Todos />} />
+//         <Route path="search/:field/" element={<Todos />}></Route>
+//         <Route path=":todoId" element={<SingleTodo />}></Route>
+//       </Route>
+//     </Route>
+//   );
+// }
