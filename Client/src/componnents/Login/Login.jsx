@@ -88,6 +88,8 @@ function Login() {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+      <Link to="/register">don't have acount? please sign up</Link>
+
     </form>
   );
 }
