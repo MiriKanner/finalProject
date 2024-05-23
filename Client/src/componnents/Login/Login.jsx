@@ -38,19 +38,20 @@ function Login() {
   const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         const req = { method: "POST",route:'auth',body:{username:data.username,password:data.password} };
-        fetchRequ(req).then((response) => response.json())
+        fetchRequ(req)
         .then((responseJson) => {
-          if (responseJson.length != 0) {
+          console.log(responseJson)
+          if (responseJson.result.length != 0) {
             localStorage.setItem(
               "currentUser",
               JSON.stringify({
-                name: responseJson[0].username,
-                id: responseJson[0].id,
-                email: responseJson[0].email,
+                name: responseJson.result[0].nickname,
+                username: responseJson.result[0].username,
+                email: responseJson.result[0].email,
               })
             );
-            user.setUser(responseJson[0]);
-            navigate("/home/users/" + responseJson[0].id);
+            user.setUser(responseJson.result[0]);
+            navigate("/home/users/" + responseJson.result[0].id);
           } else {
             alert("wrong authentication");
           }
@@ -59,11 +60,11 @@ function Login() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div class="form-group">
-        <label for="username">Enter UserName</label>
+      <div className="form-group">
+        <label htmlFor="username">Enter UserName</label>
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           id="username"
           //aria-describedby="emailHelp"
           placeholder="Enter User Name"
@@ -73,17 +74,17 @@ function Login() {
           We'll never share your email with anyone else.
         </small> */}
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
         <input
           type="password"
-          class="form-control"
+          className="form-control"
           id="password"
           placeholder="Password"
           {...register("password")}
         />
       </div>
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>

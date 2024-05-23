@@ -11,10 +11,10 @@ export class AuthService {
     async verifyUserAuth(authItem) {
         const authQuery = getPasswordQuery();
         const password = SHA256(authItem.password).toString(enc.Hex);
-        const result = await executeQuery(authQuery, [authItem.name,password]);
+        const result = await executeQuery(authQuery, [authItem.username,password]);
         if (result.length == 0) throw new Error
-        const token = jwt.sign({ id: authItem.name }, "privateKey", { expiresIn: '20m' });
-        const refreshtoken = jwt.sign({ id: authItem.name }, "keyrefresh", { expiresIn: '1d' });
+        const token = jwt.sign({ id: authItem.username }, "privateKey", { expiresIn: '20m' });
+        const refreshtoken = jwt.sign({ id: authItem.username }, "keyrefresh", { expiresIn: '1d' });
         return {'result':result,'token':token,'refreshtoken':refreshtoken};
             // verified: result[0].password == authItem.password,
             // userData: {

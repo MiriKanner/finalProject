@@ -27,7 +27,7 @@ export class AuthController {
         try {
             const authService = new AuthService();
             const resultItem = await authService.verifyUserAuth(req.body);
-            res.status(200).json({ status: 200, data: resultItem });
+            res.status(200).json(resultItem );
         }
         catch (ex) {
             console.log('Authication error')
