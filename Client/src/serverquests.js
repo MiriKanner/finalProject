@@ -1,7 +1,7 @@
 export default async function fetchRequ(req) {
     let answer;
     await fetch(`http://localhost:8080/${req.route}`, {
-        method: req.method,
+        method: req.method || 'GET',
         body: JSON.stringify(req.body),
         headers: { 'Content-type': 'application/json; charset=UTF-8' },
     }).then(response => response.json())

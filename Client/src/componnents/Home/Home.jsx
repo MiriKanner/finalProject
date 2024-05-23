@@ -21,11 +21,11 @@ function Home() {
 
 
   let drawerClass = []
-  if (isShowInfo ) {
-    drawerClass.push("drawerMin");
+  if (displaySideBar) {
+    drawerClass.push("drawerOpen");
     //mainClass.push("mainMin")
   } else {
-    drawerClass.push("drawerOpen");
+    drawerClass.push("drawerMin");
     //  mainClass.push("mainOpen");
   }
 
@@ -33,7 +33,7 @@ function Home() {
   return (
 
     <>
-      <navbar> <i className="material-icons" onClick={() => { setIsShowInfo(prev => !prev) }}>menu</i> <h3> Hello {user.username}</h3> </navbar>
+      <nav> <i className="material-icons" onClick={() => { setDisplaySideBar(prev => !prev) }}>menu</i> <h3> Hello {user.username}</h3> </nav>
       <aside className={drawerClass.join(" ")} >
         <ul>
           <Link to="/signup"><li><i className="material-icons">dashboard</i><span>Dashboard</span></li></Link>

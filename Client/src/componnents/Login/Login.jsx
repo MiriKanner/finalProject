@@ -52,6 +52,7 @@ function Login() {
             name: responseJson.result[0].nickname,
             username: responseJson.result[0].username,
             email: responseJson.result[0].email,
+            token:responseJson.token
           })
         );
         user.setUser(responseJson.result[0]);
