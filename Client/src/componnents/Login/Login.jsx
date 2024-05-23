@@ -34,7 +34,7 @@ import { UserContext } from "../../App";
 //   };
 
 function Login() {
-  let user = useContext(UserContext);
+  const user = useContext(UserContext);
   const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         const req = { method: "POST",route:'auth',body:{username:data.username,password:data.password} };
