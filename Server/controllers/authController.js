@@ -1,5 +1,6 @@
 
 import { AuthService } from "../service/authService.js";
+import cookie from 'cookie';
 
 export class AuthController {
     // async updateAuth(req, res, next) {       
@@ -23,11 +24,13 @@ export class AuthController {
     //         next(err)
     //     }
     // }
+    // async updateAuth(req, res, next) {       
+
     async verifyUserAuth(req, res, next) {
         try {
             const authService = new AuthService();
             const resultItem = await authService.verifyUserAuth(req.body);
-            res.status(200).json(resultItem );
+            res.status(200).cookie('token', resultItem.token, { expires: new Date(Date.now() + 900000)/*, httpOnly: true*/ }).json(resultItem.result);
         }
         catch (ex) {
             console.log('Authication error')
@@ -41,7 +44,7 @@ export class AuthController {
         try {
             const authService = new AuthService();
             const resultItem = await authService.addUserAndAuth(req.body)
-            res.status(200).json({ status: 200, data: resultItem });
+            res.status(200).json(resultItem.result);
         }
         catch (ex) {
             console.log('Authication error')

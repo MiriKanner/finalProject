@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
+import cookies from 'js-cookie';
 //   let user = useContext(UserContext);
 //   const navigate = useNavigate();
 //   const { register, handleSubmit } = useForm();
@@ -33,6 +34,15 @@ import { UserContext } from "../../App";
 //       });
 //   };
 
+
+function getCookie(tabs) {
+  let getting = browser.cookies.get({
+    url: tabs[0].url,
+    name: "favorite-color",
+  });
+  getting.then(logCookie);
+}
+
 function Login() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
@@ -45,18 +55,20 @@ function Login() {
     };
     fetchRequ(req).then((responseJson) => {
       console.log(responseJson);
-      if (responseJson.result.length != 0) {
+      if (responseJson.length != 0) {
         localStorage.setItem(
           "currentUser",
           JSON.stringify({
-            name: responseJson.result[0].nickname,
-            username: responseJson.result[0].username,
-            email: responseJson.result[0].email,
-            token:responseJson.token
+            name: responseJson[0].nickname,
+            username: responseJson[0].username,
+            email: responseJson[0].email,
+            token: responseJson[0].token
           })
         );
-        user.setUser(responseJson.result[0]);
-        navigate("/home/" + responseJson.result[0].username);
+        user.setUser(responseJson[0]);
+       // console.log(getCookie('token'))
+        //cookies.set('token',)
+        navigate("/home/" + responseJson[0].username);
       } else {
         alert("wrong authentication");
       }
