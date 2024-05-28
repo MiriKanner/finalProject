@@ -4,45 +4,9 @@ import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
-//   let user = useContext(UserContext);
-//   const navigate = useNavigate();
-//   const { register, handleSubmit } = useForm();
-//   const onSubmit = (data) => {
-//     let url =
-//       "http://localhost:3000/users?username=" +
-//       data.username +
-//       "&website=" +
-//       data.password;
-//     fetch(url)
-//       .then((response) => response.json())
-//       .then((responseJson) => {
-//         if (responseJson.length != 0) {
-//           localStorage.setItem(
-//             "currentUser",
-//             JSON.stringify({
-//               name: responseJson[0].username,
-//               id: responseJson[0].id,
-//               email: responseJson[0].email,
-//             })
-//           );
-//           user.setUser(responseJson[0]);
-//           navigate("/home/users/" + responseJson[0].id);
-//         } else {
-//           alert("wrong authentication");
-//         }
-//       });
-//   };
 
 
-function getCookie(tabs) {
-  let getting = browser.cookies.get({
-    url: tabs[0].url,
-    name: "favorite-color",
-  });
-  getting.then(logCookie);
-}
-
-function Login() {
+function AlbumOfMyChild() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
   const { register, handleSubmit } = useForm();
@@ -67,7 +31,7 @@ function Login() {
         user.setUser(responseJson[0]);
        // console.log(getCookie('token'))
         //cookies.set('token',)
-        navigate("/" + responseJson[0].username+"/home");
+        navigate("/home/" + responseJson[0].username);
       } else {
         alert("wrong authentication");
       }
@@ -110,4 +74,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AlbumOfMyChild;
