@@ -63,7 +63,7 @@ CREATE TABLE `albumdb`.`childandparent` (
 INSERT INTO `albumdb`.`users` (`username`, `nickname`, `email`) VALUES ('MiriK', 'miri', 'm@gmail.com');
 INSERT INTO `albumdb`.`users` (`username`, `nickname`, `email`) VALUES ('ayalaSch', 'ayala', 'a@gmail.com');
 
-INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('ayalaSch', 'ayala');
-INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('MiriK', 'qwerty');
+INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('ayalaSch', '47deee49b97a135b068c0833d4aeb57f3ff16fd3e47771e52d7e2da42acdf5a9');
+INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('MiriK', '537d8f7ebb5487e3d0e9ae2c42d12d779e1385a6a6bf3e465640b03198509335');
 
     

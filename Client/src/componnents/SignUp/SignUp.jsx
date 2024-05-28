@@ -45,7 +45,7 @@ function SignUp() {
             localStorage.setItem(
               "currentUser",
               JSON.stringify({
-                name: responseJson.result[0].nickname,
+                name: responseJson.result[0].nickname,   
                 username: responseJson.result[0].username,
                 email: responseJson.result[0].email,
               })
