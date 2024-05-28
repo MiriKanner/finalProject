@@ -3,9 +3,21 @@ export default async function fetchRequ(req) {
     await fetch(`http://localhost:8080/${req.route}`, {
         method: req.method || 'GET',
         body: JSON.stringify(req.body),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    }).then(response => response.json())
-        .then(data => answer = data);
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8', 
+        },
+    }).then(response => {
+        //console.log(response.headers.getSetCookie());
+        for (let entry of response.headers.entries()) {
+            console.log('header',entry);
+        }
+        return response.json()
+    })
+        .then(data => {
+            answer = data
+            console.log(data)
+        });
     return answer;
 }
 // export default{
