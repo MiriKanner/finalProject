@@ -35,8 +35,13 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<SignUp />} />
             </Route>
-            {user&&
-            (<Route path="/home/:username" element={<Home />}> </Route>)
+            {user &&
+              (
+                <Route path=":username">
+                  <Route path="home" element={<Home />}></Route>
+                </Route>
+                //<Route path=""></Route>
+              )
             }
             <Route path="/*" element={<p>not found</p>} />
           </Routes>
