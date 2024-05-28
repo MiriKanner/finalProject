@@ -6,7 +6,7 @@ import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 
 
-function AlbumOfMyChild() {
+function MyChildrensAlbums() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
   const { register, handleSubmit } = useForm();
@@ -40,38 +40,9 @@ function AlbumOfMyChild() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label htmlFor="username">Enter UserName</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            //aria-describedby="emailHelp"
-            placeholder="Enter User Name"
-            {...register("username")}
-          />
-          {/* <small id="emailHelp" class="form-text text-muted">
-          We'll never share your email with anyone else.
-        </small> */}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-      <Link to="/signup">don't have acount? please sign up</Link>
+    <h1>MyCHildAlbum</h1>
     </>
   );
 }
 
-export default AlbumOfMyChild;
+export default MyChildrensAlbums;

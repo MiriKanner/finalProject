@@ -7,6 +7,7 @@ export const UserContext = createContext(null);
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./componnents/SignUp/SignUp.jsx";
 import Home from "./componnents/Home/Home.jsx";
+import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -38,7 +39,7 @@ function App() {
               (<Route path=":username" element={<Home/>} >
                 <Route index element={<Home />}></Route>
                 <Route path="home" element={<Home />} />
-                <Route path="myChildren'sAlbums" />
+                <Route path="mychildren'salbums" element={<MyChildrensAlbums/>}/>
               </Route>)
             }
             <Route path="/*" element={<p>not found</p>} />

@@ -36,14 +36,13 @@ function Home() {
       <nav> <i className="material-icons" onClick={() => { setDisplaySideBar(prev => !prev) }}>menu</i> <h3> Hello {user.username}</h3> </nav>
       <aside className={drawerClass.join(" ")} >
         <ul>
-          <Link to="/signup"><li><i className="material-icons">dashboard</i><span>Dashboard</span></li></Link>
+          <Link to={"/"+user.username+"/mychildren'salbums"}><li><i className="material-icons">dashboard</i><span>My Children's Album</span></li></Link>
           <li><i className="material-icons">people</i><span>Clients</span></li>
           <li><i className="material-icons">show_chart</i><span>Sales</span></li>
           <li><i className="material-icons">table_chart</i><span>Others</span></li>
         </ul>
       </aside>
       <Outlet/>
-
     </>
 
 
