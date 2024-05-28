@@ -68,7 +68,7 @@ function Login() {
         user.setUser(responseJson[0]);
        // console.log(getCookie('token'))
         //cookies.set('token',)
-        navigate("/home/" + responseJson[0].username);
+        navigate("/" + responseJson[0].username+"/home");
       } else {
         alert("wrong authentication");
       }

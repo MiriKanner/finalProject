@@ -42,6 +42,7 @@ function Home() {
           <li><i className="material-icons">table_chart</i><span>Others</span></li>
         </ul>
       </aside>
+      <Outlet/>
 
     </>
 
