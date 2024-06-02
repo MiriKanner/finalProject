@@ -66,9 +66,15 @@ INSERT INTO `albumdb`.`users` (`username`, `nickname`, `email`) VALUES ('ayalaSc
 INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('ayalaSch', '47deee49b97a135b068c0833d4aeb57f3ff16fd3e47771e52d7e2da42acdf5a9');
 INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('MiriK', '537d8f7ebb5487e3d0e9ae2c42d12d779e1385a6a6bf3e465640b03198509335');
 
-INSERT INTO `albumdb`.`users` (`id`, `username`, `nickname`, `email`, `isactive`) VALUES ('3', 'Hadasa', 'Dasi', 'd@gmailcom', '1');
-INSERT INTO `albumdb`.`childandparent` (`id`, `idparent`, `idchild`, `isactive`) VALUES ('1', '1', '3', '1');
-INSERT INTO `albumdb`.`childandparent` (`id`, `idparent`, `idchild`, `isactive`) VALUES ('2', '2', '1', '1');
+INSERT INTO `albumdb`.`users` ( `username`, `nickname`, `email`, `isactive`) VALUES ( 'Hadasa', 'Dasi', 'd@gmailcom', '1');
+INSERT INTO `albumdb`.`users` ( `username`, `nickname`, `email`, `isactive`) VALUES ( 'Michal', 'Michali', 'michal@gmailcom', '1');
+INSERT INTO `albumdb`.`users` ( `username`, `nickname`, `email`, `isactive`) VALUES ( 'Tamar', 'Tami', 't@gmailcom', '1');
+INSERT INTO `albumdb`.`users` ( `username`, `nickname`, `email`, `isactive`) VALUES ( 'YaelGlik', 'Yael', 'y@gmailcom', '1');
+INSERT INTO `albumdb`.`childandparent` ( `idparent`, `idchild`, `isactive`) VALUES ( '1', '3', '1');
+INSERT INTO `albumdb`.`childandparent` ( `idparent`, `idchild`, `isactive`) VALUES ( '2', '1', '1');
+INSERT INTO `albumdb`.`childandparent` ( `idparent`, `idchild`, `isactive`) VALUES ( '2', '4', '1');
+INSERT INTO `albumdb`.`childandparent` ( `idparent`, `idchild`, `isactive`) VALUES ( '1', '5', '1');
+INSERT INTO `albumdb`.`childandparent` ( `idparent`, `idchild`, `isactive`) VALUES ( '1', '6', '1');
 
 
 INSERT INTO `albumdb`.`album` (`id`, `name`, `childandparentid`, `creationdate`, `isactive`) VALUES ('1', 'myBirth', '1', '2024.2.1', '1');

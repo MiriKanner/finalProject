@@ -1,9 +1,7 @@
 
 import { executeQuery } from '../dataAccess/db.js';
-import pkg from 'crypto-js';
-import { getMyChildrenAlbumQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */} from '../dataAccess/queries.js';
-const { SHA256, enc } = pkg;
-import jwt from "jsonwebtoken"
+import { getMyChildrenAlbumQuery, addChildAlbum,getParentChildRelationId/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
+
 
 export class AlbumService {
 
@@ -11,6 +9,12 @@ export class AlbumService {
         const myChildrenAlbumQuery = getMyChildrenAlbumQuery();
         const result = await executeQuery(myChildrenAlbumQuery, [username]);
         if (result.length == 0) throw new Error
+        return result;
+    }
+    async addChildAlbum(username, reqBody) {
+        const addAlbumToChild = addChildAlbum();
+        const relationId = executeQuery(getParentChildRelationId(),[reqBody.childUserName]);
+        const result = await executeQuery(addAlbumToChild, [username, reqBody.name, relationId, reqBody.creationdate]);
         return result;
     }
     // async addUserAndalbum(userAndalbumItem) {
