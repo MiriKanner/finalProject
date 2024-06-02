@@ -8,6 +8,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./componnents/SignUp/SignUp.jsx";
 import Home from "./componnents/Home/Home.jsx";
 import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
+import SingleAlbum from "./componnents/Album/SingleAlbum";
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -36,10 +37,13 @@ function App() {
               <Route path="signup" element={<SignUp />} />
             </Route>
             {user &&
-              (<Route path=":username" element={<Home/>} >
+              (<Route path=":username" element={<Home />} >
                 <Route index element={<Home />}></Route>
                 <Route path="home" element={<Home />} />
-                <Route path="mychildren'salbums" element={<MyChildrensAlbums/>}/>
+                <Route path="mychildren'salbums" >
+                  <Route index element={<MyChildrensAlbums />}/>
+                  <Route path=":albumId" element={<SingleAlbum />} />
+                </Route>
               </Route>)
             }
             <Route path="/*" element={<p>not found</p>} />

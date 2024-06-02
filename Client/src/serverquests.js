@@ -8,13 +8,14 @@ export default async function fetchRequ(req) {
             'Content-type': 'application/json; charset=UTF-8', 
         },
     }).then(response => {
+        if(response.ok)
+            return response.json()
+        else throw new Error
         //console.log(response.headers.getSetCookie());
-        for (let entry of response.headers.entries()) {
-            console.log('header',entry);
-        }
-        return response.json()
-    })
-        .then(data => {
+        // for (let entry of response.headers.entries()) {
+        //     console.log('header',entry);
+        // }
+    }).then(data => {
             answer = data
             console.log(data)
         });
