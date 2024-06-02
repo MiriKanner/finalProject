@@ -34,9 +34,9 @@ export function addChildAlbum() {
 }
 
 export function getParentChildRelationId() {
-    return `SELECT childandparent.id as relationId 
+    return `SELECT DISTINCT childandparent.id as relationId 
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
-    and childandparent.username=? and childandparent.idchild=userChild.id;`
+    and userChild.username=? and childandparent.idchild=userChild.id;`
 }

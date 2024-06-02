@@ -11,6 +11,7 @@ function AddMyChildrenAlbum() {
     const { register, handleSubmit } = useForm();
     const [options,setOptions]=useState([])
     //const options = []
+    const [selectChild,setSelectChild]=useState('')
     useEffect(() => {
         if (options.length<1) {
             const req = {
@@ -22,33 +23,25 @@ function AddMyChildrenAlbum() {
                 responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
                 setOptions(tempOption)
             })
+            console.log(options)
         }
     },[])
     const onSubmit = (data) => {
+        console.log( selectChild.value)
         const req = {
             method: "POST",
-            route: "auth",
-            body: { name: data.name, childUserName: data.childUserName, creationdate: Date().now() },
+            route: `album/myChildrenAlbum/${user.username}`,
+            body: { name: data.name, childUserName: selectChild.value, creationdate:new Date().toISOString().split('T')[0] },
         };
         fetchRequ(req).then((responseJson) => {
             console.log(responseJson);
-            if (responseJson.length != 0) {
-                localStorage.setItem(
-                    "currentUser",
-                    JSON.stringify({
-                        name: responseJson[0].nickname,
-                        username: responseJson[0].username,
-                        email: responseJson[0].email,
-                        token: responseJson[0].token
-                    })
-                );
-                user.setUser(responseJson[0]);
-                // console.log(getCookie('token'))
-                //cookies.set('token',)
-                navigate("/" + responseJson[0].username + "/home");
-            } else {
-                alert("wrong authentication");
-            }
+            // if (responseJson.length != 0) {
+               
+               
+               
+            // } else {
+            //     alert("wrong authentication");
+            // }
         });
     };
 
@@ -73,7 +66,7 @@ function AddMyChildrenAlbum() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="child">To My Child</label>
-                    <Select id='child' options={options} {...register('childUserName')} />
+                    <Select id='child' options={options}  onChange={(choise)=>setSelectChild(choise)}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>

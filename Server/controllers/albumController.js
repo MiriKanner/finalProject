@@ -39,6 +39,7 @@ export class AlbumController {
     async addChildsAlbum(req, res, next) {
         try {
             const albumService = new AlbumService();
+            console.log(req.body)
             const resultItem = await albumService.addChildAlbum(req.params.username,req.body);
             res.status(200).json(resultItem);
         }

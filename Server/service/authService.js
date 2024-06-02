@@ -1,7 +1,7 @@
 
 import { executeQuery } from '../dataAccess/db.js';
 import pkg from 'crypto-js';
-import { getPasswordQuery, addQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */} from '../dataAccess/queries.js';
+import { getPasswordQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */} from '../dataAccess/queries.js';
 const { SHA256, enc } = pkg;
 import jwt from "jsonwebtoken"
 
