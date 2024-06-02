@@ -1,5 +1,5 @@
 
-import {AlbumService} from '../service/albumService.js'
+import { AlbumService } from '../service/albumService.js'
 export class AlbumController {
     // async updatealbum(req, res, next) {       
     //     try {
@@ -26,7 +26,21 @@ export class AlbumController {
         try {
             const albumService = new AlbumService();
             const resultItem = await albumService.getMyChildrenAlbum(req.params.username);
-            res.status(200).json(resultItem );
+            res.status(200).json(resultItem);
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+    
+    async addChildsAlbum(req, res, next) {
+        try {
+            const albumService = new AlbumService();
+            const resultItem = await albumService.addChildAlbum(req.params.username,req.body);
+            res.status(200).json(resultItem);
         }
         catch (ex) {
             const err = {}
