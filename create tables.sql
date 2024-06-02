@@ -68,7 +68,11 @@ INSERT INTO `albumdb`.`auth` (`username`, `password`) VALUES ('MiriK', '537d8f7e
 
 INSERT INTO `albumdb`.`users` (`id`, `username`, `nickname`, `email`, `isactive`) VALUES ('3', 'Hadasa', 'Dasi', 'd@gmailcom', '1');
 INSERT INTO `albumdb`.`childandparent` (`id`, `idparent`, `idchild`, `isactive`) VALUES ('1', '1', '3', '1');
+INSERT INTO `albumdb`.`childandparent` (`id`, `idparent`, `idchild`, `isactive`) VALUES ('2', '2', '1', '1');
+
 
 INSERT INTO `albumdb`.`album` (`id`, `name`, `childandparentid`, `creationdate`, `isactive`) VALUES ('1', 'myBirth', '1', '2024.2.1', '1');
+INSERT INTO `albumdb`.`album` ( `name`, `childandparentid`, `creationdate`, `isactive`) VALUES ( 'myBirth', '2', '2024.2.1', '1');
+
 ALTER TABLE `albumdb`.`users` 
 ADD COLUMN `birthday` DATE NULL AFTER `isactive`;
