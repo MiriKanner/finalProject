@@ -1,38 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState ,createContext, useContext} from "react";
 import fetchRequ from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
-import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
-//   let user = useContext(UserContext);
-//   const navigate = useNavigate();
-//   const { register, handleSubmit } = useForm();
-//   const onSubmit = (data) => {
-//     let url =
-//       "http://localhost:3000/users?username=" +
-//       data.username +
-//       "&website=" +
-//       data.password;
-//     fetch(url)
-//       .then((response) => response.json())
-//       .then((responseJson) => {
-//         if (responseJson.length != 0) {
-//           localStorage.setItem(
-//             "currentUser",
-//             JSON.stringify({
-//               name: responseJson[0].username,
-//               id: responseJson[0].id,
-//               email: responseJson[0].email,
-//             })
-//           );
-//           user.setUser(responseJson[0]);
-//           navigate("/home/users/" + responseJson[0].id);
-//         } else {
-//           alert("wrong authentication");
-//         }
-//       });
-//   };
-
 
 function getCookie(tabs) {
   let getting = browser.cookies.get({
