@@ -34,10 +34,8 @@ function MyChildrensAlbums() {
       {displayAddMyChildrenAlbum && <AddMyChildrenAlbum />}
       <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
         {allAlbums.map((item, index) => (
-          <div
-          
-          >
-            <Card  onClick={()=> navigate(`./${item.albumId}`)}
+          <div>
+            <Card onClick={() => navigate(`./${item.albumId}`)}
               shadow="sm" key={item.id} isPressable >
               <CardBody className="overflow-visible p-0">
                 <Image

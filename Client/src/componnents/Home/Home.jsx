@@ -37,7 +37,7 @@ function Home() {
       <aside className={drawerClass.join(" ")} >
         <ul>
           <Link to={"/"+user.username+"/mychildren'salbums"}><li><i className="material-icons">dashboard</i><span>My Children's Album</span></li></Link>
-          <li><i className="material-icons">people</i><span>Clients</span></li>
+          <Link to={"/"+user.username+"/mychildren"}> <li><i className="material-icons">people</i><span>My Children</span></li></Link>
           <li><i className="material-icons">show_chart</i><span>Sales</span></li>
           <li><i className="material-icons">table_chart</i><span>Others</span></li>
         </ul>

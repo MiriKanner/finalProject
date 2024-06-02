@@ -9,6 +9,7 @@ import SignUp from "./componnents/SignUp/SignUp.jsx";
 import Home from "./componnents/Home/Home.jsx";
 import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
 import SingleAlbum from "./componnents/Album/SingleAlbum";
+import MyChildren from "./componnents/Children/MyChildren";
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -44,6 +45,7 @@ function App() {
                   <Route index element={<MyChildrensAlbums />}/>
                   <Route path=":albumId" element={<SingleAlbum />} />
                 </Route>
+                <Route path="mychildren" element={<MyChildren/>}/>
               </Route>)
             }
             <Route path="/*" element={<p>not found</p>} />
