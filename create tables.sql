@@ -82,3 +82,6 @@ INSERT INTO `albumdb`.`album` ( `name`, `childandparentid`, `creationdate`, `isa
 
 ALTER TABLE `albumdb`.`users` 
 ADD COLUMN `birthday` DATE NULL AFTER `isactive`;
+ALTER TABLE `albumdb`.`auth` 
+ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC);
+;

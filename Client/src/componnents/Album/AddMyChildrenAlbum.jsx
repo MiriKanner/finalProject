@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import { UserContext } from "../../App";
 
-function AddMyChildrenAlbum() {
+function AddMyChildrenAlbum(props) {
     const user = useContext(UserContext).user;
 
     const { register, handleSubmit } = useForm();
@@ -19,7 +19,7 @@ function AddMyChildrenAlbum() {
                 route: `children/myChildren/${user.username}`,
             };
             let tempOption=[]
-            fetchRequ(req).then((responseJson) => {
+            fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
                 responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
                 setOptions(tempOption)
             })
@@ -33,8 +33,9 @@ function AddMyChildrenAlbum() {
             route: `album/myChildrenAlbum/${user.username}`,
             body: { name: data.name, childUserName: selectChild.value, creationdate:new Date().toISOString().split('T')[0] },
         };
-        fetchRequ(req).then((responseJson) => {
+        fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
             console.log(responseJson);
+            props.setDisplayAddMyChildrenAlbum(false)
             // if (responseJson.length != 0) {
                
                
