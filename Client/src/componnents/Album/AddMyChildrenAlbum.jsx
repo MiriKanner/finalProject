@@ -27,7 +27,7 @@ function AddMyChildrenAlbum(props) {
         }
     },[])
     const onSubmit = (data) => {
-        console.log( selectChild.value)
+        console.log( data.image)
         const req = {
             method: "POST",
             route: `album/myChildrenAlbum/${user.username}`,
@@ -71,7 +71,8 @@ function AddMyChildrenAlbum(props) {
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input
+                    <input onInput={(event)=> console.log(URL.createObjectURL(event.target.files[0]))}
+                         accept="image/*"
                         type="file"
                         className="form-control"
                         id="image"

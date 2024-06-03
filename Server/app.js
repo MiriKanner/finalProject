@@ -6,6 +6,7 @@ import { verifyToken } from './middleware/verifyToken.js';
 import { authRouter } from './router/authRouter.js';
 import { albumRouter } from './router/albumRouter.js';
 import { childrenRouter } from './router/childrenRouter.js';
+import { itemsRouter } from './router/itemsRouter.js';
 const port=process.env.PORT||8080;
 console.log('starting handling request' )
 const app = express();
@@ -20,6 +21,7 @@ app.use('/auth',authRouter);
 // app.use(verifyToken)
 app.use('/album',albumRouter)
 app.use('/children',childrenRouter)
+app.use('/items',itemsRouter)
 
 app.use(logErrors);
 console.log('finish handling request')

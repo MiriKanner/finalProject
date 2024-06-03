@@ -48,3 +48,7 @@ export function addAuthQuery()
 {
     return `INSERT INTO albumdb.auth ( username, password) VALUES (?, ?);`
 }
+export function addItemToAlbumQuery()
+{
+    return `INSERT INTO albumdb.itemsofalbum (creationdate, idalbum, idtype, data) VALUES (?, ?, ?, ?);`
+}

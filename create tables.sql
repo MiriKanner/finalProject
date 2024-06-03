@@ -115,3 +115,20 @@ CREATE TABLE `albumdb`.`datatype` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+
+
+
+
+INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('image');
+INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('icon');
+INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('video');
+INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('story');
+
+
+
+
+
+
+
+
+https://mui.com/material-ui/react-timeline/
