@@ -44,7 +44,8 @@ export class AuthController {
         try {
             const authService = new AuthService();
             const resultItem = await authService.addUserAndAuth(req.body)
-            res.status(200).json(resultItem.result);
+            res.status(200).cookie('token', resultItem.token, { expires: new Date(Date.now() + 900000)/*, httpOnly: true*/ }).json(resultItem.result);
+
         }
         catch (ex) {
             console.log('Authication error')

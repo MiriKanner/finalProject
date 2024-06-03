@@ -1,4 +1,4 @@
-import React, { useRef, useState ,createContext, useContext} from "react";
+import React, { useRef, useState, createContext, useContext } from "react";
 import fetchRequ from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
@@ -22,22 +22,22 @@ function Login() {
       route: "auth",
       body: { username: data.username, password: data.password },
     };
-    fetchRequ(req).then((responseJson) => {
+    fetchRequ(req).then((response) => {return response.json() }).then(responseJson => {
       console.log(responseJson);
       if (responseJson.length != 0) {
         localStorage.setItem(
           "currentUser",
           JSON.stringify({
-            name: responseJson[0].nickname,
+
             username: responseJson[0].username,
             email: responseJson[0].email,
             token: responseJson[0].token
           })
         );
         user.setUser(responseJson[0]);
-       // console.log(getCookie('token'))
+        // console.log(getCookie('token'))
         //cookies.set('token',)
-        navigate("/" + responseJson[0].username+"/home");
+        navigate("/" + responseJson[0].username + "/home");
       } else {
         alert("wrong authentication");
       }

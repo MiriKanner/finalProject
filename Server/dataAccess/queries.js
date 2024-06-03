@@ -29,14 +29,22 @@ export function getMyChildrenQuery() {
     and childandparent.idchild=userChild.id;`;
 }
 
-export function addChildAlbum() {
+export function addChildAlbumQuery() {
     return `INSERT INTO album ( name, childandparentid, creationdate) VALUES ( ?, ?, ?);`
 }
 
-export function getParentChildRelationId() {
+export function getParentChildRelationIdQuery() {
     return `SELECT DISTINCT childandparent.id as relationId 
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
     and userChild.username=? and childandparent.idchild=userChild.id;`
+}
+export function addUserQuery()
+{
+    return `INSERT INTO albumdb.users (username, nickname, email,isactive, birthday) VALUES (?, ?, ?, ?, ?);`
+}
+export function addAuthQuery()
+{
+    return `INSERT INTO albumdb.auth ( username, password) VALUES (?, ?);`
 }

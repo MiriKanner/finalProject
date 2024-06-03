@@ -1,6 +1,6 @@
 
 import { executeQuery } from '../dataAccess/db.js';
-import { getMyChildrenAlbumQuery, addChildAlbum,getParentChildRelationId/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
+import { getMyChildrenAlbumQuery, addChildAlbumQuery,getParentChildRelationIdQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
 
 
 export class AlbumService {
@@ -12,8 +12,8 @@ export class AlbumService {
         return result;
     }
     async addChildAlbum(username, reqBody) {
-        const addAlbumToChild = addChildAlbum();
-        const w=getParentChildRelationId()
+        const addAlbumToChild = addChildAlbumQuery();
+        const w=getParentChildRelationIdQuery()
         console.log(username+" this is data "+reqBody)
         const relationId = await executeQuery(w,[username,reqBody.childUserName]);
        // console.log(relationId[0].relationId +'   id')

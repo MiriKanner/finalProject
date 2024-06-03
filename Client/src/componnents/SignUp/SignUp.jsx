@@ -36,29 +36,31 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 //   };
 
 function SignUp() {
+  const navigate = useNavigate()
   const [password, setPassword] = useState('')
   const user = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    const req = { method: "POST", route: 'auth', body: { username: data.username, password: data.password } };
+    let   userLocal;
+    const req = { method: "POST", route: 'auth/signUp', body: { username: data.username, password: data.password, nickname: data.nickname, birthday: data.birthday, email: data.email } };
     fetchRequ(req)
       .then((responseJson) => {
-        console.log(responseJson)
-        if (responseJson.result.length != 0) {
+       // if (responseJson.length != 0) 
+        {
+           userLocal={  username:data.username,
+            email: data.email,}
           localStorage.setItem(
             "currentUser",
             JSON.stringify({
-              name: responseJson.result[0].nickname,
-              username: responseJson.result[0].username,
-              email: responseJson.result[0].email,
+              userLocal
+              //token: responseJson[0].token
             })
-          );
-          user.setUser(responseJson.result[0]);
-          navigate("/home/users/" + responseJson.result[0].id);
-        } else {
-          alert("wrong authentication");
+          );  
+          user.setUser(userLocal);
         }
-      });
+        navigate("/" + userLocal.username + "/home");
+
+      }).catch(() => { });
   };
 
   return (
@@ -82,10 +84,9 @@ function SignUp() {
           className="form-control"
           id="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-            console.log(e.target.value)
+          //value={password}
+          onChange={(event) => {
+            setInputValue(event.target.value);
           }}
           {...register("password")}
         />
@@ -114,6 +115,16 @@ function SignUp() {
           id="nickname"
           placeholder="Nickname"
           {...register("nickname")}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="birthday">BirthDay</label>
+        <input
+          type="date"
+          className="form-control"
+          id="birthday"
+          placeholder="BirthDay"
+          {...register("birthday")}
         />
       </div>
       <button type="submit" className="btn btn-primary" >

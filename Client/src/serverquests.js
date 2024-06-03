@@ -9,7 +9,7 @@ export default async function fetchRequ(req) {
         },
     }).then(response => {
         if(response.ok)
-            return response.json()
+            return response
         else throw new Error
         //console.log(response.headers.getSetCookie());
         // for (let entry of response.headers.entries()) {
