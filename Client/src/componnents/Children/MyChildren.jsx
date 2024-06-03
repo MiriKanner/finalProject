@@ -20,7 +20,7 @@ function MyChildren() {
             method: "GET",
             route: `children/myChildren/${user.username}`
         };
-        fetchRequ(req).then((responseJson) => {
+        fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
             setChildren(responseJson)
             console.log(responseJson);
         }).catch(err => { })

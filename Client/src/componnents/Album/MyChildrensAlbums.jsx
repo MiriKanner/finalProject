@@ -21,7 +21,8 @@ function MyChildrensAlbums() {
       method: "GET",
       route: `album/myChildrenAlbum/${user.username}`
     };
-    fetchRequ(req).then((responseJson) => {
+    fetchRequ(req).then((response)=>response.json())
+    .then((responseJson) => {
       setAllAlbums(responseJson)
       console.log(responseJson);
     }).catch(err => { })
