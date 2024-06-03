@@ -62,64 +62,67 @@ function SignUp() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group">
-        <label htmlFor="username">Enter UserName</label>
-        <input
-          type="text"
-          className="form-control"
-          id="username"
-          //aria-describedby="emailHelp"
-          placeholder="Enter User Name"
-          {...register("username")}
-        />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <label htmlFor="username">Enter UserName</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            //aria-describedby="emailHelp"
+            placeholder="Enter User Name"
+            {...register("username")}
+          />
 
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-            console.log(e.target.value)
-          }}
-          {...register("password")}
-        />
-        <PasswordStrengthBar password={password} onChangeScore={(score, feedback) => { console.log(score, feedback) }} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              console.log(e.target.value)
+            }}
+            {...register("password")}
+          />
+          <PasswordStrengthBar password={password} onChangeScore={(score, feedback) => { console.log(score, feedback) }} />
 
-      </div>
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="password">Email</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="Email"
-          {...register("email")}
-        />
-      </div>
-      <small id="emailHelp" class="form-text text-muted">
-        We'll never share your email with anyone else.
-      </small>
-      <div className="form-group">
-        <label htmlFor="nickname">Nickname</label>
-        <input
-          type="text"
-          className="form-control"
-          id="nickname"
-          placeholder="Nickname"
-          {...register("nickname")}
-        />
-      </div>
-      <button type="submit" className="btn btn-primary" >
-        Submit
-      </button>
-    </form>
+        <div className="form-group">
+          <label htmlFor="password">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="Email"
+            {...register("email")}
+          />
+        </div>
+        <small id="emailHelp" class="form-text text-muted">
+          We'll never share your email with anyone else.
+        </small>
+        <div className="form-group">
+          <label htmlFor="nickname">Nickname</label>
+          <input
+            type="text"
+            className="form-control"
+            id="nickname"
+            placeholder="Nickname"
+            {...register("nickname")}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary" >
+          Submit
+        </button>
+      </form>
+      <Link to="/login">don't have acount? please log in</Link>
+    </>
   );
 }
 
