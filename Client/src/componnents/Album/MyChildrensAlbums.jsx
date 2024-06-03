@@ -46,7 +46,8 @@ function MyChildrensAlbums() {
                   width="100%"
                   alt={item.name}
                   className="w-full object-cover h-[140px]"
-                  src={item.img}
+                  //src={item.img}
+                  src="https://nextui.org/images/hero-card.jpeg"
                 />
               </CardBody>
               <CardFooter className="text-small justify-between">

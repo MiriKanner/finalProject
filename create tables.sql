@@ -85,3 +85,33 @@ ADD COLUMN `birthday` DATE NULL AFTER `isactive`;
 ALTER TABLE `albumdb`.`auth` 
 ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC);
 ;
+
+CREATE TABLE `albumdb`.`datatype` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+
+
+
+  CREATE TABLE `albumdb`.`itemsofalbum` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `creationdate` DATE NOT NULL,
+  `idalbum` INT NOT NULL,
+  `idtype` INT NOT NULL,
+  `data` LONGTEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `idalbum_idx` (`idalbum` ASC),
+  INDEX `idtype_idx` (`idtype` ASC),
+  CONSTRAINT `idalbum`
+    FOREIGN KEY (`idalbum`)
+    REFERENCES `albumdb`.`album` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idtype`
+    FOREIGN KEY (`idtype`)
+    REFERENCES `albumdb`.`datatype` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
