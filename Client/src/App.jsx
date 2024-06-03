@@ -1,5 +1,4 @@
 import "./App.css";
-
 import "./componnents/Login/Login.jsx";
 import { useState, createContext, useContext } from "react";
 import Login from "./componnents/Login/Login.jsx";
@@ -10,6 +9,7 @@ import Home from "./componnents/Home/Home.jsx";
 import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
 import SingleAlbum from "./componnents/Album/SingleAlbum";
 import MyChildren from "./componnents/Children/MyChildren";
+import SingleChild from "./componnents/Children/SingleChild";
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
@@ -42,10 +42,13 @@ function App() {
                 <Route index element={<Home />}></Route>
                 <Route path="home" element={<Home />} />
                 <Route path="mychildren'salbums" >
-                  <Route index element={<MyChildrensAlbums />}/>
+                  <Route index element={<MyChildrensAlbums />} />
                   <Route path=":albumId" element={<SingleAlbum />} />
                 </Route>
-                <Route path="mychildren" element={<MyChildren/>}/>
+                <Route path="mychildren" >
+                  <Route index element={<MyChildren />} />
+                  <Route path=":childName" element={<SingleChild/>}/>
+                </Route>
               </Route>)
             }
             <Route path="/*" element={<p>not found</p>} />

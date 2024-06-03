@@ -35,7 +35,8 @@ function MyChildren() {
                 {children.map((child, index) => (
                     <div>
                         <Card // onClick={()=> navigate(`./${child.albumId}`)}
-                            shadow="sm" key={child.id} isPressable >
+                            shadow="sm" key={child.id} isPressable
+                            onClick={()=>navigate(`./${child.childName}`)} >
                             {/* <CardBody className="overflow-visible p-0">
                                 <Image
                                     shadow="sm"
