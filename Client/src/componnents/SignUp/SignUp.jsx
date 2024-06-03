@@ -64,17 +64,18 @@ function SignUp() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group">
-        <label htmlFor="username">Enter UserName</label>
-        <input
-          type="text"
-          className="form-control"
-          id="username"
-          //aria-describedby="emailHelp"
-          placeholder="Enter User Name"
-          {...register("username")}
-        />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <label htmlFor="username">Enter UserName</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            //aria-describedby="emailHelp"
+            placeholder="Enter User Name"
+            {...register("username")}
+          />
 
       </div>
       <div className="form-group">
@@ -92,7 +93,7 @@ function SignUp() {
         />
         <PasswordStrengthBar password={password} onChangeScore={(score, feedback) => { console.log(score, feedback) }} />
 
-      </div>
+        </div>
 
       <div className="form-group">
         <label htmlFor="password">Email</label>
@@ -115,16 +116,6 @@ function SignUp() {
           id="nickname"
           placeholder="Nickname"
           {...register("nickname")}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="birthday">BirthDay</label>
-        <input
-          type="date"
-          className="form-control"
-          id="birthday"
-          placeholder="BirthDay"
-          {...register("birthday")}
         />
       </div>
       <button type="submit" className="btn btn-primary" >
