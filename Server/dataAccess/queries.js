@@ -40,15 +40,15 @@ export function getParentChildRelationIdQuery() {
     and  userParent.username=? and childandparent.idparent=userParent.id 
     and userChild.username=? and childandparent.idchild=userChild.id;`
 }
-export function addUserQuery()
-{
+export function addUserQuery() {
     return `INSERT INTO albumdb.users (username, nickname, email,isactive, birthday) VALUES (?, ?, ?, ?, ?);`
 }
-export function addAuthQuery()
-{
+export function addAuthQuery() {
     return `INSERT INTO albumdb.auth ( username, password) VALUES (?, ?);`
 }
-export function addItemToAlbumQuery()
-{
+export function addItemToAlbumQuery() {
     return `INSERT INTO albumdb.itemsofalbum (creationdate, idalbum, idtype, data) VALUES (?, ?, ?, ?);`
+}
+export function getItemTypesQuery() {
+    return `SELECT id as "optionLabel",description as "option" FROM datatype;`
 }
