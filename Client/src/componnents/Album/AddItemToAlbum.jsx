@@ -28,7 +28,7 @@ function AddItemToAlbum(props) {
         }
     }, [])
     const onSubmit = (data) => {
-        console.log(albumId)
+      //  console.log(albumId)
         const req = {
             method: "POST",
             route: `items/${albumId}`,
@@ -45,7 +45,7 @@ function AddItemToAlbum(props) {
                 // }
             });
     };
-    useEffect(() => { console.log(selectOption) }, [selectOption])
+ //   useEffect(() => { console.log(selectOption) }, [selectOption])
 
 
     return (

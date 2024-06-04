@@ -25,7 +25,7 @@ function MyChildrensAlbums() {
       fetchRequ(req).then((response) => response.json())
         .then((responseJson) => {
           setAllAlbums(responseJson)
-          console.log(responseJson);
+      //    console.log(responseJson);
         }).catch(err => { })
     }
   }, [displayAddMyChildrenAlbum])

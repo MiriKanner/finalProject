@@ -27,7 +27,7 @@ function AddMyChildrenAlbum(props) {
         }
     },[])
     const onSubmit = (data) => {
-        console.log( data.image)
+      //  console.log( data.image)
         const req = {
             method: "POST",
             route: `album/myChildrenAlbum/${user.username}`,

@@ -17,7 +17,7 @@ export default async function fetchRequ(req) {
         // }
     }).then(data => {
             answer = data
-            console.log(data)
+       //     console.log(data)
         });
     return answer;
 }
