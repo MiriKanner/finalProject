@@ -35,14 +35,15 @@ function AddItemToAlbum(props) {
             body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: data.name },
         };
         fetchRequ(req).then((response) => response.json())
-        //.then((responseJson) => {
-        //  console.log(responseJson);
-        //    props.setDisplayAddMyChildrenAlbum(false)
-        // if (responseJson.length != 0) {
-        // } else {
-        //     alert("wrong authentication");
-        // }
-        //   });
+            .then((responseJson) => {
+                props.setDisplayAddItem(false)
+                //  console.log(responseJson);
+                //    props.setDisplayAddMyChildrenAlbum(false)
+                // if (responseJson.length != 0) {
+                // } else {
+                //     alert("wrong authentication");
+                // }
+            });
     };
     useEffect(() => { console.log(selectOption) }, [selectOption])
 
@@ -50,8 +51,13 @@ function AddItemToAlbum(props) {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
+
                 <div className="form-group">
-                    <label htmlFor="name">Enter Name</label>
+                    <label htmlFor="option">What are we adding to the album?</label>
+                    <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="name">Enter text</label>
                     <input
                         type="text"
                         className="form-control"
@@ -61,12 +67,8 @@ function AddItemToAlbum(props) {
                         {...register("name")}
                     />
                     <small id="emailHelp" class="form-text text-muted">
-                        By example: My Birth, First Birthday.
+                        example: story, joke.
                     </small>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="option">What are we adding to the album?</label>
-                    <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
                 </div>
                 {/* <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
