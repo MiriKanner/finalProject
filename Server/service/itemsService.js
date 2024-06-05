@@ -1,5 +1,5 @@
 import { executeQuery } from '../dataAccess/db.js';
-import { addItemToAlbumQuery, getItemTypesQuery } from '../dataAccess/queries.js'
+import { addItemToAlbumQuery, getItemTypesQuery,getMyItmesQuery } from '../dataAccess/queries.js'
 export class ItemsService {
 
     async allItemTypes() {
@@ -9,10 +9,10 @@ export class ItemsService {
     }
 
     async getMyItmes(albumId) {
-        // const myitmesQuery = getMyitmesQuery();
-        // const result = await executeQuery(myitmesQuery, [username]);
-        // if (result.length == 0) throw new Error
-        // return result;
+        const myItmesQuery = getMyItmesQuery();
+        const result = await executeQuery(myItmesQuery, [albumId]);
+        if (result.length == 0) throw new Error
+        return result;
     }
 
     async addItem(albumId,item) {
