@@ -13,7 +13,7 @@ function AddItemToAlbum(props) {
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState([])
     //const options = []
-    const [selectOption, setSelectOption] = useState('')
+    const [selectOption, setSelectOption] = useState(null)
     useEffect(() => {
         if (options.length < 1) {
             const req = {
@@ -28,11 +28,11 @@ function AddItemToAlbum(props) {
         }
     }, [])
     const onSubmit = (data) => {
-      //  console.log(albumId)
+        console.log(selectOption.value == 1 ? data.name[0] : data.name + "erd")
         const req = {
             method: "POST",
             route: `items/${albumId}`,
-            body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: data.name },
+            body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: selectOption.value == 1 ? data.name[0] : data.name },
         };
         fetchRequ(req).then((response) => response.json())
             .then((responseJson) => {
@@ -45,8 +45,8 @@ function AddItemToAlbum(props) {
                 // }
             });
     };
- //   useEffect(() => { console.log(selectOption) }, [selectOption])
-
+    useEffect(() => { console.log(selectOption) }, [selectOption])
+    const [file, setfile] = useState();
 
     return (
         <>
@@ -56,32 +56,33 @@ function AddItemToAlbum(props) {
                     <label htmlFor="option">What are we adding to the album?</label>
                     <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
                 </div>
-                <div className="form-group">
+                {selectOption?.label == 'story' && <div className="form-group">
                     <label htmlFor="name">Enter text</label>
                     <input
                         type="text"
                         className="form-control"
                         id="name"
                         //aria-describedby="emailHelp"
-                        placeholder="Enter Name of Album"
+                        placeholder="Enter Story"
                         {...register("name")}
                     />
                     <small id="emailHelp" class="form-text text-muted">
                         example: story, joke.
                     </small>
-                </div>
-                {/* <div className="form-group">
+                </div>}
+                <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input onInput={(event)=> console.log(URL.createObjectURL(event.target.files[0]))}
-                         accept="image/*"
+                    <input onInput={(event) => { console.log(event.target.files); setfile(URL.createObjectURL(event.target.files[0])) }}
+                        accept="image/*"
                         type="file"
                         className="form-control"
                         id="image"
                         //aria-describedby="emailHelp"
                         placeholder="Select image"
-                        {...register("image")}
+                        {...register("name")}
                     />
-                </div> */}
+                    <img src={file} />
+                </div>
 
 
                 <button type="submit" className="btn btn-primary">

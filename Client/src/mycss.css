@@ -20,7 +20,7 @@ nav i {
     transition: transform 1s;
 }
 nav i:hover {
-    background-color: #72a03d;
+    background-color: #da70bf;
     border-radius: 26px;
     transform: rotate(360deg);
 }
