@@ -28,11 +28,11 @@ function AddItemToAlbum(props) {
         }
     }, [])
     const onSubmit = (data) => {
-        console.log(selectOption.value == 1 ? data.name[0] : data.name + "erd")
+        console.log(selectOption.value == 1 ? file : data.name + "erd")
         const req = {
             method: "POST",
             route: `items/${albumId}`,
-            body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: selectOption.value == 1 ? data.name[0] : data.name },
+            body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: data.name },
         };
         fetchRequ(req).then((response) => response.json())
             .then((responseJson) => {
@@ -50,22 +50,21 @@ function AddItemToAlbum(props) {
     const onFileUpload = () => {
         const formData = new FormData();
         formData.append('file', selectedFile);
-    
+
         fetch('http://example.com/upload', {
-          method: 'POST',
-          body: formData
+            method: 'POST',
+            body: formData
         })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      };
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-
                 <div className="form-group">
                     <label htmlFor="option">What are we adding to the album?</label>
                     <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
@@ -86,15 +85,17 @@ function AddItemToAlbum(props) {
                 </div>}
                 <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input onInput={(event) => { console.log(event.target.files); setfile(URL.createObjectURL(event.target.files[0])) }}
+                    <input onInput={(event) => { console.log(event.target.files); setfile((event.target.files[0])) }}
                         accept="image/*"
                         type="file"
                         className="form-control"
                         id="image"
                         //aria-describedby="emailHelp"
                         placeholder="Select image"
+                        enctype="multipart/form-data"
                         {...register("name")}
                     />
+
                     <img src={file} />
                 </div>
 
