@@ -47,7 +47,21 @@ function AddItemToAlbum(props) {
     };
     useEffect(() => { console.log(selectOption) }, [selectOption])
     const [file, setfile] = useState();
-
+    const onFileUpload = () => {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+    
+        fetch('http://example.com/upload', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      };
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
