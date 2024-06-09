@@ -34,6 +34,7 @@ function AddItemToAlbum(props) {
             route: `items/${albumId}`,
             body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: data.name },
         };
+
         fetchRequ(req).then((response) => response.json())
             .then((responseJson) => {
                 props.setDisplayAddItem(false)
@@ -46,15 +47,26 @@ function AddItemToAlbum(props) {
             });
     };
     useEffect(() => { console.log(selectOption) }, [selectOption])
-    const [file, setfile] = useState();
-    const onFileUpload = () => {
+    const [file, setFile] = useState();
+
+    const onFileUpload = (event) => {
+        const selectedFile = event.target.files[0];
+        if (!selectedFile)
+            console.log("not selectedFile")
+        setFile(selectedFile);
+        console.log(selectedFile)
         const formData = new FormData();
         formData.append('file', selectedFile);
+        console.log(formData)
 
-        fetch('http://example.com/upload', {
-            method: 'POST',
-            body: formData
-        })
+
+
+        const req = {
+            method: "POST",
+            route: `items/uploads`,
+            body: formData,
+        };
+        postRequ(req)
             .then(response => {
                 console.log(response);
             })
@@ -62,6 +74,30 @@ function AddItemToAlbum(props) {
                 console.error(error);
             });
     };
+
+    async function postRequ(req) {
+        let answer;
+        await fetch(`http://localhost:8080/${req.route}`, {
+            method: req.method,
+            body: req.body,
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+        }).then(response => {
+            if (response.ok)
+                return response
+            else throw new Error
+            //console.log(response.headers.getSetCookie());
+            // for (let entry of response.headers.entries()) {
+            //     console.log('header',entry);
+            // }
+        }).then(data => {
+            answer = data
+            //     console.log(data)
+        });
+        return answer;
+    }
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +121,7 @@ function AddItemToAlbum(props) {
                 </div>}
                 <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input onInput={(event) => { console.log(event.target.files); setfile((event.target.files[0])) }}
+                    {/* <input onInput={(event) => { console.log(event.target.files); setfile((event.target.files[0])) }}
                         accept="image/*"
                         type="file"
                         className="form-control"
@@ -94,8 +130,14 @@ function AddItemToAlbum(props) {
                         placeholder="Select image"
                         enctype="multipart/form-data"
                         {...register("name")}
+                    /> */}
+                    <input
+                        type="file"
+                        className="form-control"
+                        id="image"
+                        accept="image/*"
+                        onChange={onFileUpload}
                     />
-
                     <img src={file} />
                 </div>
 
