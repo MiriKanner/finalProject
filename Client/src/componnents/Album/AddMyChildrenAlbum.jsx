@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import fetchRequ from "../../serverquests";
+import {getReq,postReq} from "../../serverquests";
 import { Form } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
@@ -19,7 +19,7 @@ function AddMyChildrenAlbum(props) {
                 route: `children/myChildren/${user.username}`,
             };
             let tempOption=[]
-            fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
+            getReq(req).then((response)=>response.json()).then((responseJson) => {
                 responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
                 setOptions(tempOption)
             })
@@ -33,7 +33,7 @@ function AddMyChildrenAlbum(props) {
             route: `album/myChildrenAlbum/${user.username}`,
             body: { name: data.name, childUserName: selectChild.value, creationdate:new Date().toISOString().split('T')[0] },
         };
-        fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
+        postReq(req).then((response)=>response.json()).then((responseJson) => {
             console.log(responseJson);
             props.setDisplayAddMyChildrenAlbum(false)
             // if (responseJson.length != 0) {

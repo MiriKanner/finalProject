@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import fetchRequ from "../../serverquests";
+import {getReq} from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -20,7 +20,7 @@ function MyChildren() {
             method: "GET",
             route: `children/myChildren/${user.username}`
         };
-        fetchRequ(req).then((response)=>response.json()).then((responseJson) => {
+        getReq(req).then((response)=>response.json()).then((responseJson) => {
             setChildren(responseJson)
             console.log(responseJson);
         }).catch(err => { })

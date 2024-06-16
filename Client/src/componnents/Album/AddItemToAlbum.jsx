@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import fetchRequ from "../../serverquests";
+import {postReq,getReq} from "../../serverquests";
 import { Form } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
@@ -21,7 +21,7 @@ function AddItemToAlbum(props) {
                 route: `items/itemOptions`,
             };
             let tempOption = []
-            fetchRequ(req).then((response) => response.json()).then((responseJson) => {
+            getReq(req).then((response) => response.json()).then((responseJson) => {
                 responseJson.map((itemOption) => tempOption.push({ label: itemOption.option, value: itemOption.optionLabel }))
                 setOptions(tempOption)
             })
@@ -35,7 +35,7 @@ function AddItemToAlbum(props) {
             body: { creationdate: new Date().toISOString().split('T')[0], idtype: selectOption.value, data: data.name },
         };
 
-        fetchRequ(req).then((response) => response.json())
+        postReq(req).then((response) => response.json())
             .then((responseJson) => {
                 props.setDisplayAddItem(false)
                 //  console.log(responseJson);

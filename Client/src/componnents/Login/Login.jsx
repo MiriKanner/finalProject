@@ -1,5 +1,5 @@
 import React, { useRef, useState, createContext, useContext } from "react";
-import fetchRequ from "../../serverquests";
+import {postReq} from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
@@ -22,7 +22,7 @@ function Login() {
       route: "auth",
       body: { username: data.username, password: data.password },
     };
-    fetchRequ(req).then((response) => {return response.json() }).then(responseJson => {
+    postReq(req).then((response) => {return response.json() }).then(responseJson => {
       console.log(responseJson);
       if (responseJson.length != 0) {
         localStorage.setItem(

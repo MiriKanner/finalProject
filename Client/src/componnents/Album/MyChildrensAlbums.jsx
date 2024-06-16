@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import fetchRequ from "../../serverquests";
+import { getReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
@@ -13,29 +13,101 @@ function MyChildrensAlbums() {
   const navigate = useNavigate();
   const user = useContext(UserContext).user;
   const { register, handleSubmit } = useForm();
-  const [allAlbums, setAllAlbums] = useState([])
-  const [displayAddMyChildrenAlbum, setDisplayAddMyChildrenAlbum] = useState(false);
+  const [originalAlbums, setOriginalAlbums] = useState([])
+  const [album, setalbums] = useState([])
 
+  const [searchType, setSearchType] = useState();
+
+  const [displayAddMyChildrenalbums, setDisplayAddMyChildrenalbums] = useState(false);
   useEffect(() => {
-    if (!displayAddMyChildrenAlbum) {
+    if (!displayAddMyChildrenalbums) {
       const req = {
         method: "GET",
-        route: `album/myChildrenAlbum/${user.username}`
+        route: `album/myChildrenalbum/${user.username}`
       };
-      fetchRequ(req).then((response) => response.json())
+      getReq(req).then((response) => response.json())
         .then((responseJson) => {
-          setAllAlbums(responseJson)
-      //    console.log(responseJson);
+          setOriginalAlbums(responseJson)
+          setalbums(responseJson)
+
         }).catch(err => { })
     }
-  }, [displayAddMyChildrenAlbum])
-
+  }, [displayAddMyChildrenalbums])
+  function sortalbums(event) {
+    event.preventDefault()
+    let sortArr = album.slice()
+    switch (event.target.value) {
+        case "id": setalbums(sortArr.sort((a, b) => a.albumId - b.albumId)); break;
+        case "alphabet": setalbums(sortArr.sort((a, b) => a.name > b.name ? 1 : -1)); break;
+        case "random": setalbums(sortArr.sort(() => Math.random() > 0.5 ? -1 : 1)); break;
+    }
+}
+function searchalbumss(event) {
+          let foundsArr, foundIndex;
+          const { name, value } = event.target;
+          switch (name) {
+              case "id":
+                  foundIndex = originalAlbums.findIndex(t => t != null && t.id == value)
+                  setalbums([{ ...originalAlbums[foundIndex], originalIndex: foundIndex, editable: false }])
+                  break;
+              case "title":
+                  foundsArr = originalAlbums.map((t, i) => {
+                      if (t != null && t.title.includes(value)) return { ...t, originalIndex: i, editable: false }
+                  })
+                  setalbums(foundsArr.filter(t => t != null))
+                  break;
+              case "completed":
+                  foundsArr = originalAlbums.slice().map((t, i) => {
+                      if (t != null && `${t.completed}` == value) return { ...t, originalIndex: i, editable: false }
+                  })
+                  setalbums(foundsArr.filter(t => t != null))
+                  break;
+          }
+      }
+  
+      function selectSearchType(event) {
+          let foundsArr;
+          if (event.target.value == "all") {
+              foundsArr = originalAlbums.map((t, i) => { if (t != null) return { ...t, originalIndex: i, editable: false } })
+              setalbums(foundsArr.filter(t => t != null));
+              setSearchType();
+          }
+          else
+              setSearchType(event.target.value);
+      }
+  
   return (
     <>
-      <button onClick={() => setDisplayAddMyChildrenAlbum(!displayAddMyChildrenAlbum)}>Add Album to my child</button>
-      {displayAddMyChildrenAlbum && <AddMyChildrenAlbum setDisplayAddMyChildrenAlbum={setDisplayAddMyChildrenAlbum} />}
+
+        <br />
+        <label htmlFor='sort' >order by</label>
+        <select onChange={sortalbums} name="sort">
+            <option value="all" > </option>
+            <option value="id">id</option>
+            <option value="alphabet">alphabet</option>
+            <option value="random">random</option>
+        </select>
+
+        <label htmlFor='search' >search by</label>
+        <select onChange={selectSearchType} name="search">
+            <option value="all" ></option>
+            <option value="id">id</option>
+            <option value="title">title</option>
+        </select>
+        <br />
+
+        {/* {searchType ?
+            (searchType == "completed" ? <>
+                <label htmlFor="completed">completed</label>
+                <input type="radio" name="completed" value="1" onChange={event => searchalbumss(event)} />
+                <label htmlFor="notCompleted">not completed</label>
+                <input type="radio" name="completed" value="0" onChange={event => searchalbumss(event)} />
+            </> : <input type="text" name={searchType} onChange={event => searchalbumss(event)} />)
+            : <></>} */}
+      <button onClick={() => setDisplayAddMyChildrenalbums(!displayAddMyChildrenalbums)}>Add albums to my child</button>
+      {displayAddMyChildrenalbums && <AddMyChildrenAlbum setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums} />}
       <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" style={{ display: 'flex', flexDirection: 'row' }}>
-        {allAlbums.map((item, index) => (
+        {album.map((item, index) => (
           <div>
             <Card onClick={() => navigate(`./${item.albumId}`)}
               shadow="sm" key={item.id} isPressable style={{ flex: 1 }}>
@@ -58,29 +130,29 @@ function MyChildrensAlbums() {
           </div>
         ))}
       </div >
-      {/* {allAlbums.map((album, index) => {
-        return <><h3>{album.name}</h3>
-          <h3>{album.childName}</h3>
+      {/* {allalbumss.map((albums, index) => {
+        return <><h3>{albums.name}</h3>
+          <h3>{albums.childName}</h3>
         </>
       })} */}
 
 
       {/* 
       <CardGroup>
-        {allAlbums.map((album, index) => (
-          <Card onClick={() => navigate(`./${album.albumId}`)}>
+        {allalbumss.map((albums, index) => (
+          <Card onClick={() => navigate(`./${albums.albumsId}`)}>
             <CardImg
               alt="Card image cap"
-              src={album.img}
+              src={albums.img}
               top
               width="100%"
             />
             <CardBody>
               <CardTitle tag="h5">
-                {album.name}
+                {albums.name}
               </CardTitle>
               <CardSubtitle className="mb-2 text-muted" tag="h6">
-                {album.img}
+                {albums.img}
               </CardSubtitle>
               <Button>Show more</Button>
             </CardBody>
@@ -92,3 +164,4 @@ function MyChildrensAlbums() {
 
 
 export default MyChildrensAlbums;
+

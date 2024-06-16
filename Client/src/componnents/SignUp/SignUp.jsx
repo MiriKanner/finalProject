@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import fetchRequ from '../../serverquests'
+import {postReq} from '../../serverquests'
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
@@ -43,7 +43,7 @@ function SignUp() {
   const onSubmit = (data) => {
     let   userLocal;
     const req = { method: "POST", route: 'auth/signUp', body: { username: data.username, password: data.password, nickname: data.nickname, birthday: data.birthday, email: data.email } };
-    fetchRequ(req)
+    postReq(req)
       .then((responseJson) => {
        // if (responseJson.length != 0) 
         {

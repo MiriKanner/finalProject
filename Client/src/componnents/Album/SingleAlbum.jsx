@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import fetchRequ from "../../serverquests";
+import {getReq} from "../../serverquests";
 
 import AddItemToAlbum from "./AddItemToAlbum";
 
@@ -14,7 +14,7 @@ function SingleAlbum() {
         method: "GET",
         route: `items/${params.albumId}`,
       };
-      fetchRequ(req)
+      getReq(req)
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
