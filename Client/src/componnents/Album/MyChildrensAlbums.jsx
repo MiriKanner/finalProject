@@ -37,66 +37,65 @@ function MyChildrensAlbums() {
     event.preventDefault()
     let sortArr = album.slice()
     switch (event.target.value) {
-        case "id": setalbums(sortArr.sort((a, b) => a.albumId - b.albumId)); break;
-        case "alphabet": setalbums(sortArr.sort((a, b) => a.name > b.name ? 1 : -1)); break;
-        case "random": setalbums(sortArr.sort(() => Math.random() > 0.5 ? -1 : 1)); break;
+      case "id": setalbums(sortArr.sort((a, b) => a.albumId - b.albumId)); break;
+      case "alphabet": setalbums(sortArr.sort((a, b) => a.name > b.name ? 1 : -1)); break;
+      case "random": setalbums(sortArr.sort(() => Math.random() > 0.5 ? -1 : 1)); break;
     }
-}
-function searchalbumss(event) {
-          let foundsArr, foundIndex;
-          const { name, value } = event.target;
-          switch (name) {
-              case "id":
-                  foundIndex = originalAlbums.findIndex(t => t != null && t.id == value)
-                  setalbums([{ ...originalAlbums[foundIndex], originalIndex: foundIndex, editable: false }])
-                  break;
-              case "title":
-                  foundsArr = originalAlbums.map((t, i) => {
-                      if (t != null && t.title.includes(value)) return { ...t, originalIndex: i, editable: false }
-                  })
-                  setalbums(foundsArr.filter(t => t != null))
-                  break;
-              case "completed":
-                  foundsArr = originalAlbums.slice().map((t, i) => {
-                      if (t != null && `${t.completed}` == value) return { ...t, originalIndex: i, editable: false }
-                  })
-                  setalbums(foundsArr.filter(t => t != null))
-                  break;
-          }
-      }
-  
-      function selectSearchType(event) {
-          let foundsArr;
-          if (event.target.value == "all") {
-              foundsArr = originalAlbums.map((t, i) => { if (t != null) return { ...t, originalIndex: i, editable: false } })
-              setalbums(foundsArr.filter(t => t != null));
-              setSearchType();
-          }
-          else
-              setSearchType(event.target.value);
-      }
-  
+  }
+  function searchalbums(event) {
+    let foundsArr, foundIndex;
+    const { name, value } = event.target;
+    switch (name) {
+      case "id":
+        foundIndex = originalAlbums.findIndex(t => t != null && t.id == value)
+        setalbums([{ ...originalAlbums[foundIndex], originalIndex: foundIndex, editable: false }])
+        break;
+      case "title":
+        foundsArr = originalAlbums.map((t, i) => {
+          if (t != null && t.title.includes(value)) return { ...t, originalIndex: i, editable: false }
+        })
+        setalbums(foundsArr.filter(t => t != null))
+        break;
+      case "completed":
+        foundsArr = originalAlbums.slice().map((t, i) => {
+          if (t != null && `${t.completed}` == value) return { ...t, originalIndex: i, editable: false }
+        })
+        setalbums(foundsArr.filter(t => t != null))
+        break;
+    }
+  }
+
+  function selectSearchType(event) {
+    let foundsArr;
+    if (event.target.value == "all") {
+      foundsArr = originalAlbums.map((t, i) => { if (t != null) return { ...t, originalIndex: i, editable: false } })
+      setalbums(foundsArr.filter(t => t != null));
+      setSearchType();
+    }
+    else
+      setSearchType(event.target.value);
+  }
+
   return (
     <>
+      <br />
+      <label htmlFor='sort' >order by</label>
+      <select onChange={sortalbums} name="sort">
+        <option value="all" > </option>
+        <option value="id">id</option>
+        <option value="alphabet">alphabet</option>
+        <option value="random">random</option>
+      </select>
 
-        <br />
-        <label htmlFor='sort' >order by</label>
-        <select onChange={sortalbums} name="sort">
-            <option value="all" > </option>
-            <option value="id">id</option>
-            <option value="alphabet">alphabet</option>
-            <option value="random">random</option>
-        </select>
+      <label htmlFor='search' >search by</label>
+      <select onChange={selectSearchType} name="search">
+        <option value="all" ></option>
+        <option value="id">id</option>
+        <option value="title">title</option>
+      </select>
+      <br />
 
-        <label htmlFor='search' >search by</label>
-        <select onChange={selectSearchType} name="search">
-            <option value="all" ></option>
-            <option value="id">id</option>
-            <option value="title">title</option>
-        </select>
-        <br />
-
-        {/* {searchType ?
+      {/* {searchType ?
             (searchType == "completed" ? <>
                 <label htmlFor="completed">completed</label>
                 <input type="radio" name="completed" value="1" onChange={event => searchalbumss(event)} />
