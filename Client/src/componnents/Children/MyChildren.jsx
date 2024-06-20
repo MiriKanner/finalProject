@@ -22,7 +22,7 @@ function MyChildren() {
         };
         getReq(req).then((response)=>response.json()).then((responseJson) => {
             setChildren(responseJson)
-            console.log(responseJson);
+            //console.log(responseJson);
         }).catch(err => { })
 
     }, [])
@@ -33,7 +33,7 @@ function MyChildren() {
             {/* {displayAddMyChildrenAlbum && <AddMyChildrenAlbum />} */}
             <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
                 {children.map((child, index) => (
-                    <div>
+                    <div key={index}>
                         <Card // onClick={()=> navigate(`./${child.albumId}`)}
                             shadow="sm" key={child.id} isPressable
                             onClick={()=>navigate(`./${child.childName}`)} >

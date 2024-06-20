@@ -107,7 +107,7 @@ function MyChildrensAlbums() {
       {displayAddMyChildrenalbums && <AddMyChildrenAlbum setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums} />}
       <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" style={{ display: 'flex', flexDirection: 'row' }}>
         {album.map((item, index) => (
-          <div>
+          <div key={index}>
             <Card onClick={() => navigate(`./${item.albumId}`)}
               shadow="sm" key={item.id} isPressable style={{ flex: 1 }}>
               <CardBody className="overflow-visible p-0">
