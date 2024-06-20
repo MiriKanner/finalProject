@@ -1,6 +1,7 @@
 
 import { AuthService } from "../service/authService.js";
 import cookie from 'cookie';
+import { userSchema } from "../validationSchemas.js";
 
 export class AuthController {
     // async updateAuth(req, res, next) {       
@@ -42,6 +43,9 @@ export class AuthController {
     }
     async addAuthAndUser(req, res, next) {
         try {
+            const v = userSchema.validate(req.body)
+            if (v.error)
+                next(v.error)
             const authService = new AuthService();
             const resultItem = await authService.addUserAndAuth(req.body)
             res.status(200).cookie('token', resultItem.token, { expires: new Date(Date.now() + 900000)/*, httpOnly: true*/ }).json(resultItem.result);
