@@ -26,14 +26,14 @@ export class AuthService {
 
     }
     async addUserAndAuth(userAndAuthItem) {
-        const authQuery = addAuthQuery()
         const userQuery = addUserQuery();
+        const authQuery = addAuthQuery()
         console.log(userAndAuthItem)
        // console.log(userQuery+" the params:"+userAndAuthItem.username+" "+ userAndAuthItem.nickname+" "+userAndAuthItem.email+" "+userAndAuthItem.birthday+" "+1)
         //console.log(authQuery+" the params:"+userAndAuthItem.username+ " "+password)
         const password = SHA256(userAndAuthItem.password).toString(enc.Hex);
         console.log(password)
-        const userResult = await executeQuery(userQuery, [userAndAuthItem.username, userAndAuthItem.nickname, userAndAuthItem.email,  1,userAndAuthItem.birthday]);
+        const userResult = await executeQuery(userQuery, [userAndAuthItem.username, userAndAuthItem.nickname, userAndAuthItem.email,userAndAuthItem.birthday]);
         const authResult = await executeQuery(authQuery, [userAndAuthItem.username, password]);
         const token = jwt.sign({ id: userAndAuthItem.username }, "privateKey", { expiresIn: '20m' });
         const refreshtoken = jwt.sign({ id: userAndAuthItem.username }, "keyrefresh", { expiresIn: '1d' });

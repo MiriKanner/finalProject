@@ -6,46 +6,16 @@ import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
-//   let user = useContext(UserContext);
-//   const navigate = useNavigate();
-//   const { register, handleSubmit } = useForm();
-//   const onSubmit = (data) => {
-//     let url =
-//       "http://localhost:3000/users?username=" +
-//       data.username +
-//       "&website=" +
-//       data.password;
-//     fetch(url)
-//       .then((response) => response.json())
-//       .then((responseJson) => {
-//         if (responseJson.length != 0) {
-//           localStorage.setItem(
-//             "currentUser",
-//             JSON.stringify({
-//               name: responseJson[0].username,
-//               id: responseJson[0].id,
-//               email: responseJson[0].email,
-//             })
-//           );
-//           user.setUser(responseJson[0]);
-//           navigate("/home/users/" + responseJson[0].id);
-//         } else {
-//           alert("wrong authentication");
-//         }
-//       });
-//   };
-
 import { userSchema } from '../../validationsSchemas.js'
 
 function SignUp() {
   const navigate = useNavigate()
   const [password, setPassword] = useState('')
-  const user = useContext(UserContext);
+  const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("")
   const onSubmit = (data) => {
-    let userLocal;
-    let user = { username: data.username, password: data.password, nickname: data.nickname, /*birthday: data.birthday, */email: data.email };
+    let user = { username: data.username, password: data.password, nickname: data.nickname, birthday: data.birthday, email: data.email };
     let v = userSchema.validate(user)// ValidateForm('userSchema', user)
     console.log(v)
     if (v.error) {
@@ -58,7 +28,7 @@ function SignUp() {
       .then((responseJson) => {
         // if (responseJson.length != 0) 
         {
-          userLocal = {
+          const userLocal = {
             username: data.username,
             email: data.email,
           }
@@ -69,10 +39,10 @@ function SignUp() {
               //token: responseJson[0].token
             })
           );
-          user.setUser(userLocal);
+          userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
-      }).catch(() => { });
+      }).catch((er) => { console.log(er)});
   };
 
   return (
@@ -128,6 +98,16 @@ function SignUp() {
             id="nickname"
             placeholder="Nickname"
             {...register("nickname")}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="birthday">Birthday</label>
+          <input
+            type="date"
+            className="form-control"
+            id="birthday"
+            placeholder="Birthday"
+            {...register("birthday")}
           />
         </div>
         <span> {messageText.message}</span>

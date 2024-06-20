@@ -44,7 +44,7 @@ export function getParentChildRelationIdQuery() {
     and userChild.username=? and childandparent.idchild=userChild.id;`
 }
 export function addUserQuery() {
-    return `INSERT INTO albumdb.users (username, nickname, email,isactive, birthday) VALUES (?, ?, ?, ?, ?);`
+    return `INSERT INTO albumdb.users (username, nickname, email, birthday,isactive) VALUES (?, ?, ?, ?, 1);`
 }
 export function addAuthQuery() {
     return `INSERT INTO albumdb.auth ( username, password) VALUES (?, ?);`
