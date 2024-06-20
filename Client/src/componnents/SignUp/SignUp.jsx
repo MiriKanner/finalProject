@@ -6,7 +6,7 @@ import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
-import { userSchema } from '../../validationsSchemas.js'
+import { userSignupSchema } from '../../clientValidations'
 
 function SignUp() {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ function SignUp() {
   const [messageText, setMessageText] = useState("")
   const onSubmit = (data) => {
     let user = { username: data.username, password: data.password, nickname: data.nickname, birthday: data.birthday, email: data.email };
-    let v = userSchema.validate(user)// ValidateForm('userSchema', user)
+    let v = userSignupSchema.validate(user)// ValidateForm('userSchema', user)
     console.log(v)
     if (v.error) {
       setMessageText(v.error.details[0])
@@ -42,7 +42,7 @@ function SignUp() {
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
-      }).catch((er) => { console.log(er)});
+      }).catch((er) => { console.log(er) });
   };
 
   return (
@@ -110,9 +110,7 @@ function SignUp() {
             {...register("birthday")}
           />
         </div>
-        <span> {messageText.message}</span>
-
-
+        <div> {messageText.message}</div>
         <button type="submit" className="btn btn-primary" >
           Submit
         </button>

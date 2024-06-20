@@ -1,5 +1,3 @@
-
-
 export const logErrors = (error, req, res, next) => {
     const statusCode = error && error.hasOwnProperty("statusCode") ? error.statusCode : 500;
     const message = error && error.hasOwnProperty("message") ? error.message : '';

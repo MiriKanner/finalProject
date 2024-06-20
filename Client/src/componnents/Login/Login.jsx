@@ -1,8 +1,9 @@
 import React, { useRef, useState, createContext, useContext } from "react";
-import {postReq} from "../../serverquests";
+import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
+import { userLoginSchema } from '../../clientValidations'
 
 function getCookie(tabs) {
   let getting = browser.cookies.get({
@@ -15,15 +16,22 @@ function getCookie(tabs) {
 function Login() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
+  const [messageText, setMessageText] = useState("")
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
+    let userToValidate = { username: data.username, password: data.password };
+    let v = userLoginSchema.validate(userToValidate);
+    if (v.error) {
+      setMessageText(v.error.details[0])
+      return
+    }
     const req = {
       method: "POST",
       route: "auth",
-      body: { username: data.username, password: data.password },
+      body: userToValidate,
     };
-    postReq(req).then((response) => {return response.json() }).then(responseJson => {
-      console.log(responseJson);
+    postReq(req).then((response) => { return response.json() }).then(responseJson => {
       if (responseJson.length != 0) {
         localStorage.setItem(
           "currentUser",
@@ -71,6 +79,7 @@ function Login() {
             {...register("password")}
           />
         </div>
+        <div> {messageText.message}</div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
