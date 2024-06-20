@@ -1,5 +1,5 @@
-
 import { AlbumService } from '../service/albumService.js'
+import { newAlbum } from '../serverValidations.js'
 export class AlbumController {
     // async updatealbum(req, res, next) {       
     //     try {
@@ -35,12 +35,17 @@ export class AlbumController {
             next(err)
         }
     }
-    
+
     async addChildsAlbum(req, res, next) {
         try {
+            let v = newAlbum.validate(req.body)
+            if (v.error) {
+                next(v.error)
+                return
+            }
             const albumService = new AlbumService();
             console.log(req.body)
-            const resultItem = await albumService.addChildAlbum(req.params.username,req.body);
+            const resultItem = await albumService.addChildAlbum(req.params.username, req.body);
             res.status(200).json(resultItem);
         }
         catch (ex) {

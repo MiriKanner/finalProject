@@ -13,6 +13,10 @@ const userLoginSchema = Joi.object({
   password: Joi.string().min(4).max(20).required(),
 });
 
+const newAlbum = Joi.object({
+  name: Joi.string().min(2).required(),
+  childUserName: Joi.string().min(5).max(15).required()
+})
 /*export function ValidateForm(schema,user) {
    return userSchema.validate(user)    
 }*/
@@ -37,4 +41,4 @@ validateForm = () => {
   alert(error);
 };*/
 
-export { userSignupSchema,userLoginSchema }
+export { userSignupSchema, userLoginSchema, newAlbum }
