@@ -98,10 +98,10 @@ function MyChildrensAlbums() {
       {/* {searchType ?
             (searchType == "completed" ? <>
                 <label htmlFor="completed">completed</label>
-                <input type="radio" name="completed" value="1" onChange={event => searchalbumss(event)} />
+                <input type="radio" name="completed" value="1" onChange={event => searchalbums(event)} />
                 <label htmlFor="notCompleted">not completed</label>
-                <input type="radio" name="completed" value="0" onChange={event => searchalbumss(event)} />
-            </> : <input type="text" name={searchType} onChange={event => searchalbumss(event)} />)
+                <input type="radio" name="completed" value="0" onChange={event => searchalbums(event)} />
+            </> : <input type="text" name={searchType} onChange={event => searchalbums(event)} />)
             : <></>} */}
       <button onClick={() => setDisplayAddMyChildrenalbums(!displayAddMyChildrenalbums)}>Add albums to my child</button>
       {displayAddMyChildrenalbums && <AddMyChildrenAlbum setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums} />}
@@ -129,7 +129,7 @@ function MyChildrensAlbums() {
           </div>
         ))}
       </div >
-      {/* {allalbumss.map((albums, index) => {
+      {/* {allalbums.map((albums, index) => {
         return <><h3>{albums.name}</h3>
           <h3>{albums.childName}</h3>
         </>
@@ -138,7 +138,7 @@ function MyChildrensAlbums() {
 
       {/* 
       <CardGroup>
-        {allalbumss.map((albums, index) => (
+        {allalbums.map((albums, index) => (
           <Card onClick={() => navigate(`./${albums.albumsId}`)}>
             <CardImg
               alt="Card image cap"
