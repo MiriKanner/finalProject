@@ -17,6 +17,13 @@ const newAlbum = Joi.object({
   name: Joi.string().min(2).required(),
   childUserName: Joi.string().min(5).max(15).required()
 })
+
+const newChild = Joi.object({
+  nickname: Joi.string().min(2).required(),
+  username: Joi.string().min(5).max(15).required(),
+  birthday: Joi.date().required(),
+  idparent:Joi.number().required()
+})
 /*export function ValidateForm(schema,user) {
    return userSchema.validate(user)    
 }*/
@@ -41,4 +48,4 @@ validateForm = () => {
   alert(error);
 };*/
 
-export { userSignupSchema, userLoginSchema, newAlbum }
+export { userSignupSchema, userLoginSchema, newAlbum ,newChild}

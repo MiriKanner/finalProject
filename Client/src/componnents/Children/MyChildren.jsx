@@ -16,6 +16,7 @@ function MyChildren() {
     const [displayAddChild, setDisplayAddChild] = useState(false)
 
     useEffect(() => {
+        if(!displayAddChild){
         const req = {
             method: "GET",
             route: `children/myChildren/${user.username}`
@@ -25,7 +26,8 @@ function MyChildren() {
             //console.log(responseJson);
         }).catch(err => { })
 
-    }, [])
+    }
+},  [displayAddChild])
 
     return (
         <>

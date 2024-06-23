@@ -18,5 +18,10 @@ const newAlbum = Joi.object({
   childUserName: Joi.string().min(5).max(15).required(),
   creationdate: Joi.date()
 })
-
-export { addUserSchema, minUserSchema, newAlbum }
+const newChild=Joi.object({
+  nickname: Joi.string().min(2).required(),
+  username: Joi.string().min(5).max(15).required(),
+  birthday: Joi.date().required(),
+  idparent:Joi.number().required()
+})
+export { addUserSchema, minUserSchema, newAlbum,newChild }

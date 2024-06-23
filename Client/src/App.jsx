@@ -10,6 +10,7 @@ import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
 import SingleAlbum from "./componnents/Album/SingleAlbum";
 import MyChildren from "./componnents/Children/MyChildren";
 import SingleChild from "./componnents/Children/SingleChild";
+
 function App() {
   const [user, setUser] = useState(
     localStorage.getItem("currentUser") ? () => getUserDetails() : undefined

@@ -1,5 +1,5 @@
 export function getPasswordQuery() {
-    const query = `select users.username,nickname,email from albumdb.users,albumdb.auth
+    const query = `select users.username,nickname,users.id,email from albumdb.users,albumdb.auth
     where users.username = auth.username and users.isActive = 1 and auth.username = ? and auth.password=?;`;
     return query
 }
@@ -54,4 +54,13 @@ export function addItemToAlbumQuery() {
 }
 export function getItemTypesQuery() {
     return `SELECT id as "optionLabel",description as "option" FROM datatype;`
+}
+export function addChildAsUser()
+{
+    return `INSERT INTO albumdb.users (username, nickname, email, isactive, birthday) VALUES (?, ?, 'empty@gmail.com', '1', ?);`
+}
+export function addChildToParent()
+{
+    return `INSERT INTO albumdb.childandparent (idparent, idchild) VALUES (?, ?);
+`
 }
