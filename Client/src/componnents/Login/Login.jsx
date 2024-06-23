@@ -106,7 +106,7 @@ function Login() {
     // verifyCallback={()=>verifyCallback}
   /> */}
       {/* <reCAPTCHA sitekey='6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS' /> */}
-      <reCAPTCHA sitekey="6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS" theme='dark' size='500' ref={captchaRef}/>
+      <ReCAPTCHA sitekey="6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS" theme='dark' size='500' ref={captchaRef}/>
       {/* <script src="https://www.google.com/recaptcha/enterprise.js?render=6Leigv0pAAAAAEmy8gP5AjC5ePpxa4CdHAWlUAk7"></script> */}
       <Link to="/signup">don't have acount? please sign up</Link>
     </>
