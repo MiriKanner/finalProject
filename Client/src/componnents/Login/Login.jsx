@@ -30,8 +30,8 @@ function Login() {
       setMessageText(v.error.details[0]);
       return;
     }
-    const token = captchaRef.current.getValue();
-    captchaRef.current.reset();
+    // const token = captchaRef.current.getValue();
+    // captchaRef.current.reset();
     const req = {
       method: "POST",
       route: "auth",
