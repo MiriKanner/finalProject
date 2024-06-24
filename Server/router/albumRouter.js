@@ -8,15 +8,9 @@ const storage = multer.diskStorage({
         next(null, './uploads')
     },
     filename: (req, file, next) => {
-        console.log("aaaa🎶😎🤞💋")
         next(null, Date.now() + '-' + file.originalname)
     }
 })
-
-
-
-//==========
-
 const upload = multer({ storage: storage }).single('image')
 
 const albumController = new AlbumController()

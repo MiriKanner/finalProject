@@ -38,15 +38,20 @@ export class AlbumController {
 
     async addChildsAlbum(req, res, next) {
         try {
-            console.log("👏😜🐱‍🐉✔")
             // let v = newAlbum.validate(req.body)
             // if (v.error) {
             //     next(v.error)
             //     return
             // }
+            const formDataObject = {};
+            for (let [key, value] of Object.entries(req.body)) {
+                formDataObject[key] = value;
+            }
+            console.log(formDataObject)
             const albumService = new AlbumService();
-            console.log([...Object.keys(req.body)])
-            const resultItem = await albumService.addChildAlbum(req.params.username, req.body);
+            const imgSrc= `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
+            console.log(imgSrc)//save in db!!!!!!
+            const resultItem = await albumService.addChildAlbum(req.params.username, formDataObject);
             res.status(200).json(resultItem);
         }
         catch (ex) {
