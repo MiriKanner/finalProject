@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getReq, postReq } from "../../serverquests";
+import { getReq, postMediaReq } from "../../serverquests";
 //import { Form } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
@@ -12,7 +12,7 @@ function AddMyChildrenAlbum(props) {
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState([])
     //const options = []
-    const [selectChild, setSelectChild] = useState('')
+    const [selectChild, setSelectChild] = useState(null)
     useEffect(() => {
         if (options.length < 1) {
             const req = {
@@ -28,32 +28,36 @@ function AddMyChildrenAlbum(props) {
         }
     }, [])
     const onSubmit = (data) => {
+        //need to check if selectChild.value is not null.
+        // if it is null -   dataForm.append takes "undefined" and passes validation
+        // it is a problem
         const dataForm = new FormData();
         dataForm.append('name', data.name)
         dataForm.append('childUserName', selectChild.value)
-        dataForm.append('creationdate', new Date().toISOString().split('T')[0])
         dataForm.append('image', data.image[0])
 
-        //  console.log( data.image)
-        console.log(dataForm)
-        let album = { name: data.name, childUserName: selectChild.value }
-        let v = newAlbum.validate(album)
+        const formDataObject = {};
+        dataForm.forEach((value, key) => {
+            formDataObject[key] = value;
+          });
+
+        let v = newAlbum.validate(formDataObject)
         if (v.error) {
             setMessageText(v.error.details[0])
             return
         }
+
+        //does not need to be in client validation
+        dataForm.append('creationdate', new Date().toISOString().split('T')[0])
         const req = {
             method: "POST",
             route: `album/myChildrenAlbum/${user.username}`,
             body: dataForm//{ ...album, creationdate: new Date().toISOString().split('T')[0] },
         };
-        postReq(req).then((response) => response.json()).then((responseJson) => {
+        postMediaReq(req).then((response) => response.json()).then((responseJson) => {
             console.log(responseJson);
             props.setDisplayAddMyChildrenalbums(false)
             // if (responseJson.length != 0) {
-
-
-
             // } else {
             //     alert("wrong authentication");
             // }
@@ -64,7 +68,7 @@ function AddMyChildrenAlbum(props) {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}encType="multipart/form-data">
+            <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                 <div className="form-group">
                     <label htmlFor="name">Enter Name</label>
                     <input

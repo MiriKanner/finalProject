@@ -15,7 +15,8 @@ const userLoginSchema = Joi.object({
 
 const newAlbum = Joi.object({
   name: Joi.string().min(2).required(),
-  childUserName: Joi.string().min(5).max(15).required()
+  childUserName: Joi.string().min(5).max(15).required(),
+  image: Joi.any()
 })
 
 const newChild = Joi.object({
