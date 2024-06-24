@@ -6,7 +6,7 @@ import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { userSignupSchema } from "../../clientValidations";
-
+import Cookies from 'js-cookie'
 function SignUp() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -61,13 +61,18 @@ function SignUp() {
               console.log("Email sent: " + info.response);
             }
           });
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              userLocal,
-              //token: responseJson[0].token
-            })
-          );
+          Cookies.set('currentUser', JSON.stringify({
+            userLocal
+            //token: responseJson[0].token
+          })   
+        )
+          //   localStorage.setItem(
+          //   "currentUser",
+          //   JSON.stringify({
+          //     userLocal,
+          //     //token: responseJson[0].token
+          //   })
+          // );
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }

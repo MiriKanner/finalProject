@@ -4,6 +4,7 @@ import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../App.jsx";
 import '../../mycss.css'
+import Cookies from 'js-cookie'
 function Home() {
   const [displaySideBar, setDisplaySideBar] = useState(false)
   const [isShowInfo, setIsShowInfo] = useState(false)
@@ -14,7 +15,11 @@ function Home() {
     if (user.username != params.username) navigate("/login");
   });
   function logOut() {
-    localStorage.removeItem("currentUser");
+    const cookies = Object.keys(Cookies.get())
+    cookies.forEach(cookie=>{
+      Cookies.remove(cookie)
+    })
+    //localStorage.removeItem("currentUser");
     navigate("/login");
   }
 
@@ -36,13 +41,13 @@ function Home() {
       <nav> <i className="material-icons" onClick={() => { setDisplaySideBar(prev => !prev) }}>menu</i> <h3> Hello {user.username}</h3> </nav>
       <aside className={drawerClass.join(" ")} >
         <ul>
-          <Link to={"/"+user.username+"/mychildren'salbums"}><li><i className="material-icons">dashboard</i><span>My Children's Album</span></li></Link>
-          <Link to={"/"+user.username+"/mychildren"}> <li><i className="material-icons">people</i><span>My Children</span></li></Link>
+          <Link to={"/" + user.username + "/mychildren'salbums"}><li><i className="material-icons">dashboard</i><span>My Children's Album</span></li></Link>
+          <Link to={"/" + user.username + "/mychildren"}> <li><i className="material-icons">people</i><span>My Children</span></li></Link>
           <li><i className="material-icons">show_chart</i><span>Sales</span></li>
           <li><i className="material-icons">table_chart</i><span>Others</span></li>
         </ul>
       </aside>
-      <Outlet/>
+      <Outlet />
     </>
 
 

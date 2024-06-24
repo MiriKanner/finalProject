@@ -10,12 +10,11 @@ import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
 import SingleAlbum from "./componnents/Album/SingleAlbum";
 import MyChildren from "./componnents/Children/MyChildren";
 import SingleChild from "./componnents/Children/SingleChild";
-
+import Cookies from 'js-cookie'
 function App() {
-  const [user, setUser] = useState(
-    localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
+  const [user, setUser] = useState(JSON.parse(Cookies.get("currentUser") || null) 
+    //localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
   );
-
   function getUserDetails() {
     /* let url =
        "http://localhost:3000/users/" +//////???????????????????????????/

@@ -6,14 +6,15 @@ import { UserContext } from "../../App";
 import { userLoginSchema } from "../../clientValidations";
 import Recaptcha from "react-recaptcha";
 import ReCAPTCHA from "react-google-recaptcha"
+import Cookies from 'js-cookie'
 
-function getCookie(tabs) {
-  let getting = browser.cookies.get({
-    url: tabs[0].url,
-    name: "favorite-color",
-  });
-  getting.then(logCookie);
-}
+// function getCookie(tabs) {
+//   let getting = browser.cookies.get({
+//     url: tabs[0].url,
+//     name: "favorite-color",
+//   });
+//   getting.then(logCookie);
+// }
 
 function Login() {
   const captchaRef = useRef(null)
@@ -43,14 +44,19 @@ function Login() {
       })
       .then((responseJson) => {
         if (responseJson.length != 0) {
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              username: responseJson[0].username,
-              email: responseJson[0].email,
-              token: responseJson[0].token,
-            })
-          );
+          Cookies.set('currentUser', JSON.stringify({
+            username: responseJson[0].username,
+            email: responseJson[0].email,
+            token: responseJson[0].token,
+          }))
+          // localStorage.setItem(
+          //   "currentUser",
+          //   JSON.stringify({
+          //     username: responseJson[0].username,
+          //     email: responseJson[0].email,
+          //     token: responseJson[0].token,
+          //   })
+          // );
           user.setUser(responseJson[0]);
           // console.log(getCookie('token'))
           //cookies.set('token',)

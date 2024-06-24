@@ -5,7 +5,7 @@ import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from 'react-password-strength-bar';
-
+import Cookies from 'js-cookie'
 import { userSignupSchema } from '../../clientValidations'
 
 function SignUp() {
@@ -32,13 +32,20 @@ function SignUp() {
             username: data.username,
             email: data.email,
           }
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              userLocal
-              //token: responseJson[0].token
-            })
-          );
+
+          Cookies.set('currentUser', JSON.stringify({
+            userLocal
+            //token: responseJson[0].token
+          })
+          )
+
+          // localStorage.setItem(
+          //   "currentUser",
+          //   JSON.stringify({
+          //     userLocal
+          //     //token: responseJson[0].token
+          //   })
+          // );
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
