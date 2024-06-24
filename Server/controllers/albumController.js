@@ -38,13 +38,14 @@ export class AlbumController {
 
     async addChildsAlbum(req, res, next) {
         try {
-            let v = newAlbum.validate(req.body)
-            if (v.error) {
-                next(v.error)
-                return
-            }
+            console.log("👏😜🐱‍🐉✔")
+            // let v = newAlbum.validate(req.body)
+            // if (v.error) {
+            //     next(v.error)
+            //     return
+            // }
             const albumService = new AlbumService();
-            console.log(req.body)
+            console.log([...Object.keys(req.body)])
             const resultItem = await albumService.addChildAlbum(req.params.username, req.body);
             res.status(200).json(resultItem);
         }

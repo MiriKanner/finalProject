@@ -11,8 +11,9 @@ import { itemsRouter } from './router/itemsRouter.js';
 const port=process.env.PORT||8080;
 
 const app = express();
+app.use('/uploads',express.static('uploads'))
 app.use(express.json());
-app.use(cors());
+app.use(cors({credentials:true}));
 
 app.use(logActions);
 app.use('/auth',authRouter);

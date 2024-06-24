@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getReq, postReq } from "../../serverquests";
-import { Form } from "react-hook-form";
+//import { Form } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import { UserContext } from "../../App";
@@ -28,7 +28,14 @@ function AddMyChildrenAlbum(props) {
         }
     }, [])
     const onSubmit = (data) => {
+        const dataForm = new FormData();
+        dataForm.append('name', data.name)
+        dataForm.append('childUserName', selectChild.value)
+        dataForm.append('creationdate', new Date().toISOString().split('T')[0])
+        dataForm.append('image', data.image[0])
+
         //  console.log( data.image)
+        console.log(dataForm)
         let album = { name: data.name, childUserName: selectChild.value }
         let v = newAlbum.validate(album)
         if (v.error) {
@@ -38,7 +45,7 @@ function AddMyChildrenAlbum(props) {
         const req = {
             method: "POST",
             route: `album/myChildrenAlbum/${user.username}`,
-            body: { ...album, creationdate: new Date().toISOString().split('T')[0] },
+            body: dataForm//{ ...album, creationdate: new Date().toISOString().split('T')[0] },
         };
         postReq(req).then((response) => response.json()).then((responseJson) => {
             console.log(responseJson);
@@ -57,7 +64,7 @@ function AddMyChildrenAlbum(props) {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}encType="multipart/form-data">
                 <div className="form-group">
                     <label htmlFor="name">Enter Name</label>
                     <input
@@ -78,7 +85,7 @@ function AddMyChildrenAlbum(props) {
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input onInput={(event) => console.log(URL.createObjectURL(event.target.files[0]))}
+                    <input //onInput={(event) => console.log(URL.createObjectURL(event.target.files[0]))}
                         accept="image/*"
                         type="file"
                         className="form-control"

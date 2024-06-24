@@ -51,10 +51,10 @@ export async function postReq(req) {
     let answer;
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'POST',
-        body: JSON.stringify(req.body),
+        body: req.body,//JSON.stringify(req.body),
         //    credentials: 'same-origin',
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+         //   'Content-type': 'application/json; charset=UTF-8',
 
         },
     }).then(response => {
