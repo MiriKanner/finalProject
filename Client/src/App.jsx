@@ -48,7 +48,7 @@ function App() {
                 </Route>
                 <Route path="mychildren" >
                   <Route index element={<MyChildren />} />
-                  <Route path=":childName" element={<SingleChild/>}/>
+                  <Route path=":childName" element={<SingleChild />} />
                 </Route>
               </Route>)
             }
