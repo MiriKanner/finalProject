@@ -1,5 +1,5 @@
 import { ItemsService } from "../service/itemsService.js";
-import upload from '../middleware/multerSetup.js'; 
+import upload from '../middleware/multerSetup.js';
 
 export class ItemsController {
 
@@ -33,12 +33,17 @@ export class ItemsController {
 
     async addItem(req, res, next) {
         try {
+            let objectForDB = {};
             if (req.body.idtype == 1) {
-                console.log('mimmmmmulter')
-                upload.single('file')
-            }
+                for (let [key, value] of Object.entries(req.body)) {
+                    objectForDB[key] = value;
+                }
+                objectForDB['idtype'] = 1
+                objectForDB['data'] = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
+            } else
+                objectForDB = req.body
             const itemsService = new ItemsService();
-            const resultItem = await itemsService.addItem(req.params.idAlbum, req.body);
+            const resultItem = await itemsService.addItem(req.params.idAlbum, objectForDB);
             res.status(200).json(resultItem);
         }
         catch (ex) {

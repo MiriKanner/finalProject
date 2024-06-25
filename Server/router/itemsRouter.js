@@ -8,7 +8,7 @@ const itmesController = new ItemsController();
 
 //itemsRouter.get('/:idAlbum', itmesController.getAlbumsItems);
 itemsRouter.get('/itemoptions', itmesController.getItemOptions);//getting options for adding to album
-itemsRouter.post('/:idAlbum', itmesController.addItem);
+itemsRouter.post('/:idAlbum', upload, itmesController.addItem);
 itemsRouter.get('/:idAlbum', itmesController.getMyItems)
 /*itemsRouter.post('/:idAlbum', upload.single('file'), (req, res) => {
     // Handle the uploaded file

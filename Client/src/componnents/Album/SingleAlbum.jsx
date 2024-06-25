@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {getReq} from "../../serverquests";
+import { getReq } from "../../serverquests";
 
 import AddItemToAlbum from "./AddItemToAlbum";
 
@@ -18,6 +18,7 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
+          console.log(responseJson)
         })
         .catch((err) => { });
     }
@@ -26,7 +27,7 @@ function SingleAlbum() {
   return (
     <>
       <h4>{allItems.map((item) => {
-        return <><span>*{item.data }</span> <br /></>
+        return <>{item.idtype == 1 ? <img src={item.data } /> : <span>*{item.data}</span>} <br /></>
       })}</h4>
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!
