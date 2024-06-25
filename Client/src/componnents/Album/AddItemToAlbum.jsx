@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import {postReq,getReq} from "../../serverquests";
-import { Form } from "react-hook-form";
+import { postReq, getReq, postMediaReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import Select from 'react-select'
@@ -9,10 +8,8 @@ import { UserContext } from "../../App";
 function AddItemToAlbum(props) {
     const user = useContext(UserContext).user;
     let { albumId } = useParams();
-
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState([])
-    //const options = []
     const [selectOption, setSelectOption] = useState(null)
     useEffect(() => {
         if (options.length < 1) {
@@ -27,6 +24,7 @@ function AddItemToAlbum(props) {
             })
         }
     }, [])
+
     const onSubmit = (data) => {
         console.log(selectOption.value == 1 ? file : data.name + "erd")
         const req = {
@@ -46,6 +44,22 @@ function AddItemToAlbum(props) {
                 // }
             });
     };
+    const onSubmitPhoto = (data) => {
+        const dataForm = new FormData();
+        dataForm.append('idtype', selectOption.value)
+        dataForm.append('creationdate', new Date().toISOString().split('T')[0])
+        dataForm.append('image', data.image[0])
+        const req = {
+            method: "POST",
+            route: `items/${albumId}`,
+            body: dataForm
+        }
+        postMediaReq(req).then((response) => response.json())
+            .then((responseJson) => {
+                props.setDisplayAddItem(false)
+            });
+    };
+
     useEffect(() => { console.log(selectOption) }, [selectOption])
     const [file, setFile] = useState();
 
@@ -100,52 +114,47 @@ function AddItemToAlbum(props) {
     }
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-group">
+                <label htmlFor="option">What are we adding to the album?</label>
+                <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
+            </div>
+
+            {selectOption?.label == 'story' && <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
-                    <label htmlFor="option">What are we adding to the album?</label>
-                    <Select id='option' options={options} onChange={(choise) => setSelectOption(choise)} />
-                </div>
-                {selectOption?.label == 'story' && <div className="form-group">
                     <label htmlFor="name">Enter text</label>
-                    <input
-                        type="text"
+                    <input type="text"
                         className="form-control"
                         id="name"
                         //aria-describedby="emailHelp"
                         placeholder="Enter Story"
-                        {...register("name")}
-                    />
+                        {...register("name")} />
                     <small id="emailHelp" class="form-text text-muted">
                         example: story, joke.
                     </small>
-                </div>}
-                <div className="form-group">
-                    <label htmlFor="name">Select Album's Image</label>
-                    {/* <input onInput={(event) => { console.log(event.target.files); setfile((event.target.files[0])) }}
-                        accept="image/*"
-                        type="file"
-                        className="form-control"
-                        id="image"
-                        //aria-describedby="emailHelp"
-                        placeholder="Select image"
-                        enctype="multipart/form-data"
-                        {...register("name")}
-                    /> */}
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="image"
-                        accept="image/*"
-                        onChange={onFileUpload}
-                    />
-                    <img src={file} />
                 </div>
-
-
                 <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
-            </form>
+            </form>}
+
+            {selectOption?.label == 'image' && <form onSubmit={handleSubmit(onSubmitPhoto)} encType="multipart/form-data">
+                <div className="form-group">
+                    <label htmlFor="name">Select Image</label>
+                    <input type="file"
+                        className="form-control"
+                        id="image"
+                        accept="image/*"
+                        // onChange={onFileUpload}
+                        placeholder="Select image"
+                        {...register("image")} />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                    Submit
+                </button>
+            </form>}
+
+
+
         </>
     )
 

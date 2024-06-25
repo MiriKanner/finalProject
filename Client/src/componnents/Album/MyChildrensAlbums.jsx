@@ -31,8 +31,9 @@ function MyChildrensAlbums() {
         .then((responseJson) => {
           setOriginalAlbums(responseJson);
           setalbums(responseJson);
+          console.log(responseJson)
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   }, [displayAddMyChildrenalbums]);
   function sortalbums(event) {
@@ -174,8 +175,7 @@ function MyChildrensAlbums() {
                   width="100%"
                   alt={item.name}
                   className="w-full object-cover h-[140px]"
-                  //src={item.img}
-                  src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg" //auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src={item.albumPhoto || "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"} //auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 />
               </CardBody>
               <CardFooter className="text-small justify-between">

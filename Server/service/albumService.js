@@ -11,11 +11,11 @@ export class AlbumService {
         if (result.length == 0) throw new Error
         return result;
     }
-    async addChildAlbum(username, reqBody) {
+    async addChildAlbum(username, reqBody, imgSrc) {
         const addAlbumToChild = addChildAlbumQuery();
         const w = getParentChildRelationIdQuery()
         const relationId = await executeQuery(w, [username, reqBody.childUserName]);
-        const result = await executeQuery(addAlbumToChild, [reqBody.name, relationId[0].relationId, reqBody.creationdate]);
+        const result = await executeQuery(addAlbumToChild, [reqBody.name, relationId[0].relationId, reqBody.creationdate, imgSrc]);
         return result;
     }
     // async addUserAndalbum(userAndalbumItem) {

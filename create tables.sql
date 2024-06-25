@@ -126,6 +126,8 @@ INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('story');
 
 
 
+ALTER TABLE `albumdb`.`album` 
+ADD COLUMN `albumPhoto` LONGTEXT NULL AFTER `isactive`;
 
 
 

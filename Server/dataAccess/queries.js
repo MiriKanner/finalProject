@@ -14,7 +14,7 @@ export function addQuery(tableName, itemKeys) {
     return query
 }*/
 export function getMyChildrenAlbumQuery() {
-    return `SELECT DISTINCT userChild.username as childName,album.id as albumId, album.name 
+    return `SELECT DISTINCT userChild.username as childName,album.id as albumId, album.name, album.albumPhoto
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent,albumdb.album
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 and album.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
@@ -33,7 +33,7 @@ export function getMyChildrenQuery() {
 }
 
 export function addChildAlbumQuery() {
-    return `INSERT INTO album ( name, childandparentid, creationdate) VALUES ( ?, ?, ?);`
+    return `INSERT INTO album ( name, childandparentid, creationdate, albumPhoto) VALUES ( ?, ?, ?, ?);`
 }
 
 export function getParentChildRelationIdQuery() {

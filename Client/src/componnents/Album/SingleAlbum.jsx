@@ -26,7 +26,6 @@ function SingleAlbum() {
   return (
     <>
       <h4>{allItems.map((item) => {
-        // switch(item.)
         return <><span>*{item.data }</span> <br /></>
       })}</h4>
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>

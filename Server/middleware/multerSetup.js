@@ -1,17 +1,12 @@
 import multer from "multer";
 
-
 const storage = multer.diskStorage({
-    destination: function (req, file, next) {
-        next(null, 'uploads/');
+    destination: (req, file, next) => {
+        next(null, './uploads')
     },
-    filename: function (req, file, next) {
-        next(null, file.originalname);
+    filename: (req, file, next) => {
+        next(null, Date.now() + '-' + file.originalname)
     }
-});
-
-const upload = multer({ storage: storage });
+})
+const upload = multer({ storage: storage }).single('image')
 export default upload
-// app.post('/upload', upload.single('file'), (req, res) => {
-//     res.json({ message: 'File uploaded successfully' });
-// });

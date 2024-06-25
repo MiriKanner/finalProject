@@ -1,17 +1,7 @@
 import express from "express";
 import { AlbumController } from "../controllers/albumController.js";
-import multer from "multer";
 const albumRouter = express.Router();
-
-const storage = multer.diskStorage({
-    destination: (req, file, next) => {
-        next(null, './uploads')
-    },
-    filename: (req, file, next) => {
-        next(null, Date.now() + '-' + file.originalname)
-    }
-})
-const upload = multer({ storage: storage }).single('image')
+import upload from "../middleware/multerSetup.js";
 
 const albumController = new AlbumController()
 // albumRouter.post("/", albumController.verifyUseralbum);

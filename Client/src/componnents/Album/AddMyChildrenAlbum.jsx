@@ -39,7 +39,7 @@ function AddMyChildrenAlbum(props) {
         const formDataObject = {};
         dataForm.forEach((value, key) => {
             formDataObject[key] = value;
-          });
+        });
 
         let v = newAlbum.validate(formDataObject)
         if (v.error) {
@@ -71,14 +71,12 @@ function AddMyChildrenAlbum(props) {
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                 <div className="form-group">
                     <label htmlFor="name">Enter Name</label>
-                    <input
-                        type="text"
+                    <input type="text"
                         className="form-control"
                         id="name"
                         //aria-describedby="emailHelp"
                         placeholder="Enter Name of Album"
-                        {...register("name")}
-                    />
+                        {...register("name")} />
                     <small id="emailHelp" class="form-text text-muted">
                         By example: My Birth, First Birthday.
                     </small>
