@@ -12,6 +12,7 @@ export class AuthService {
         const authQuery = getPasswordQuery();
         const password = SHA256(authItem.password).toString(enc.Hex);
         const result = await executeQuery(authQuery, [authItem.username, password]);
+
         console.log(result)
         if (result.length == 0) throw new Error
         const token = jwt.sign({ id: authItem.username }, "privateKey", { expiresIn: '20m' });
@@ -45,7 +46,7 @@ export class AuthService {
                 userResult: userResult
             }
             console.log(result)
-            return { 'token': token, 'refreshtoken': refreshtoken };
+            return { 'token': token, 'refreshtoken': refreshtoken,result:result };
         } catch (ex) {
             console.log("my error \n" + ex)
         }

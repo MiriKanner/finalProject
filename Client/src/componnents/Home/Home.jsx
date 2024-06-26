@@ -3,11 +3,11 @@ import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 // import Info from "../components/Info";
 import { useContext } from "react";
 import { UserContext } from "../../App.jsx";
-import '../../mycss.css'
-import Cookies from 'js-cookie'
+import "../../mycss.css";
+import Cookies from "js-cookie";
 function Home() {
-  const [displaySideBar, setDisplaySideBar] = useState(false)
-  const [isShowInfo, setIsShowInfo] = useState(false)
+  const [displaySideBar, setDisplaySideBar] = useState(false);
+  const [isShowInfo, setIsShowInfo] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   let user = useContext(UserContext).user;
@@ -15,17 +15,15 @@ function Home() {
     if (user.username != params.username) navigate("/login");
   });
   function logOut() {
-    const cookies = Object.keys(Cookies.get())
-    cookies.forEach(cookie=>{
-      Cookies.remove(cookie)
-    })
+    const cookies = Object.keys(Cookies.get());
+    cookies.forEach((cookie) => {
+      Cookies.remove(cookie);
+    });
     //localStorage.removeItem("currentUser");
     navigate("/login");
   }
 
-
-
-  let drawerClass = []
+  let drawerClass = [];
   if (displaySideBar) {
     drawerClass.push("drawerOpen");
     //mainClass.push("mainMin")
@@ -34,27 +32,53 @@ function Home() {
     //  mainClass.push("mainOpen");
   }
 
-
   return (
-
     <>
-      <nav> <i className="material-icons" onClick={() => { setDisplaySideBar(prev => !prev) }}>menu</i> <h3> Hello {user.username}</h3> </nav>
-      <aside className={drawerClass.join(" ")} >
+      <nav>
+        {" "}
+        <i
+          className="material-icons"
+          onClick={() => {
+            setDisplaySideBar((prev) => !prev);
+          }}
+        >
+          menu
+        </i>{" "}
+        <h3> Hello {user.username}</h3>{" "}
+      </nav>
+      <aside className={drawerClass.join(" ")}>
         <ul>
-          <Link to={"/" + user.username + "/mychildren'salbums"}><li><i className="material-icons">dashboard</i><span>My Children's Album</span></li></Link>
-          <Link to={"/" + user.username + "/mychildren"}> <li><i className="material-icons">people</i><span>My Children</span></li></Link>
-          <li><i className="material-icons">show_chart</i><span>Sales</span></li>
-          <li><i className="material-icons">table_chart</i><span>Others</span></li>
+          <image src="../../../images/צילום מסך 2024-06-26 012458.png" />
+          <Link to={"/" + user.username + "/mychildren'salbums"}>
+            <li>
+              <i className="material-icons">dashboard</i>
+              <span>My Children's Album</span>
+            </li>
+          </Link>
+          <Link to={"/" + user.username + "/mychildren"}>
+            {" "}
+            <li>
+              <i className="material-icons">people</i>
+              <span>My Children</span>
+            </li>
+          </Link>
+          <li>
+            <i className="material-icons">show_chart</i>
+            <span>Sales</span>
+          </li>
+          <li>
+            <i className="material-icons">table_chart</i>
+            <span>Others</span>
+          </li>
         </ul>
       </aside>
       <Outlet />
     </>
 
-
     //   <>
-    //    <button className="btn-open" onClick={()=>setDisplaySideBar(!displaySideBar)}>{()=>{if(displaySideBar)return "☰ Open Sidebar"; 
+    //    <button className="btn-open" onClick={()=>setDisplaySideBar(!displaySideBar)}>{()=>{if(displaySideBar)return "☰ Open Sidebar";
     //    else return "Close Menu"}}
-    //    </button>  
+    //    </button>
 
     //  {displaySideBar&&
     //  <div className="d-flex flex-column flex-shrink-0 p-3 bg-light" style={{width: "280px"}}>
@@ -108,7 +132,6 @@ function Home() {
     //       <li><Link className="dropdown-item" to="#">Sign out</Link></li>
     //     </ul>
     //   </div>
-
 
     //     {/* <header>Hello {user.username}</header> */}
     //   </div>}

@@ -1,12 +1,18 @@
 body {
     margin: 0;
     padding: 0;
-    /* background-color: #f2f2f2; */
+    background-color: #A1C3D1;
     font-family: sans-serif;
 }
+
+body button {
+    background-color: #B39BC8;
+    color: #F0EBF4;
+}
+
 nav {
     top: 0;
-    background-color: #f88dcb;
+    background-color: #F172A1;
     position: absolute;
     right: 0;
     left: 0;
@@ -14,19 +20,24 @@ nav {
     display: flex;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
+
 nav i {
     margin: auto 0 auto 10px;
     padding: 15px;
     transition: transform 1s;
+    color: black
 }
+
 nav i:hover {
-    background-color: #da70bf;
+    background-color: #F172A1;
     border-radius: 26px;
     transform: rotate(360deg);
 }
+
 nav h3 {
     margin: auto;
 }
+
 aside {
     overflow-x: hidden;
     width: 0;
@@ -34,36 +45,50 @@ aside {
     top: 80px;
     left: 0;
     bottom: 0;
-    background-color: #2d2d2d;
+    background-color: #F0EBF4;
+    opacity: 0.5;
     transition: width 0.5s ease-in-out;
+    color: #AD2E95
 }
+
 aside ul {
     list-style: none;
     padding: 0;
 }
+
 aside ul li {
     display: flex;
     align-items: center;
-    color: #d3d3d3;
+    color: #F0EBF4;
     padding: 12px 0 12px 22px;
     font-weight: 400;
     transition: transform 1s;
     cursor: pointer;
+    color: black;
 }
+
 aside ul li i {
     margin-right: 1em;
+    color: black;
 }
+
 aside ul li:hover {
-    transform: translateX(5px);
-    color: #0288d1 !important;
-    border-left: 5px solid #0288d1;
+    /* transform: translateX(5px); */
+    transition: transform 0.1s ease;
+    /* Faster transition */
+
+    /* color: #0288d1 !important; */
+    /* border-left: 5px solid #0288d1; */
 }
+
 .drawerMin {
     width: 70px;
 }
+
 .drawerOpen {
     width: 240px;
 }
+
 main {
     position: absolute;
     top: 80px;
@@ -73,9 +98,11 @@ main {
     overflow-y: auto;
     transition: margin-left 0.5s ease-in-out;
 }
+
 .mainMin {
     margin-left: 70px;
 }
+
 .mainOpen {
     margin-left: 240px;
 }

@@ -5,8 +5,8 @@ import { Link, json, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { userLoginSchema } from "../../clientValidations";
 import Recaptcha from "react-recaptcha";
-import ReCAPTCHA from "react-google-recaptcha"
-import Cookies from 'js-cookie'
+import ReCAPTCHA from "react-google-recaptcha";
+import Cookies from "js-cookie";
 
 // function getCookie(tabs) {
 //   let getting = browser.cookies.get({
@@ -17,8 +17,8 @@ import Cookies from 'js-cookie'
 // }
 
 function Login() {
-  const captchaRef = useRef(null)
-
+  const captchaRef = useRef(null);
+  const site_key = "6LdZZAEqAAAAAHMNpZN8FEN0ECFC4jJlhTpW1iBD";
   const navigate = useNavigate();
   const user = useContext(UserContext);
   const [messageText, setMessageText] = useState("");
@@ -44,11 +44,14 @@ function Login() {
       })
       .then((responseJson) => {
         if (responseJson.length != 0) {
-          Cookies.set('currentUser', JSON.stringify({
-            username: responseJson[0].username,
-            email: responseJson[0].email,
-            token: responseJson[0].token,
-          }))
+          Cookies.set(
+            "currentUser",
+            JSON.stringify({
+              username: responseJson[0].username,
+              email: responseJson[0].email,
+              token: responseJson[0].token,
+            })
+          );
           // localStorage.setItem(
           //   "currentUser",
           //   JSON.stringify({
@@ -112,7 +115,7 @@ function Login() {
     // verifyCallback={()=>verifyCallback}
   /> */}
       {/* <reCAPTCHA sitekey='6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS' /> */}
-      <ReCAPTCHA sitekey="6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS" theme='dark' size='500' ref={captchaRef}/>
+      <ReCAPTCHA sitekey={site_key} />
       {/* <script src="https://www.google.com/recaptcha/enterprise.js?render=6Leigv0pAAAAAEmy8gP5AjC5ePpxa4CdHAWlUAk7"></script> */}
       <Link to="/signup">don't have acount? please sign up</Link>
     </>

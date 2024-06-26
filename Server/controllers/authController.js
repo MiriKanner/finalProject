@@ -36,12 +36,12 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.verifyUserAuth(req.body);
-      res
+      console.log(resultItem.result)
+      res.json(resultItem.result)
         .status(200)
         .cookie("token", resultItem.token, {
           expires: new Date(Date.now() + 900000) /*, httpOnly: true*/,
-        })
-        .json(resultItem.result);
+        });
     } catch (ex) {
       console.log("Authication error");
       const err = {};

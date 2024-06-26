@@ -1,55 +1,67 @@
 import React, { useRef, useState } from "react";
-import { postReq } from '../../serverquests'
+import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
-import PasswordStrengthBar from 'react-password-strength-bar';
-import Cookies from 'js-cookie'
-import { userSignupSchema } from '../../clientValidations'
+import PasswordStrengthBar from "react-password-strength-bar";
+import Cookies from "js-cookie";
+import { userSignupSchema } from "../../clientValidations";
 
 function SignUp() {
-  const navigate = useNavigate()
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
   const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
-  const [messageText, setMessageText] = useState("")
+  const [messageText, setMessageText] = useState("");
   const onSubmit = (data) => {
-    let user = { username: data.username, password: data.password, nickname: data.nickname, birthday: data.birthday, email: data.email };
-    let v = userSignupSchema.validate(user)// ValidateForm('userSchema', user)
-    console.log(v)
+    let user = {
+      username: data.username,
+      password: data.password,
+      nickname: data.nickname,
+      birthday: data.birthday,
+      email: data.email,
+    };
+    let v = userSignupSchema.validate(user); // ValidateForm('userSchema', user)
+    console.log(v);
     if (v.error) {
-      setMessageText(v.error.details[0])
-      return
+      setMessageText(v.error.details[0]);
+      return;
     }
 
-    const req = { method: "POST", route: 'auth/signUp', body: user };
+    const req = { method: "POST", route: "auth/signUp", body: user };
     postReq(req)
+      .then((res) => res.json())
       .then((responseJson) => {
-        // if (responseJson.length != 0) 
+        // if (responseJson.length != 0)
         {
+          console.log(responseJson);
           const userLocal = {
             username: data.username,
             email: data.email,
-          }
+            id: responseJson.userResult.insertId,
+          };
+          Cookies.set(
+            "currentUser",
+            JSON.stringify({
+              userLocal,
+              //token: responseJson[0].token
+            })
+          );
 
-          Cookies.set('currentUser', JSON.stringify({
-            userLocal
-            //token: responseJson[0].token
-          })
-          )
-
-          // localStorage.setItem(
-          //   "currentUser",
-          //   JSON.stringify({
-          //     userLocal
-          //     //token: responseJson[0].token
-          //   })
-          // );
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({
+              userLocal,
+            })
+          );
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
-      }).catch((er) => { console.log(er) });
+      })
+      .catch((er) => {
+        console.log(er);
+      });
   };
 
   return (
@@ -65,7 +77,6 @@ function SignUp() {
             placeholder="Enter User Name"
             {...register("username")}
           />
-
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -80,8 +91,12 @@ function SignUp() {
             }}
             {...register("password")}
           />
-          <PasswordStrengthBar password={password} onChangeScore={(score, feedback) => { console.log(score, feedback) }} />
-
+          <PasswordStrengthBar
+            password={password}
+            onChangeScore={(score, feedback) => {
+              console.log(score, feedback);
+            }}
+          />
         </div>
 
         <div className="form-group">
@@ -118,7 +133,7 @@ function SignUp() {
           />
         </div>
         <div> {messageText.message}</div>
-        <button type="submit" className="btn btn-primary" >
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
