@@ -13,6 +13,7 @@ function AddItemToAlbum(props) {
   const { register, handleSubmit } = useForm();
   const [options, setOptions] = useState([]);
   const [selectOption, setSelectOption] = useState(null);
+
   useEffect(() => {
     if (options.length < 1) {
       const req = {
@@ -80,76 +81,24 @@ function AddItemToAlbum(props) {
   }, [selectOption]);
   const [file, setFile] = useState();
 
-  const onFileUpload = (event) => {
-    const selectedFile = event.target.files[0];
-    if (!selectedFile) console.log("not selectedFile");
-    setFile(selectedFile);
-    console.log(selectedFile);
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    console.log(formData);
-
-    const req = {
-      method: "POST",
-      route: `items/uploads`,
-      body: formData,
-    };
-    postRequ(req)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  async function postRequ(req) {
-    let answer;
-    await fetch(`http://localhost:8080/${req.route}`, {
-      method: req.method,
-      body: req.body,
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((response) => {
-        if (response.ok) return response;
-        else throw new Error();
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
-      })
-      .then((data) => {
-        answer = data;
-        //     console.log(data)
-      });
-    return answer;
-  }
   return (
     <>
       <div className="form-group">
         <label htmlFor="option">What are we adding to the album?</label>
-        <Select
-          id="option"
+        <Select id="option"
           options={options}
-          onChange={(choise) => setSelectOption(choise)}
-        />
+          onChange={(choise) => setSelectOption(choise)} />
       </div>
 
       {selectOption?.label == "story" && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="name">Enter text</label>
-            <input
-              type="text"
+            <input type="text"
               className="form-control"
               id="name"
-              //aria-describedby="emailHelp"
               placeholder="Enter Story"
-              {...register("name")}
-            />
+              {...register("name")} />
             <small id="emailHelp" class="form-text text-muted">
               example: story, joke.
             </small>
@@ -167,15 +116,12 @@ function AddItemToAlbum(props) {
         >
           <div className="form-group">
             <label htmlFor="name">Select Image</label>
-            <input
-              type="file"
+            <input type="file"
               className="form-control"
               id="image"
               accept="image/*"
-              // onChange={onFileUpload}
               placeholder="Select image"
-              {...register("image")}
-            />
+              {...register("image")} />
           </div>
           <button type="submit" className="btn btn-primary">
             Submit
