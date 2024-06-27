@@ -61,22 +61,22 @@ export class AuthController {
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
 
-      const transporter = NodeMailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "joyfuljourneyscapturethejoy@gmail.com",
-          pass: "Capture the Joy, Treasure the Journey",
-        },
-      });
+      // const transporter = NodeMailer.createTransport({
+      //   service: "gmail",
+      //   auth: {
+      //     user: "joyfuljourneyscapturethejoy@gmail.com",
+      //     pass: "Capture the Joy, Treasure the Journey",
+      //   },
+      // });
 
-      const mailOptions = {
-        from: "joyfuljourneyscapturethejoy@gmail.com",
-        to: req.body.email,
-        subject: "You are Sigh Up To Joyful Journeys!!",
-        text:
-          "Hello" + req.body.username + "We wait to see you create your albums",
-      };
-      console.log("suceesed");
+      // const mailOptions = {
+      //   from: "joyfuljourneyscapturethejoy@gmail.com",
+      //   to: req.body.email,
+      //   subject: "You are Sigh Up To Joyful Journeys!!",
+      //   text:
+      //     "Hello" + req.body.username + "We wait to see you create your albums",
+      // };
+      // console.log("suceesed");
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
@@ -108,29 +108,29 @@ export class AuthController {
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);
 
-      // const transporter = NodeMailer.createTransport({
-      //   service: "gmail",
-      //   auth: {
-      //     user: "joyfuljourneyscapturethejoy@gmail.com",
-      //     pass: "Capture the Joy, Treasure the Journey",
-      //   },
-      // });
+      const transporter = NodeMailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "joyfuljourneyscapturethejoy@gmail.com",
+          pass: "Capture the Joy, Treasure the Journey",
+        },
+      });
 
-      // const mailOptions = {
-      //   from: "joyfuljourneyscapturethejoy@gmail.com",
-      //   to: req.body.email,
-      //   subject: "You are Sigh Up To Joyful Journeys!!",
-      //   text:
-      //     "Hello" + req.body.username + "We wait to see you create your albums",
-      // };
-      // console.log("suceesed");
-      // transporter.sendMail(mailOptions, function (error, info) {
-      //   if (error) {
-      //     console.log(error);
-      //   } else {
-      //     console.log("Email sent: " + info.response);
-      //   }
-      // });
+      const mailOptions = {
+        from: "joyfuljourneyscapturethejoy@gmail.com",
+        to: req.body.email,
+        subject: "You are Sigh Up To Joyful Journeys!!",
+        text:
+          "Hello" + req.body.username + "We wait to see you create your albums",
+      };
+      console.log("suceesed");
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
       res
         .status(200)
         .cookie("token", resultItem.token, {

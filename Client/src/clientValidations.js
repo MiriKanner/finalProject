@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+import moment from 'moment';
 const userSignupSchema = Joi.object({
   nickname: Joi.string().min(2).required(),
   username: Joi.string().min(5).max(15).required(),
@@ -8,6 +8,11 @@ const userSignupSchema = Joi.object({
   birthday: Joi.date().required()
 });
 
+const childSchema = Joi.object({
+  username: Joi.string().min(5).max(15).required(),
+  usernameParent:Joi.string().min(5).max(15).required(),
+  birthday:Joi.date().max(moment().subtract(18, 'years').toDate()).required()
+});
 const userLoginSchema = Joi.object({
   username: Joi.string().min(5).max(15).required(),
   password: Joi.string().min(4).max(20).required(),
@@ -54,4 +59,4 @@ validateForm = () => {
   alert(error);
 };*/
 
-export { userSignupSchema, userLoginSchema, newAlbum ,newChild,childSignupSchema}
+export { userSignupSchema, userLoginSchema, newAlbum ,newChild,childSignupSchema,childSchema}

@@ -1,7 +1,7 @@
 export function getPasswordQuery() {
-    const query = `select users.username,nickname,users.id,email from albumdb.users,albumdb.auth
+  const query = `select users.username,nickname,users.id,email from albumdb.users,albumdb.auth
     where users.username = auth.username and users.isActive = 1 and auth.username = ? and auth.password=?;`;
-    return query
+  return query;
 }
 /*
 export function addQuery(tableName, itemKeys) {
@@ -14,18 +14,26 @@ export function addQuery(tableName, itemKeys) {
     return query
 }*/
 export function getMyChildrenAlbumQuery() {
-    return `SELECT DISTINCT userChild.username as childName,album.id as albumId, album.name, album.albumPhoto
+  return `SELECT DISTINCT userChild.username as childName,album.id as albumId, album.name, album.albumPhoto
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent,albumdb.album
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 and album.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
     and childandparent.idchild=userChild.id and album.childandparentid=childandparent.id`;
 }
-export function getMyItmesQuery(){
-    return `SELECT * FROM albumdb.itemsofalbum
-    where idalbum=?;`
+export function getMyItmesQuery() {
+  return `SELECT * FROM albumdb.itemsofalbum
+    where idalbum=?;`;
+}
+export function isChildQuery() {
+  `select childUser.id,childUser.username from albumdb.users as childUser, albumdb.users as parentUser,albumdb.childandparent 
+    where 
+   childUser.username=? and parentUser.username=? 
+    and 
+    childUser.birthday=? and
+    childUser.id=childandparent.idchild and parentUser.id=childandparent.idparent;`;
 }
 export function getMyChildrenQuery() {
-    return `SELECT DISTINCT userChild.username as childName, userChild.nickname
+  return `SELECT DISTINCT userChild.username as childName, userChild.nickname
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
@@ -33,43 +41,38 @@ export function getMyChildrenQuery() {
 }
 
 export function addChildAlbumQuery() {
-    return `INSERT INTO album ( name, childandparentid, creationdate, albumPhoto) VALUES ( ?, ?, ?, ?);`
+  return `INSERT INTO album ( name, childandparentid, creationdate, albumPhoto) VALUES ( ?, ?, ?, ?);`;
 }
-export function addAuthQuery()
-{
-    return `INSERT INTO albumdb.auth (username, password) VALUES (?, ?);`
+export function addAuthQuery() {
+  return `INSERT INTO albumdb.auth (username, password) VALUES (?, ?);`;
 }
-export function getUserId()
-{
-    return `select id from albumdb.users where  username=?`
+export function getUserId() {
+  return `select id from albumdb.users where  username=?`;
 }
-export function updateEmailUserQuery()
-{
-    return `UPDATE albumdb.users SET email = ? WHERE (username = ?)`;
+export function updateEmailUserQuery() {
+  return `UPDATE albumdb.users SET email = ? WHERE (username = ?)`;
 }
 export function getParentChildRelationIdQuery() {
-    return `SELECT DISTINCT childandparent.id as relationId 
+  return `SELECT DISTINCT childandparent.id as relationId 
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent
     where userChild.isActive=1 and userParent.isActive=1 and childandparent.isActive=1 
     and  userParent.username=? and childandparent.idparent=userParent.id 
-    and userChild.username=? and childandparent.idchild=userChild.id;`
+    and userChild.username=? and childandparent.idchild=userChild.id;`;
 }
 export function addUserQuery() {
-    return `INSERT INTO albumdb.users (username, nickname, email, birthday,isactive) VALUES (?, ?, ?, ?, 1);`
+  return `INSERT INTO albumdb.users (username, nickname, email, birthday,isactive) VALUES (?, ?, ?, ?, 1);`;
 }
 
 export function addItemToAlbumQuery() {
-    return `INSERT INTO albumdb.itemsofalbum (creationdate, idalbum, idtype, data) VALUES (?, ?, ?, ?);`
+  return `INSERT INTO albumdb.itemsofalbum (creationdate, idalbum, idtype, data) VALUES (?, ?, ?, ?);`;
 }
 export function getItemTypesQuery() {
-    return `SELECT id as "optionLabel",description as "option" FROM datatype;`
+  return `SELECT id as "optionLabel",description as "option" FROM datatype;`;
 }
-export function addChildAsUser()
-{
-    return `INSERT INTO albumdb.users (username, nickname, email, isactive, birthday) VALUES (?, ?, 'empty@gmail.com', '1', ?);`
+export function addChildAsUser() {
+  return `INSERT INTO albumdb.users (username, nickname, email, isactive, birthday) VALUES (?, ?, 'empty@gmail.com', '1', ?);`;
 }
-export function addChildToParent()
-{
-    return `INSERT INTO albumdb.childandparent (idparent, idchild) VALUES (?, ?);
-`
+export function addChildToParent() {
+  return `INSERT INTO albumdb.childandparent (idparent, idchild) VALUES (?, ?);
+`;
 }

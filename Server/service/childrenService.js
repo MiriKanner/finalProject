@@ -1,5 +1,5 @@
 import { executeQuery } from '../dataAccess/db.js';
-import {getMyChildrenQuery,addChildAsUser,addChildToParent} from '../dataAccess/queries.js'
+import {getMyChildrenQuery,addChildAsUser,addChildToParent,isChildQuery} from '../dataAccess/queries.js'
 
 export class ChildrenService {
 
@@ -9,6 +9,14 @@ export class ChildrenService {
         if (result.length == 0) throw new Error
         return result;
     }
+    async vertifyIsChild(childItem)
+    {
+        const ischildQuery = isChildQuery();
+        const result = await executeQuery(ischildQuery, [childItem.username,childItem.usernameParent,childItem.birthday]);
+        if (result.length == 0) throw new Error//there is no child with this details
+        return result;
+    }
+
     async addChildToParent(childItem)
     {
         const addChildAsUserQ = addChildAsUser();
