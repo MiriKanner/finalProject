@@ -39,22 +39,15 @@ function SignUp() {
           const userLocal = {
             username: data.username,
             email: data.email,
-            id: responseJson.userResult.insertId,
+            id: responseJson.result.userResult.insertId,
           };
-          Cookies.set(
-            "currentUser",
+          Cookies.set("currentUser",
             JSON.stringify({
-              userLocal,
-              //token: responseJson[0].token
+              username: userLocal.username,
+              email: userLocal.email
             })
           );
-
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              userLocal,
-            })
-          );
+          Cookies.set("token", responseJson.token)
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }

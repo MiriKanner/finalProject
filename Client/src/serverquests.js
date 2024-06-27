@@ -1,8 +1,12 @@
+import Cookies from "js-cookie";
+
 export async function getReq(req) {
     let answer;
+    const token = Cookies.get('token');
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'GET',
         headers: {
+            authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
         },
     }).then(response => {
