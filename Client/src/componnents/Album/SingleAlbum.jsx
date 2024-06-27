@@ -27,7 +27,9 @@ function SingleAlbum() {
   return (
     <>
       <h4>{allItems.map((item) => {
-        return <>{item.idtype == 1 ? <img src={item.data } /> : <span>*{item.data}</span>} <br /></>
+        return <>{item.idtype == 1 ? <img src={item.data} />
+          : item.idtype == 3 ? <video controls><source src={item.data} /></video> :
+            <span>{item.data}</span>} <br /></>
       })}</h4>
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!

@@ -48,8 +48,7 @@ function SignUpChild() {
     }
 
     const req = { method: "POST", route: "auth/signUpChild", body: user };
-    postReq(req)
-      .then((response) => response.json())
+    postReq(req).then((response)=>response.json())
       .then((responseJson) => {
         // if (responseJson.length != 0)
         {
@@ -57,7 +56,7 @@ function SignUpChild() {
           const userLocal = {
             username: data.username,
             email: data.email,
-            id: responseJson.updateResult.id.id,
+            id: responseJson.result.updateResult.id.id,
           };
           // var nodemailer = require("nodemailer");
 
@@ -83,13 +82,11 @@ function SignUpChild() {
           //     console.log("Email sent: " + info.response);
           //   }
           // });
-          Cookies.set(
-            "currentUser",
-            JSON.stringify({
-              userLocal,
-              //token: responseJson[0].token
-            })
-          );
+          Cookies.set('currentUser', JSON.stringify({
+            userLocal
+            //token: responseJson[0].token
+          })   
+        )
           //   localStorage.setItem(
           //   "currentUser",
           //   JSON.stringify({

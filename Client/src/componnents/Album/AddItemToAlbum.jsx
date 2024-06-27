@@ -110,10 +110,8 @@ function AddItemToAlbum(props) {
       )}
 
       {selectOption?.label == "image" && (
-        <form
-          onSubmit={handleSubmit(onSubmitPhoto)}
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleSubmit(onSubmitPhoto)}
+          encType="multipart/form-data">
           <div className="form-group">
             <label htmlFor="name">Select Image</label>
             <input type="file"
@@ -128,38 +126,33 @@ function AddItemToAlbum(props) {
           </button>
         </form>
       )}
+
       {selectOption?.label == "icon" && (
-        <form
-          onSubmit={handleSubmit(onSubmitPhoto)}
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleSubmit(onSubmiא)}
+          encType="multipart/form-data">
           {/* <FaBeer />
             <MdIcons /> */}
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          {selectOption?.label == "video" && (
-            <form
-              onSubmit={handleSubmit(onSubmitPhoto)}
-              encType="multipart/form-data"
-            >
-              <div className="form-group">
-                <label htmlFor="name">Select Image</label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="video"
-                  accept="video/*"
-                  // onChange={onFileUpload}
-                  placeholder="Select image"
-                  {...register("image")}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </form>
-          )}
+        </form>
+      )}
+
+      {selectOption?.label == "video" && (
+        <form onSubmit={handleSubmit(onSubmitPhoto)}
+          encType="multipart/form-data">
+          <div className="form-group">
+            <label htmlFor="name">Select Video</label>
+            <input type="file"
+              className="form-control"
+              id="video"
+              accept="video/*"
+              placeholder="Select video"
+              {...register("image")} />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </form>
       )}
     </>

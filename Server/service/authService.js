@@ -9,7 +9,7 @@ import {
 } from "../dataAccess/queries.js";
 const { SHA256, enc } = pkg;
 import jwt from "jsonwebtoken";
-
+import { signToken, signRefreshtoken } from "../middleware/jwt.js";
 export class AuthService {
   async verifyUserAuth(authItem) {
     const authQuery = getPasswordQuery();
@@ -17,12 +17,8 @@ export class AuthService {
     const result = await executeQuery(authQuery, [authItem.username, password]);
     console.log(result);
     if (result.length == 0) throw new Error();
-    const token = jwt.sign({ id: authItem.username }, "privateKey", {
-      expiresIn: "20m",
-    });
-    const refreshtoken = jwt.sign({ id: authItem.username }, "keyrefresh", {
-      expiresIn: "1d",
-    });
+    const token = signToken(authItem.username)
+    const refreshtoken = signRefreshtoken(authItem.username);
     return { result: result, token: token, refreshtoken: refreshtoken };
     // verified: result[0].password == authItem.password,
     // userData: {
@@ -35,7 +31,7 @@ export class AuthService {
   async addAuth(authItem) {
     try {
       const authQuery = addAuthQuery();
-      const updateQuery=updateEmailUserQuery()
+      const updateQuery = updateEmailUserQuery()
       console.log(authItem);
       // console.log(userQuery+" the params:"+userAndAuthItem.username+" "+ userAndAuthItem.nickname+" "+userAndAuthItem.email+" "+userAndAuthItem.birthday+" "+1)
       //console.log(authQuery+" the params:"+userAndAuthItem.username+ " "+password)
@@ -49,22 +45,16 @@ export class AuthService {
         authItem.email,
         authItem.username
       ]);
-      const getUserIdQ=getUserId()
+      const getUserIdQ = getUserId()
       const userId = await executeQuery(getUserIdQ, [
         authItem.username
       ]);
-      const token = jwt.sign({ id: authItem.username }, "privateKey", {
-        expiresIn: "20m",
-      });
-      const refreshtoken = jwt.sign(
-        { id: authItem.username },
-        "keyrefresh",
-        { expiresIn: "1d" }
-      );
+      const token = signToken(authItem.username)
+      const refreshtoken = signRefreshtoken(authItem.username);
       console.log(userId)
       const result = {
         authResult: authResult,
-        updateResult:{result:updateResult,id:userId[0]}
+        updateResult: { result: updateResult, id: userId[0] }
       };
       console.log(result);
       return { token: token, refreshtoken: refreshtoken, result: result };
@@ -91,14 +81,8 @@ export class AuthService {
         userAndAuthItem.username,
         password,
       ]);
-      const token = jwt.sign({ id: userAndAuthItem.username }, "privateKey", {
-        expiresIn: "20m",
-      });
-      const refreshtoken = jwt.sign(
-        { id: userAndAuthItem.username },
-        "keyrefresh",
-        { expiresIn: "1d" }
-      );
+      const token = signToken(authItem.username)
+      const refreshtoken = signRefreshtoken(authItem.username);
 
       const result = {
         authResult: authResult,
