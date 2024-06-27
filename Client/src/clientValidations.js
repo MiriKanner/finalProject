@@ -25,6 +25,11 @@ const newChild = Joi.object({
   birthday: Joi.date().required(),
   idparent:Joi.number().required()
 })
+const childSignupSchema=  Joi.object({
+  username: Joi.string().min(5).max(15).required(),
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
+  password: Joi.string().min(4).max(20).required(),
+});
 /*export function ValidateForm(schema,user) {
    return userSchema.validate(user)    
 }*/
@@ -49,4 +54,4 @@ validateForm = () => {
   alert(error);
 };*/
 
-export { userSignupSchema, userLoginSchema, newAlbum ,newChild}
+export { userSignupSchema, userLoginSchema, newAlbum ,newChild,childSignupSchema}

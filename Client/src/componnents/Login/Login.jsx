@@ -118,6 +118,8 @@ function Login() {
       <ReCAPTCHA sitekey={site_key} />
       {/* <script src="https://www.google.com/recaptcha/enterprise.js?render=6Leigv0pAAAAAEmy8gP5AjC5ePpxa4CdHAWlUAk7"></script> */}
       <Link to="/signup">don't have acount? please sign up</Link>
+      <br/>
+      <Link to="/signup/child">child of user? please create auth</Link>
     </>
   );
 }

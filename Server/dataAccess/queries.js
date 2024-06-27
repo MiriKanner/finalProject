@@ -35,7 +35,14 @@ export function getMyChildrenQuery() {
 export function addChildAlbumQuery() {
     return `INSERT INTO album ( name, childandparentid, creationdate, albumPhoto) VALUES ( ?, ?, ?, ?);`
 }
-
+export function addAuthQuery()
+{
+    return `INSERT INTO albumdb.auth (username, password) VALUES (?, ?);`
+}
+export function updateEmailUserQuery()
+{
+    return `UPDATE albumdb.users SET email = ? WHERE (username = ?)`;
+}
 export function getParentChildRelationIdQuery() {
     return `SELECT DISTINCT childandparent.id as relationId 
     FROM albumdb.auth,albumdb.users as userParent,albumdb.users as userChild,albumdb.childandparent
@@ -46,9 +53,7 @@ export function getParentChildRelationIdQuery() {
 export function addUserQuery() {
     return `INSERT INTO albumdb.users (username, nickname, email, birthday,isactive) VALUES (?, ?, ?, ?, 1);`
 }
-export function addAuthQuery() {
-    return `INSERT INTO albumdb.auth ( username, password) VALUES (?, ?);`
-}
+
 export function addItemToAlbumQuery() {
     return `INSERT INTO albumdb.itemsofalbum (creationdate, idalbum, idtype, data) VALUES (?, ?, ?, ?);`
 }

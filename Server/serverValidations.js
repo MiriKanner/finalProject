@@ -24,4 +24,9 @@ const newChild=Joi.object({
   birthday: Joi.date().required(),
   idparent:Joi.number().required()
 })
-export { addUserSchema, minUserSchema, newAlbum,newChild }
+const addAuthScema=Joi.object({
+  username: Joi.string().min(5).max(15).required(),
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
+  password: Joi.string().min(4).max(20).required(),
+});
+export { addUserSchema, minUserSchema, newAlbum,newChild,addAuthScema }

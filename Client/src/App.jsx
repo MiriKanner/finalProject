@@ -6,13 +6,15 @@ export const UserContext = createContext(null);
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./componnents/SignUp/SignUp.jsx";
 import Home from "./componnents/Home/Home.jsx";
-import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx"
+import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx";
 import SingleAlbum from "./componnents/Album/SingleAlbum";
 import MyChildren from "./componnents/Children/MyChildren";
 import SingleChild from "./componnents/Children/SingleChild";
-import Cookies from 'js-cookie'
+import SignUpChild from "./componnents/SignUp/SighUpChild.jsx";
+import Cookies from "js-cookie";
 function App() {
-  const [user, setUser] = useState(JSON.parse(Cookies.get("currentUser") || null) 
+  const [user, setUser] = useState(
+    JSON.parse(Cookies.get("currentUser") || null)
     //localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
   );
   function getUserDetails() {
@@ -35,22 +37,25 @@ function App() {
             <Route path="/">
               <Route index element={<Login />} />
               <Route path="login" element={<Login />} />
-              <Route path="signup" element={<SignUp />} />
+              <Route path="signup">
+                <Route index element ={<SignUp/>}/>
+                <Route path="child" element={<SignUpChild/>}/>
+              </Route>
             </Route>
-            {user &&
-              (<Route path=":username" element={<Home />} >
+            {user && (
+              <Route path=":username" element={<Home />}>
                 <Route index element={<Home />}></Route>
                 <Route path="home" element={<Home />} />
-                <Route path="mychildren'salbums" >
+                <Route path="mychildren'salbums">
                   <Route index element={<MyChildrensAlbums />} />
                   <Route path=":albumId" element={<SingleAlbum />} />
                 </Route>
-                <Route path="mychildren" >
+                <Route path="mychildren">
                   <Route index element={<MyChildren />} />
                   <Route path=":childName" element={<SingleChild />} />
                 </Route>
-              </Route>)
-            }
+              </Route>
+            )}
             <Route path="/*" element={<p>not found</p>} />
           </Routes>
         </UserContext.Provider>
