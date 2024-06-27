@@ -27,13 +27,15 @@ function SignUpChild() {
     }
 
     const req = { method: "POST", route: "auth/signUpChild", body: user };
-    postReq(req)
+    postReq(req).then((response)=>response.json())
       .then((responseJson) => {
         // if (responseJson.length != 0)
         {
+          console.log(responseJson);
           const userLocal = {
             username: data.username,
             email: data.email,
+            id: responseJson.updateResult.id.id,
           };
           // var nodemailer = require("nodemailer");
 

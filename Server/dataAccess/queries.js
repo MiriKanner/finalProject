@@ -39,6 +39,10 @@ export function addAuthQuery()
 {
     return `INSERT INTO albumdb.auth (username, password) VALUES (?, ?);`
 }
+export function getUserId()
+{
+    return `select id from albumdb.users where  username=?`
+}
 export function updateEmailUserQuery()
 {
     return `UPDATE albumdb.users SET email = ? WHERE (username = ?)`;

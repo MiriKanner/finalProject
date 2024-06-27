@@ -5,6 +5,7 @@ import {
   addUserQuery,
   addAuthQuery,
   updateEmailUserQuery,
+  getUserId
 } from "../dataAccess/queries.js";
 const { SHA256, enc } = pkg;
 import jwt from "jsonwebtoken";
@@ -12,9 +13,7 @@ import jwt from "jsonwebtoken";
 export class AuthService {
   async verifyUserAuth(authItem) {
     const authQuery = getPasswordQuery();
-    const updateEmailQuery=updateEmailUserQuery()
     const password = SHA256(authItem.password).toString(enc.Hex);
-    const result1 = await executeQuery(updateEmailQuery, [authItem.username, authItem.email]);
     const result = await executeQuery(authQuery, [authItem.username, password]);
     console.log(result);
     if (result.length == 0) throw new Error();
@@ -47,8 +46,12 @@ export class AuthService {
         password,
       ]);
       const updateResult = await executeQuery(updateQuery, [
-        authItem.username,
         authItem.email,
+        authItem.username
+      ]);
+      const getUserIdQ=getUserId()
+      const userId = await executeQuery(getUserIdQ, [
+        authItem.username
       ]);
       const token = jwt.sign({ id: authItem.username }, "privateKey", {
         expiresIn: "20m",
@@ -58,10 +61,10 @@ export class AuthService {
         "keyrefresh",
         { expiresIn: "1d" }
       );
-
+      console.log(userId)
       const result = {
         authResult: authResult,
-        updateResult:updateResult
+        updateResult:{result:updateResult,id:userId[0]}
       };
       console.log(result);
       return { token: token, refreshtoken: refreshtoken, result: result };
