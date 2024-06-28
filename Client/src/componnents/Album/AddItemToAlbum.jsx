@@ -83,7 +83,7 @@ function AddItemToAlbum(props) {
 
   return (
     <>
-      <div className="form-group">
+      <div className="container">
         <label htmlFor="option">What are we adding to the album?</label>
         <Select id="option"
           options={options}
@@ -92,7 +92,7 @@ function AddItemToAlbum(props) {
 
       {selectOption?.label == "story" && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="name">Enter text</label>
             <input type="text"
               className="form-control"
@@ -112,7 +112,7 @@ function AddItemToAlbum(props) {
       {selectOption?.label == "image" && (
         <form onSubmit={handleSubmit(onSubmitPhoto)}
           encType="multipart/form-data">
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="name">Select Image</label>
             <input type="file"
               className="form-control"
@@ -141,7 +141,7 @@ function AddItemToAlbum(props) {
       {selectOption?.label == "video" && (
         <form onSubmit={handleSubmit(onSubmitPhoto)}
           encType="multipart/form-data">
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="name">Select Video</label>
             <input type="file"
               className="form-control"

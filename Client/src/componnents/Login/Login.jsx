@@ -61,7 +61,7 @@ function Login() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="username">Enter UserName</label>
           <input
             type="text"
@@ -75,7 +75,7 @@ function Login() {
           We'll never share your email with anyone else.
         </small> */}
         </div>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="password">Password</label>
           <input
             type="password"

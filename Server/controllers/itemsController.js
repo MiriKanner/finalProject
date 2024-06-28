@@ -35,6 +35,7 @@ export class ItemsController {
         try {
             let objectForDB = {};
             if (req.body.idtype == 1 || req.body.idtype == 3) {
+                console.log(process.env.PORT)
                 for (let [key, value] of Object.entries(req.body)) {
                     objectForDB[key] = value;
                 }

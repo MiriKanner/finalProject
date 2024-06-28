@@ -30,7 +30,7 @@ function AddChild(props) {
 
     return(<>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="username">Enter User Name</label>
                     <input
                         type="text"
@@ -41,7 +41,7 @@ function AddChild(props) {
                     />
                    
                 </div>
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="nickname">Nick Name</label>
                     <input
                         type="text"
@@ -51,7 +51,7 @@ function AddChild(props) {
                         {...register("nickname")}
                     />
                 </div>
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="birthday">Birthday</label>
                     <input 
                         type="date"

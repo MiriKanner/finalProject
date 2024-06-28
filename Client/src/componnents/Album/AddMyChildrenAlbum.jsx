@@ -69,7 +69,7 @@ function AddMyChildrenAlbum(props) {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="name">Enter Name</label>
                     <input type="text"
                         className="form-control"
@@ -81,11 +81,11 @@ function AddMyChildrenAlbum(props) {
                         By example: My Birth, First Birthday.
                     </small>
                 </div>
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="child">To My Child</label>
                     <Select id='child' options={options} onChange={(choise) => setSelectChild(choise)} />
                 </div>
-                <div className="form-group">
+                <div className="container">
                     <label htmlFor="name">Select Album's Image</label>
                     <input //onInput={(event) => console.log(URL.createObjectURL(event.target.files[0]))}
                         accept="image/*"

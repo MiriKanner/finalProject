@@ -6,7 +6,7 @@ const childrenController = new ChildrenController();
 
 childrenRouter.get('/myChildren/:username', childrenController.getMyChildren);
 childrenRouter.post('/', childrenController.addChild);
-childrenRouter.get("/isChild",childrenController.verifyIsChild);
+childrenRouter.get('/isChild',childrenController.verifyIsChild);
 
 
 export {

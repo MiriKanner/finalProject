@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getReq } from "../../serverquests";
+import { format } from 'date-fns';
+import * as React from "react";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import TimelineOppositeContent, {
+  timelineOppositeContentClasses,
+} from "@mui/lab/TimelineOppositeContent";
 
 import AddItemToAlbum from "./AddItemToAlbum";
 
 function SingleAlbum() {
-  const params = useParams()
-  const [allItems, setAllItems] = useState([])
+  const params = useParams();
+  const [allItems, setAllItems] = useState([]);
   const [displayAddItem, setDisplayAddItem] = useState(false);
   useEffect(() => {
     if (!displayAddItem) {
@@ -18,19 +29,64 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
-          console.log(responseJson)
+          console.log(responseJson);
         })
-        .catch((err) => { });
+        .catch((err) => {});
     }
   }, [displayAddItem]);
 
   return (
     <>
-      <h4>{allItems.map((item) => {
+      {/* <h4>{allItems.map((item) => {
         return <>{item.idtype == 1 ? <img src={item.data} />
           : item.idtype == 3 ? <video controls><source src={item.data} /></video> :
             <span>{item.data}</span>} <br /></>
-      })}</h4>
+      })}</h4> */}
+      <div>
+        <Timeline
+          sx={{
+            [`& .${timelineOppositeContentClasses.root}`]: {
+              flex: 0.2,
+            },
+          }}
+        >
+          {allItems.map((item) => {
+            return (
+              <TimelineItem>
+                <TimelineOppositeContent color="textSecondary">
+                  
+                  { format(  item.creationdate, 'dd/MM/yyyy')
+               
+                  }
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  <>
+                    {item.idtype == 1 ? (
+                      <img src={item.data} />
+                    ) : item.idtype == 3 ? (
+                      <video controls>
+                        <source src={item.data} />
+                      </video>
+                    ) : (
+                      <span>{item.data}</span>
+                    )}{" "}
+                    <br />
+                  </>{" "}
+                </TimelineContent>
+              </TimelineItem>
+            );
+            {
+              /* <>{item.idtype == 1 ? <img src={item.data} />
+        : item.idtype == 3 ? <video controls><source src={item.data} /></video> :
+          <span>{item.data}</span>} <br /></> */
+            }
+          })}
+        </Timeline>
+      </div>
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!
       </button>

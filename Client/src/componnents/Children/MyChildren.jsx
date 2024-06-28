@@ -33,27 +33,18 @@ function MyChildren() {
         <>
             <button onClick={() => setDisplayAddChild(!displayAddChild)}>Add Child</button>
             {displayAddChild && <AddChild setDisplayAddChild={setDisplayAddChild} />}
-            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+            <div  className="gap-2 grid grid-cols-2 sm:grid-cols-4">
                 {children.map((child, index) => (
                     <div key={index}>
-                        <Card // onClick={()=> navigate(`./${child.albumId}`)}
+                        <div className="card"// onClick={()=> navigate(`./${child.albumId}`)}
                             shadow="sm" key={child.id} isPressable
                             onClick={() => navigate(`./${child.childName}`)} >
-                            {/* <CardBody className="overflow-visible p-0">
-                                <Image
-                                    shadow="sm"
-                                    radius="lg"
-                                    width="100%"
-                                    alt={child.name}
-                                    className="w-full object-cover h-[140px]"
-                                    src={child.img}
-                                />
-                            </CardBody> */}
-                            <CardFooter className="text-small justify-between">
+                     
+                            <div className="text-small justify-between">
                                 <b>{(child.nickname).toLowerCase()}</b>
                                 {/* <p className="text-default-500">{child.price}</p> */}
-                            </CardFooter>
-                        </Card>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div >

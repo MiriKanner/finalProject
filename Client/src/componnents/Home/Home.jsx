@@ -34,7 +34,7 @@ function Home() {
 
   return (
     <>
-      <nav>
+      <nav className="sticky">
         {" "}
         <i
           className="material-icons"

@@ -11,9 +11,14 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/lab": "^5.0.0-alpha.170",
+    "@mui/material": "^5.15.20",
     "@nextui-org/react": "^2.4.0",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.2.6",
     "joi": "^17.13.3",
     "js-cookie": "^3.0.5",

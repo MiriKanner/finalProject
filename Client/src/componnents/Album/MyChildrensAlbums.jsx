@@ -57,7 +57,7 @@ function MyChildrensAlbums() {
     switch (name) {
       case "id":
         foundIndex = originalAlbums.findIndex(
-          (t) => t != null && t.id == value
+          (t) => t != null && t.albumId == value
         );
         setalbums([
           {
@@ -69,18 +69,12 @@ function MyChildrensAlbums() {
         break;
       case "title":
         foundsArr = originalAlbums.map((t, i) => {
-          if (t != null && t.title.includes(value))
+          if (t != null && t.name .includes(value))
             return { ...t, originalIndex: i, editable: false };
         });
         setalbums(foundsArr.filter((t) => t != null));
         break;
-      case "completed":
-        foundsArr = originalAlbums.slice().map((t, i) => {
-          if (t != null && `${t.completed}` == value)
-            return { ...t, originalIndex: i, editable: false };
-        });
-        setalbums(foundsArr.filter((t) => t != null));
-        break;
+    
     }
   }
 
@@ -118,7 +112,7 @@ function MyChildrensAlbums() {
         searchType == "id" ? (
           <>
             <label htmlFor="id">id</label>
-            <input
+            <input 
               type="text"
               name="id"
               onChange={(event) => searchalbums(event)}
@@ -126,13 +120,6 @@ function MyChildrensAlbums() {
           </>
         ) : (
           <>
-            <label htmlFor="notCompleted">not completed</label>
-            <input
-              type="radio"
-              name="completed"
-              value="0"
-              onChange={(event) => searchalbums(event)}
-            />
             <input
               type="text"
               name={searchType}
@@ -155,21 +142,21 @@ function MyChildrensAlbums() {
           setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums}
         />
       )}
-      <div
-        className="gap-2 grid grid-cols-2 sm:grid-cols-4"
-        style={{ display: "flex", flexDirection: "row" }}
+      <div className="album"
+       
+        // style={{ display: "flex", flexDirection: "row" }}
       >
         {album.map((item, index) => (
-          <div key={index}>
-            <Card
+          <div key={index} className="cardDiv">
+            <div className="card"
               onClick={() => navigate(`./${item.albumId}`)}
               shadow="sm"
               key={item.id}
               isPressable
               style={{ flex: 1 }}
             >
-              <CardBody className="overflow-visible p-0">
-                <Image
+             
+                <img
                   shadow="sm"
                   radius="lg"
                   width="100%"
@@ -177,12 +164,11 @@ function MyChildrensAlbums() {
                   className="w-full object-cover h-[140px]"
                   src={item.albumPhoto || "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"} //auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 />
-              </CardBody>
-              <CardFooter className="text-small justify-between">
+              <div className="text-small justify-between">
                 <b>{item.name}</b>
                 <p className="text-default-500">{item.childName}</p>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           </div>
         ))}
       </div>

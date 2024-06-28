@@ -38,7 +38,8 @@ export class AuthController {
       const resultItem = await authService.verifyUserAuth(req.body);
       console.log(resultItem.result)
       res.status(200).json({ result: resultItem.result[0], token: resultItem.token });
-    } catch (ex) {
+      } 
+     catch (ex) {
       console.log("Authication error");
       const err = {};
       err.statusCode = 500;
@@ -79,12 +80,7 @@ export class AuthController {
           console.log("Email sent: " + info.response);
         }
       });
-      res
-        .status(200)
-        .cookie("token", resultItem.token, {
-          expires: new Date(Date.now() + 900000) /*, httpOnly: true*/,
-        })
-        .json(resultItem.result);
+      res.status(200).json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
       const err = {};

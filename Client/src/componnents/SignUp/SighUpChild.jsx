@@ -107,7 +107,7 @@ function SignUpChild() {
     <>
       {!correctUser && (
         <form onSubmit={handleSubmit(onSubmitIsUser)}>
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="username">Enter UserName</label>
             <input
               type="text"
@@ -148,7 +148,7 @@ function SignUpChild() {
       )}
       {correctUser && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -169,7 +169,7 @@ function SignUpChild() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="container">
             <label htmlFor="email">Email</label>
             <input
               type="email"

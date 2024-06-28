@@ -60,7 +60,7 @@ function SignUp() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="username">Enter UserName</label>
           <input
             type="text"
@@ -71,7 +71,7 @@ function SignUp() {
             {...register("username")}
           />
         </div>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -92,7 +92,7 @@ function SignUp() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -105,7 +105,7 @@ function SignUp() {
         <small id="emailHelp" class="form-text text-muted">
           We'll never share your email with anyone else.
         </small>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="nickname">Nickname</label>
           <input
             type="text"
@@ -115,7 +115,7 @@ function SignUp() {
             {...register("nickname")}
           />
         </div>
-        <div className="form-group">
+        <div className="container">
           <label htmlFor="birthday">Birthday</label>
           <input
             type="date"
