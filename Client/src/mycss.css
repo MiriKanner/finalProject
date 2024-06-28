@@ -203,12 +203,12 @@ input {
   inset -1px -1px 6px rgba(255, 255, 255, 0.4);
 } */
 
-img {
+img,video {
     /* border: 1px solid #AD2E95
     ; */
     border-radius: 4px;
     padding: 5px;
-    width: 500px;
+    width: 300px;
   }
   .sticky {
     overflow: hidden;
