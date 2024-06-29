@@ -22,6 +22,19 @@ export class AlbumController {
     //         next(err)
     //     }
     // }
+    async getMyAlbums(req, res, next) {
+        try {
+            const albumService = new AlbumService();
+            const resultItem = await albumService.getMyAlbums(req.params.username);
+            res.status(200).json(resultItem);
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
     async getMyChildrenAlbum(req, res, next) {
         try {
             const albumService = new AlbumService();

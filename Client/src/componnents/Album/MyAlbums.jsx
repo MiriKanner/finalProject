@@ -1,25 +1,23 @@
+
 import React, { useRef, useState, useEffect } from "react";
 import { getReq } from "../../serverquests";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import AddMyChildrenAlbum from "./AddMyChildrenAlbum";
 import AllAlbums from "./AllAlbums";
 import SearchAndSortAlbum from "./SearchAndSortAlbum";
 //import { CardGroup, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
 
-function MyChildrensAlbums() {
+function MyAlbums(){
   const user = useContext(UserContext).user;
   const [albums, setalbums] = useState([]);
   const [originalAlbums, setOriginalAlbums] = useState([]);
-  const [displayAddMyChildrenalbums, setDisplayAddMyChildrenalbums] =
     useState(false);
   useEffect(() => {
-    if (!displayAddMyChildrenalbums) {
+    //my albums
       const req = {
         method: "GET",
-        route: `album/myChildrenalbum/${user.username}`,
+        route: `album/${user.username}`,
       };
       getReq(req)
         .then((response) => response.json())
@@ -30,27 +28,14 @@ function MyChildrensAlbums() {
         })
         .catch((err) => {});
     }
-  }, [displayAddMyChildrenalbums]);
+  , );
  
   
 
  
   return (
     <>
-         <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
-
-      <button
-        onClick={() =>
-          setDisplayAddMyChildrenalbums(!displayAddMyChildrenalbums)
-        }
-      >
-        Add albums to my child
-      </button>
-      {displayAddMyChildrenalbums && (
-        <AddMyChildrenAlbum
-          setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums}
-        />
-      )}
+        <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
       <div
         className="album"
         // style={{ display: "flex", flexDirection: "row" }}
@@ -60,5 +45,4 @@ function MyChildrensAlbums() {
     </>
   );
 }
-
-export default MyChildrensAlbums;
+export default MyAlbums;

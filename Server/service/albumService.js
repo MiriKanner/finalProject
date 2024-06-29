@@ -1,10 +1,16 @@
 
 import { executeQuery } from '../dataAccess/db.js';
-import { getMyChildrenAlbumQuery, addChildAlbumQuery, getParentChildRelationIdQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
+import { getMyChildrenAlbumQuery,myAlbumsQuery, addChildAlbumQuery, getParentChildRelationIdQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
 
 
 export class AlbumService {
-
+    async getMyAlbums(username)
+    {
+        const myAlbumQuery = myAlbumsQuery();
+        const result = await executeQuery(myAlbumQuery, [username]);
+        if (result.length == 0) throw new Error
+        return result;
+    }
     async getMyChildrenAlbum(username) {
         const myChildrenAlbumQuery = getMyChildrenAlbumQuery();
         const result = await executeQuery(myChildrenAlbumQuery, [username]);

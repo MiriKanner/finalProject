@@ -5,7 +5,7 @@ const addUserSchema = Joi.object({
   username: Joi.string().min(5).max(15).required(),
   email: Joi.string().email({ tlds: { allow: false } }).required(),
   password: Joi.string().min(4).max(20).required(),
-  birthday: Joi.date().required()
+  birthday: Joi.date().max(moment().subtract(18, 'years').toDate()).required()
 });
 
 const minUserSchema = Joi.object({

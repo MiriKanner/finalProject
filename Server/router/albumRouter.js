@@ -8,6 +8,7 @@ const albumController = new AlbumController()
 // albumRouter.post("/signUp", albumController.addalbumAndUser);
 albumRouter.get('/myChildrenAlbum/:username', albumController.getMyChildrenAlbum);
 albumRouter.post('/myChildrenAlbum/:username', upload, albumController.addChildsAlbum);
+albumRouter.get('/:username',albumController.getMyAlbums)
 // albumRouter.put("/", albumController.updatealbum);
 // albumRouter.delete("/:userId", albumController.deletealbumAndUser);
 

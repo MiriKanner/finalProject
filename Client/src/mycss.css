@@ -56,7 +56,9 @@ aside ul {
     padding: 0;
 }
 
-aside ul li {
+aside ul li 
+/* .imgInHome */
+{
     display: flex;
     align-items: center;
     color: #F0EBF4;

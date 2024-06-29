@@ -48,7 +48,7 @@ function Home() {
       </nav>
       <aside className={drawerClass.join(" ")}>
         <ul>
-          <image src="../../../images/צילום מסך 2024-06-26 012458.png" />
+          {/* <img className="imgInHome" src="../../../images/צילום מסך 2024-06-26 012458.png" /> */}
           <Link to={"/" + user.username + "/mychildren'salbums"}>
             <li>
               <i className="material-icons">dashboard</i>
@@ -62,10 +62,12 @@ function Home() {
               <span>My Children</span>
             </li>
           </Link>
-          <li>
-            <i className="material-icons">show_chart</i>
-            <span>Sales</span>
-          </li>
+          <Link to={"/" + user.username + "/albums"}>
+            <li>
+              <i className="material-icons">show_chart</i>
+              <span>My Albums</span>
+            </li>
+          </Link>
           <li>
             <i className="material-icons">table_chart</i>
             <span>Others</span>

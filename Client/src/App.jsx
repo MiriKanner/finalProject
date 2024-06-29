@@ -7,6 +7,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./componnents/SignUp/SignUp.jsx";
 import Home from "./componnents/Home/Home.jsx";
 import MyChildrensAlbums from "./componnents/Album/MyChildrensAlbums.jsx";
+import MyAlbums from "./componnents/Album/MyAlbums.jsx";
 import SingleAlbum from "./componnents/Album/SingleAlbum";
 import MyChildren from "./componnents/Children/MyChildren";
 import SingleChild from "./componnents/Children/SingleChild";
@@ -38,14 +39,18 @@ function App() {
               <Route index element={<Login />} />
               <Route path="login" element={<Login />} />
               <Route path="signup">
-                <Route index element ={<SignUp/>}/>
-                <Route path="child" element={<SignUpChild/>}/>
+                <Route index element={<SignUp />} />
+                <Route path="child" element={<SignUpChild />} />
               </Route>
             </Route>
             {user && (
               <Route path=":username" element={<Home />}>
                 <Route index element={<Home />}></Route>
                 <Route path="home" element={<Home />} />
+                <Route path="albums">
+                  <Route index element={<MyAlbums />} />
+                  <Route path=":albumId" element={<SingleAlbum />} />
+                </Route>
                 <Route path="mychildren'salbums">
                   <Route index element={<MyChildrensAlbums />} />
                   <Route path=":albumId" element={<SingleAlbum />} />
