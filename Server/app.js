@@ -16,12 +16,12 @@ app.use(express.json());
 app.use(cors({ credentials: true }));
 app.use(logActions);
 app.use('/auth', authRouter);
-app.use('/album', albumRouter)
-app.use('/children', childrenRouter)
-app.use('/items', itemsRouter)
-// app.use('/album', verifyToken, albumRouter)
-// app.use('/children', verifyToken, childrenRouter)
-// app.use('/items', verifyToken, itemsRouter)
+// app.use('/album', albumRouter)
+// app.use('/children', childrenRouter)
+// app.use('/items', itemsRouter)
+app.use('/album', verifyToken, albumRouter)
+app.use('/children', verifyToken, childrenRouter)
+app.use('/items', verifyToken, itemsRouter)
 app.use(logErrors);
 
 app.listen(port, (err) => {

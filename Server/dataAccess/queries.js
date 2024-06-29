@@ -26,7 +26,7 @@ export function getMyItmesQuery() {
 }
 export function myAlbumsQuery()
 {
-  return `SELECT album.id,album.name,album.albumPhoto,album.creationdate FROM albumdb.users,albumdb.childandparent,albumdb.album where
+  return `SELECT users.username as childName, album.id as albumId,album.name,album.albumPhoto,album.creationdate FROM albumdb.users,albumdb.childandparent,albumdb.album where
  username=? and users.id=childandparent.idchild and album.childandparentid=childandparent.id
  and users.isactive=1 and childandparent.isactive=1 and album.isactive=1;`
 }

@@ -1,30 +1,49 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getReq } from "../../serverquests";
-import { format } from 'date-fns';
-import * as React from "react";
-import Timeline from "@mui/lab/Timeline";
-import TimelineItem from "@mui/lab/TimelineItem";
-import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import TimelineConnector from "@mui/lab/TimelineConnector";
-import TimelineContent from "@mui/lab/TimelineContent";
-import TimelineDot from "@mui/lab/TimelineDot";
-import TimelineOppositeContent, {
-  timelineOppositeContentClasses,
-} from "@mui/lab/TimelineOppositeContent";
-
-// import AddItemToAlbum from "./AddItemToAlbum";
+import React, { useRef, useState, useEffect } from "react";
+import { Link, json, useNavigate } from "react-router-dom";
+import { createContext, useContext } from "react";
+import { UserContext } from "../../App";
+import AllAlbums from "../Album/AllAlbums";
+import SearchAndSortAlbum from "../Album/SearchAndSortAlbum";
+//import { CardGroup, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
 
 function SingleChild() {
-  const params = useParams();
-  const myUsername=params.childName;
+  const params=useParams()
+  const childUserName=params.childName;
+  const user = useContext(UserContext).user;
+  const [albums, setalbums] = useState([]);
+  const [originalAlbums, setOriginalAlbums] = useState([]);
+    useState(false);
   useEffect(() => {
+    //my albums
+      const req = {
+        method: "GET",
+        route: `album/${childUserName}`,
+      };
+      getReq(req)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setOriginalAlbums(responseJson);
+          setalbums(responseJson);
+          console.log(responseJson);
+        })
+        .catch((err) => {});
+    }
+  , []);
+ 
+  
 
-  }, []);
-
+ 
   return (
     <>
-    
+        <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
+      <div
+        className="album"
+        // style={{ display: "flex", flexDirection: "row" }}
+      >
+        <AllAlbums albums={albums} />
+      </div>
     </>
   );
 }
