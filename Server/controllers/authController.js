@@ -73,13 +73,7 @@ export class AuthController {
       //     "Hello" + req.body.username + "We wait to see you create your albums",
       // };
       // console.log("suceesed");
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      });
+
       res.status(200).json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
@@ -92,6 +86,10 @@ export class AuthController {
   async addAuthAndUser(req, res, next) {
     try {
       const v = addUserSchema.validate(req.body);
+
+      
+
+
       if (v.error) {
         next(v.error);
         return;
@@ -99,11 +97,11 @@ export class AuthController {
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);
 
-   /*   const transporter = NodeMailer.createTransport({
+      const transporter = NodeMailer.createTransport({
         service: "gmail",
         auth: {
           user: "joyfuljourneyscapturethejoy@gmail.com",
-          pass: "Capture the Joy, Treasure the Journey",
+          pass: "poel odjr tgkc qeoz",
         },
       });
 
@@ -111,6 +109,7 @@ export class AuthController {
         from: "joyfuljourneyscapturethejoy@gmail.com",
         to: req.body.email,
         subject: "You are Sigh Up To Joyful Journeys!!",
+        
         text:
           "Hello" + req.body.username + "We wait to see you create your albums",
       };
@@ -121,55 +120,11 @@ export class AuthController {
         } else {
           console.log("Email sent: " + info.response);
         }
-      });*/
-      res.status(200).json({ result: resultItem.result, token: resultItem.token });
-    } catch (ex) {
-      console.log("Authication error");
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
-    }
-  }
-  async addAuthAndUser(req, res, next) {
-    try {
-      const v = addUserSchema.validate(req.body);
-      if (v.error) {
-        next(v.error);
-        return;
-      }
-      const authService = new AuthService();
-      const resultItem = await authService.addUserAndAuth(req.body);
+      });
+      console.log(resultItem)
+        res.status(200).json({ result: resultItem.result, token: resultItem.token });
 
-      // const transporter = NodeMailer.createTransport({
-      //   service: "gmail",
-      //   auth: {
-      //     user: "joyfuljourneyscapturethejoy@gmail.com",
-      //     pass: "Capture the Joy, Treasure the Journey",
-      //   },
-      // });
 
-      // const mailOptions = {
-      //   from: "joyfuljourneyscapturethejoy@gmail.com",
-      //   to: req.body.email,
-      //   subject: "You are Sigh Up To Joyful Journeys!!",
-      //   text:
-      //     "Hello" + req.body.username + "We wait to see you create your albums",
-      // };
-      // console.log("suceesed");
-      // transporter.sendMail(mailOptions, function (error, info) {
-      //   if (error) {
-      //     console.log(error);
-      //   } else {
-      //     console.log("Email sent: " + info.response);
-      //   }
-      // });
-      res
-        .status(200)
-        .cookie("token", resultItem.token, {
-          expires: new Date(Date.now() + 900000) /*, httpOnly: true*/,
-        })
-        .json(resultItem.result);
     } catch (ex) {
       console.log("Authication error");
       const err = {};
