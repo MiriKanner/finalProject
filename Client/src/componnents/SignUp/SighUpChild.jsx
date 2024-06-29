@@ -25,7 +25,7 @@ function SignUpChild() {
       setMessageText(v.error.details[0]);
       return;
     }
-    const req = { method: "GET", route: "auth/isChild", body: child };
+    const req = { method: "GET", route: "auth/signUpChild", body: child };
 
     postReq(req)
       .then((response) => response.json())

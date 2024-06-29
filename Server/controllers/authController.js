@@ -37,8 +37,8 @@ export class AuthController {
       const resultItem = await authService.verifyUserAuth(req.body);
       console.log(resultItem.result)
       res.status(200).json({ result: resultItem.result[0], token: resultItem.token });
-      } 
-     catch (ex) {
+    }
+    catch (ex) {
       console.log("Authication error");
       const err = {};
       err.statusCode = 500;
@@ -56,23 +56,6 @@ export class AuthController {
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
 
-      // const transporter = NodeMailer.createTransport({
-      //   service: "gmail",
-      //   auth: {
-      //     user: "joyfuljourneyscapturethejoy@gmail.com",
-      //     pass: "Capture the Joy, Treasure the Journey",
-      //   },
-      // });
-
-      // const mailOptions = {
-      //   from: "joyfuljourneyscapturethejoy@gmail.com",
-      //   to: req.body.email,
-      //   subject: "You are Sigh Up To Joyful Journeys!!",
-      //   text:
-      //     "Hello" + req.body.username + "We wait to see you create your albums",
-      // };
-      // console.log("suceesed");
-
       res.status(200).json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
@@ -85,22 +68,16 @@ export class AuthController {
   async addAuthAndUser(req, res, next) {
     try {
       const v = addUserSchema.validate(req.body);
-
-      
-
       if (v.error) {
         next(v.error);
         return;
       }
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);
-      const emailSent={mail:req.body.email,emailBody:"Welcome ",subject:"Hello "}
-      sendEmail(req,next)
-
+      const emailSent = { mail: req.body.email, emailBody: "Welcome ", subject: "Hello " }
+      sendEmail(emailSent)
       console.log(resultItem)
-        res.status(200).json({ result: resultItem.result, token: resultItem.token });
-
-
+      res.status(200).json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
       const err = {};
