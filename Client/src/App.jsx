@@ -13,6 +13,7 @@ import MyChildren from "./componnents/Children/MyChildren";
 import SingleChild from "./componnents/Children/SingleChild";
 import SignUpChild from "./componnents/SignUp/SighUpChild.jsx";
 import Cookies from "js-cookie";
+import AllAlbums from "./componnents/Album/AllAlbums.jsx";
 function App() {
   const [user, setUser] = useState(
     JSON.parse(Cookies.get("currentUser") || null)
@@ -57,7 +58,10 @@ function App() {
                 </Route>
                 <Route path="mychildren">
                   <Route index element={<MyChildren />} />
-                  <Route path=":childName" element={<SingleChild />} />
+                  <Route path=":childName/albums" element={<SingleChild />}>
+                    <Route index element={<AllAlbums />} />
+                    <Route path=":albumId" element={<SingleAlbum />} />
+                  </Route>
                 </Route>
               </Route>
             )}
