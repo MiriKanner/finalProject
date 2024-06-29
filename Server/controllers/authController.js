@@ -55,8 +55,7 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
-      const emailSent = { mail: req.body.email, emailBody: "Welcome ", subject: "Hello " }
-      sendEmail(emailSent)
+
       res.status(200).json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");

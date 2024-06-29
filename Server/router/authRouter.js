@@ -6,7 +6,6 @@ const authController = new AuthController()
 authRouter.post("/", authController.verifyUserAuth);
 authRouter.post("/signUp", authController.addAuthAndUser);
 authRouter.post("/signUpChild", authController.addAuth);
-authRouter.post("/signUpChild", authController.addAuth);
 
 // authRouter.put("/", authController.updateAuth);
 // authRouter.delete("/:userId", authController.deleteAuthAndUser);
