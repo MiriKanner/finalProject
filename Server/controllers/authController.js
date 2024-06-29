@@ -74,7 +74,7 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);
-      const emailSent = { mail: req.body.email, emailBody: "Welcome ", subject: "Hello " }
+      const emailSent = { email: req.body.email, emailBody: "Welcome", subject: "Hello " }
       sendEmail(emailSent)
       console.log(resultItem)
       res.status(200).json({ result: resultItem.result, token: resultItem.token });
