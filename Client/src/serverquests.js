@@ -25,11 +25,13 @@ export async function getReq(req) {
 
 export async function postReq(req) {
     let answer;
+    const token = Cookies.get('token');
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'POST',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
         headers: {
+            authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
         },
     }).then(response => {
@@ -48,11 +50,13 @@ export async function postReq(req) {
 
 export async function putReq(req) {
     let answer;
+    const token = Cookies.get('token');
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'PUT',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
         headers: {
+            authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
         },
     }).then(response => {
@@ -71,11 +75,13 @@ export async function putReq(req) {
 
 export async function deleteReq(req) {
     let answer;
+    const token = Cookies.get('token');
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'DELETE',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
         headers: {
+            authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
         },
     }).then(response => {
@@ -94,10 +100,12 @@ export async function deleteReq(req) {
 
 export async function postMediaReq(req) {
     let answer;
+    const token = Cookies.get('token');
     await fetch(`http://localhost:8080/${req.route}`, {
         method: 'POST',
         body: req.body,
         headers: {
+            authorization: token,
         },
     }).then(response => {
         if (response.ok)
