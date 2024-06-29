@@ -1,9 +1,10 @@
 import Cookies from "js-cookie";
 
+const URL= "http://localhost:8080"
 export async function getReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`http://localhost:8080/${req.route}`, {
+    await fetch(`${URL}/${req.route}`, {
         method: 'GET',
         headers: {
             authorization: token,
@@ -13,10 +14,6 @@ export async function getReq(req) {
         if (response.ok)
             return response
         else throw new Error
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
     }).then(data => {
         answer = data
     });
@@ -26,7 +23,7 @@ export async function getReq(req) {
 export async function postReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`http://localhost:8080/${req.route}`, {
+    await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
@@ -38,10 +35,6 @@ export async function postReq(req) {
         if (response.ok)
             return response
         else throw new Error
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
     }).then(data => {
         answer = data
     });
@@ -51,7 +44,7 @@ export async function postReq(req) {
 export async function putReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`http://localhost:8080/${req.route}`, {
+    await fetch(`${URL}/${req.route}`, {
         method: 'PUT',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
@@ -63,10 +56,6 @@ export async function putReq(req) {
         if (response.ok)
             return response
         else throw new Error
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
     }).then(data => {
         answer = data
     });
@@ -76,7 +65,7 @@ export async function putReq(req) {
 export async function deleteReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`http://localhost:8080/${req.route}`, {
+    await fetch(`${URL}/${req.route}`, {
         method: 'DELETE',
         body: JSON.stringify(req.body),
         //    credentials: 'same-origin',
@@ -88,10 +77,6 @@ export async function deleteReq(req) {
         if (response.ok)
             return response
         else throw new Error
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
     }).then(data => {
         answer = data
     });
@@ -101,7 +86,7 @@ export async function deleteReq(req) {
 export async function postMediaReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`http://localhost:8080/${req.route}`, {
+    await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: req.body,
         headers: {
@@ -111,10 +96,6 @@ export async function postMediaReq(req) {
         if (response.ok)
             return response
         else throw new Error
-        //console.log(response.headers.getSetCookie());
-        // for (let entry of response.headers.entries()) {
-        //     console.log('header',entry);
-        // }
     }).then(data => {
         answer = data
     });
