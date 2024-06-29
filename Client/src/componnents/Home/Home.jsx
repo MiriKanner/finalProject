@@ -19,6 +19,7 @@ function Home() {
     cookies.forEach((cookie) => {
       Cookies.remove(cookie);
     });
+    useContext(UserContext).setUser(null)
     //localStorage.removeItem("currentUser");
     navigate("/login");
   }
@@ -68,7 +69,7 @@ function Home() {
               <span>My Albums</span>
             </li>
           </Link>
-          <li>
+          <li onClick={()=>logOut()}>
             <i className="material-icons">table_chart</i>
             <span>Others</span>
           </li>

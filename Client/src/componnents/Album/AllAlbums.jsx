@@ -25,6 +25,7 @@ function AllAlbums(props)
                   />
                 <div className="text-small justify-between">
                   <b>{item.name}</b>
+                  <p>{item.creationdate}</p>
                   <p className="text-default-500">{item.childName}</p>
                 </div>
               </div>
