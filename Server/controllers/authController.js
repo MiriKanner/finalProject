@@ -1,8 +1,7 @@
 import { AuthService } from "../service/authService.js";
 import cookie from "cookie";
 import { addUserSchema, minUserSchema, addAuthScema } from "../serverValidations.js";
-import NodeMailer from "nodemailer";
-
+import { sendEmail } from "../middleware/mailer.js";
 export class AuthController {
   // async updateAuth(req, res, next) {
   //     try {
@@ -89,38 +88,15 @@ export class AuthController {
 
       
 
-
       if (v.error) {
         next(v.error);
         return;
       }
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);
+      const emailSent={mail:req.body.email,emailBody:"Welcome ",subject:"Hello "}
+      sendEmail(req,next)
 
-      const transporter = NodeMailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "joyfuljourneyscapturethejoy@gmail.com",
-          pass: "poel odjr tgkc qeoz",
-        },
-      });
-
-      const mailOptions = {
-        from: "joyfuljourneyscapturethejoy@gmail.com",
-        to: req.body.email,
-        subject: "You are Sigh Up To Joyful Journeys!!",
-        
-        text:
-          "Hello" + req.body.username + "We wait to see you create your albums",
-      };
-      console.log("suceesed");
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      });
       console.log(resultItem)
         res.status(200).json({ result: resultItem.result, token: resultItem.token });
 
