@@ -81,8 +81,8 @@ export class AuthService {
         userAndAuthItem.username,
         password,
       ]);
-      const token = signToken(authItem.username)
-      const refreshtoken = signRefreshtoken(authItem.username);
+      const token = signToken(userAndAuthItem.username)
+      const refreshtoken = signRefreshtoken(userAndAuthItem.username);
 
       const result = {
         authResult: authResult,
