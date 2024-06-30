@@ -110,7 +110,7 @@ function onEmojiSelect(emj)
               example: story, joke.
             </small>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" >
             Submit
           </button>
         </form>
@@ -128,7 +128,7 @@ function onEmojiSelect(emj)
               placeholder="Select image"
               {...register("image")} />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" >
             Submit
           </button>
         </form>
@@ -144,7 +144,7 @@ function onEmojiSelect(emj)
             /> */}
              <EmojiPicker onEmojiClick={(emj)=>onEmojiSelect(emj)}/>
             </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" >
             Submit
           </button>
         </form>
@@ -162,7 +162,7 @@ function onEmojiSelect(emj)
               placeholder="Select video"
               {...register("image")} />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" >
             Submit
           </button>
         </form>

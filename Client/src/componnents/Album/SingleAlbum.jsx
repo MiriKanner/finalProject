@@ -14,6 +14,8 @@ import TimelineOppositeContent, {
 } from "@mui/lab/TimelineOppositeContent";
 
 import AddItemToAlbum from "./AddItemToAlbum";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 function SingleAlbum() {
   const params = useParams();
@@ -22,8 +24,8 @@ function SingleAlbum() {
   const [deleteItemNum, setDelteItemNum] = useState(0)
 
   function deleteItem(idItem) {
-    
-    if (confirm('Are You Sure To Delete Item '+idItem) == true) {
+
+    if (confirm('Are You Sure To Delete Item ' + idItem) == true) {
       const req = {
         method: "DELETE",
         route: `items/${idItem}`,
@@ -48,7 +50,18 @@ function SingleAlbum() {
         .catch((err) => { });
     }
   }, [displayAddItem, deleteItemNum]);
-
+  function AllAlbumMatrix(allItems)
+  {
+      let col=allItems.length/3;
+      let row=3
+  }
+  function srcset(image, size, rows = 1, cols = 1) {
+    return {
+      src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+      srcSet: `${image}?w=${size * cols}&h=${size * rows
+        }&fit=crop&auto=format&dpr=2 2x`,
+    };
+  }
   return (
     <>
       {/* <h4>{allItems.map((item) => {
@@ -108,6 +121,26 @@ function SingleAlbum() {
           })}
         </Timeline>
       </div >
+      <div> 
+        <ImageList
+          sx={{ width: 500, height: 450 }}
+          variant="quilted"
+          cols={4}
+          rowHeight={121}
+        >
+          {allItems.map((item) => (
+                (item.idtype==1)&&
+            < ImageListItem key={item.id} cols={item.cols || 1} rows={item.rows || 1} >
+              <img
+                {...srcset(item.data, 121, item.rows, item.cols)}
+                alt={item.title}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+
+      </div >
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!
       </button>
@@ -119,19 +152,9 @@ function SingleAlbum() {
     </>
   );
 }
- export default SingleAlbum;
-// import * as React from 'react';
-// import ImageList from '@mui/material/ImageList';
-// import ImageListItem from '@mui/material/ImageListItem';
+export default SingleAlbum;
 
-// function srcset(image: string, size: number, rows = 1, cols = 1) {
-//   return {
-//     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-//     srcSet: `${image}?w=${size * cols}&h=${
-//       size * rows
-//     }&fit=crop&auto=format&dpr=2 2x`,
-//   };
-// }
+
 
 // export default function QuiltedImageList() {
 //   return (

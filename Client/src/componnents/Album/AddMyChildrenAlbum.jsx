@@ -98,7 +98,7 @@ function AddMyChildrenAlbum(props) {
                     />
                 </div>
                 <div> {messageText.message}</div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" >
                     Submit
                 </button>
             </form>
