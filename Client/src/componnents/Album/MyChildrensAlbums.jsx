@@ -26,7 +26,7 @@ function MyChildrensAlbums() {
         .then((responseJson) => {
           setOriginalAlbums(responseJson);
           setalbums(responseJson);
-          console.log(responseJson);
+          // console.log(responseJson);
         })
         .catch((err) => {});
     }

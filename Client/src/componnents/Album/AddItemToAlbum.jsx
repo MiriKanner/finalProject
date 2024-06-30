@@ -38,7 +38,7 @@ function AddItemToAlbum(props) {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(selectOption.value == 1 ? file : data.name + "erd");
+    // console.log(selectOption.value == 1 ? file : data.name + "erd");
     const req = {
       method: "POST",
       route: `items/${albumId}`,
@@ -79,7 +79,7 @@ function AddItemToAlbum(props) {
   };
 
   useEffect(() => {
-    console.log(selectOption);
+    // console.log(selectOption);
   }, [selectOption]);
   const [file, setFile] = useState();
 

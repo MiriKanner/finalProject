@@ -40,7 +40,7 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
-          console.log(responseJson);
+          // console.log(responseJson);
         })
         .catch((err) => {});
     }
