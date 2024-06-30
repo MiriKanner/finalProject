@@ -30,7 +30,22 @@ export class ItemsController {
             next(err)
         }
     }
-
+    async deleteItem(req,res,next)
+    {
+        try {
+            console.log('delete item controller'+req.params.idItem)
+            const itmesService = new ItemsService();
+            const resultItem = await itmesService.deleteItem(req.params.idItem);
+            res.status(200).json(resultItem);
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+    
     async addItem(req, res, next) {
         try {
             let objectForDB = {};

@@ -2,10 +2,9 @@ import { executeQuery } from "../dataAccess/db.js";
 import pkg from "crypto-js";
 import {
   getPasswordQuery,
-  addUserQuery,
-  addAuthQuery,
   updateEmailUserQuery,
-  getUserId
+  getUserId,
+  addQuery
 } from "../dataAccess/queries.js";
 const { SHA256, enc } = pkg;
 import jwt from "jsonwebtoken";
@@ -30,7 +29,7 @@ export class AuthService {
   }
   async addAuth(authItem) {
     try {
-      const authQuery = addAuthQuery();
+      const authQuery = addQuery('auth');
       const updateQuery = updateEmailUserQuery()
       console.log(authItem);
       // console.log(userQuery+" the params:"+userAndAuthItem.username+" "+ userAndAuthItem.nickname+" "+userAndAuthItem.email+" "+userAndAuthItem.birthday+" "+1)
@@ -64,8 +63,8 @@ export class AuthService {
   }
   async addUserAndAuth(userAndAuthItem) {
     try {
-      const userQuery = addUserQuery();
-      const authQuery = addAuthQuery();
+      const userQuery = addQuery('users');
+      const authQuery = addQuery('auth');
       console.log(userAndAuthItem);
       // console.log(userQuery+" the params:"+userAndAuthItem.username+" "+ userAndAuthItem.nickname+" "+userAndAuthItem.email+" "+userAndAuthItem.birthday+" "+1)
       //console.log(authQuery+" the params:"+userAndAuthItem.username+ " "+password)

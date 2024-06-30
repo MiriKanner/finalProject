@@ -128,9 +128,19 @@ INSERT INTO `albumdb`.`datatype` (`description`) VALUES ('story');
 
 ALTER TABLE `albumdb`.`album` 
 ADD COLUMN `albumPhoto` LONGTEXT NULL AFTER `isactive`;
+ADD COLUMN `albumPhoto` BIT '1' AFTER `isactive`;
+
+ALTER TABLE albumdb.itemsofalbum
+ADD COLUMN `isactive`  BIT NOT NULL DEFAULT 1 AFTER `data`;
 
 
+#AD2E95
+#A1C3D1
+B39BC8
+F0EBF4
+F172A1
+E64398
 
-
+poel odjr tgkc qeoz
 
 https://mui.com/material-ui/react-timeline/

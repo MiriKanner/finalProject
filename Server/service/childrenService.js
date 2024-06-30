@@ -1,5 +1,5 @@
 import { executeQuery } from '../dataAccess/db.js';
-import {getMyChildrenQuery,addChildAsUser,addChildToParent,isChildQuery} from '../dataAccess/queries.js'
+import {getMyChildrenQuery,isChildQuery,addQuery} from '../dataAccess/queries.js'
 
 export class ChildrenService {
 
@@ -19,9 +19,9 @@ export class ChildrenService {
 
     async addChildToParent(childItem)
     {
-        const addChildAsUserQ = addChildAsUser();
-        const addChildToParentQ=addChildToParent();   
-        const childResult = await executeQuery(addChildAsUserQ,[childItem.username,childItem.nickname,childItem.birthday]);
+        const addChildAsUserQ = addQuery('users');
+        const addChildToParentQ=addQuery('childandparent');   
+        const childResult = await executeQuery(addChildAsUserQ,[childItem.username,childItem.nickname,"",childItem.birthday]);
         console.log(childResult.insertId)
         console.log(childItem.idparent)
         const result = await executeQuery(addChildToParentQ, [childItem.idparent,childResult.insertId]);

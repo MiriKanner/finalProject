@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getReq } from "../../serverquests";
+import { getReq,deleteReq } from "../../serverquests";
 import { format } from 'date-fns';
 import * as React from "react";
 import Timeline from "@mui/lab/Timeline";
@@ -19,6 +19,17 @@ function SingleAlbum() {
   const params = useParams();
   const [allItems, setAllItems] = useState([]);
   const [displayAddItem, setDisplayAddItem] = useState(false);
+  const [deleteItemNum,setDelteItemNum]=useState(0)
+  function deleteItem(idItem)
+  {
+    const req = {
+      method: "DELETE",
+      route: `items/${idItem}`,
+    };
+    deleteReq(req).then(
+      setDelteItemNum(deleteItemNum+1)
+    )
+  }
   useEffect(() => {
     if (!displayAddItem) {
       const req = {
@@ -33,7 +44,7 @@ function SingleAlbum() {
         })
         .catch((err) => {});
     }
-  }, [displayAddItem]);
+  }, [displayAddItem,deleteItemNum]);
 
   return (
     <>
@@ -76,6 +87,9 @@ function SingleAlbum() {
                     )}{" "}
                     <br />
                   </>{" "}
+                  <span onClick={()=>deleteItem(item.id)}>
+                    🗑️
+                  </span>
                 </TimelineContent>
               </TimelineItem>
             );

@@ -65,10 +65,10 @@ export async function putReq(req) {
 export async function deleteReq(req) {
     let answer;
     const token = Cookies.get('token');
-    await fetch(`${URL}/${req.route}`, {
+    const urlReq=`${URL}/${req.route}`
+    await fetch(urlReq, {
         method: 'DELETE',
-        body: JSON.stringify(req.body),
-        //    credentials: 'same-origin',
+      
         headers: {
             authorization: token,
             'Content-type': 'application/json; charset=UTF-8',

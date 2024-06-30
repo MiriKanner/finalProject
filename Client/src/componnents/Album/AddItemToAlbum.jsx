@@ -7,6 +7,8 @@ import { UserContext } from "../../App";
 import { FaBeer } from "react-icons/fa";
 import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
+import { IconContext } from "react-icons";
+
 function AddItemToAlbum(props) {
   const user = useContext(UserContext).user;
   let { albumId } = useParams();
@@ -128,10 +130,14 @@ function AddItemToAlbum(props) {
       )}
 
       {selectOption?.label == "icon" && (
-        <form onSubmit={handleSubmit(onSubmiא)}
-          encType="multipart/form-data">
-          {/* <FaBeer />
-            <MdIcons /> */}
+        <form onSubmit={handleSubmit(onSubmit)}
+          // encType="multipart/form-data"
+          >
+            <div>
+            <FaBeer 
+              {...register("image")} 
+            />
+            </div>
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
