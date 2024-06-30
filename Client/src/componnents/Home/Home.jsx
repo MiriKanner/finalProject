@@ -1,16 +1,17 @@
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 // import Info from "../components/Info";
-import { useContext } from "react";
 import { UserContext } from "../../App.jsx";
 import "../../mycss.css";
 import Cookies from "js-cookie";
+
 function Home() {
   const [displaySideBar, setDisplaySideBar] = useState(false);
   const [isShowInfo, setIsShowInfo] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   let user = useContext(UserContext).user;
+  let user2 = useContext(UserContext)
   useEffect(() => {
     if (user.username != params.username) navigate("/login");
   });
@@ -19,7 +20,7 @@ function Home() {
     cookies.forEach((cookie) => {
       Cookies.remove(cookie);
     });
-    useContext(UserContext).setUser(null)
+    user2.setUser(null)
     navigate("/login");
   }
 
