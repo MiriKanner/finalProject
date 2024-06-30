@@ -15,7 +15,7 @@ function AllAlbums(props)
                 style={{ flex: 1 }}
               >
                
-                  <img
+                  <img 
                     shadow="sm"
                     radius="lg"
                     width="100%"
