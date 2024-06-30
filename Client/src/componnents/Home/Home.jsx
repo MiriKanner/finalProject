@@ -45,6 +45,7 @@ function Home() {
       </nav>
       <aside className={drawerClass.join(" ")}>
         <ul>
+          <li className="help-li" />
           {/* <img className="imgInHome" src="../../../images/צילום מסך 2024-06-26 012458.png" /> */}
           <Link to={"/" + user.username + "/mychildren'salbums"}>
             <li>
@@ -71,8 +72,8 @@ function Home() {
           </li>
         </ul>
       </aside>
-      <Outlet/>
-    </>   
+      <Outlet />
+    </>
   );
 }
 export default Home;

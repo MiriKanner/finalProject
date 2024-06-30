@@ -4,7 +4,10 @@ body {
     background-color: #A1C3D1;
     font-family: sans-serif;
     padding-top: 60px;
+}
 
+#root {
+    bottom: 0;
 }
 
 body button {
@@ -14,7 +17,7 @@ body button {
 
 nav {
     position: relative;
-
+    z-index: 1;
     top: 0;
     background-color: #F172A1;
     position: absolute;
@@ -46,13 +49,15 @@ aside {
     overflow-x: hidden;
     width: 0;
     position: absolute;
-    top: 80px;
+    position: fixed;
+    top: 0;
     left: 0;
     bottom: 0;
     background-color: #F0EBF4;
     opacity: 0.5;
     transition: width 0.5s ease-in-out;
-    color: #AD2E95
+    height: auto;
+    z-index: 0;
 }
 
 aside ul {
@@ -60,9 +65,7 @@ aside ul {
     padding: 0;
 }
 
-aside ul li 
-/* .imgInHome */
-{
+aside ul li {
     display: flex;
     align-items: center;
     color: #F0EBF4;
@@ -79,12 +82,7 @@ aside ul li i {
 }
 
 aside ul li:hover {
-    /* transform: translateX(5px); */
     transition: transform 0.1s ease;
-    /* Faster transition */
-
-    /* color: #0288d1 !important; */
-    /* border-left: 5px solid #0288d1; */
 }
 
 .drawerMin {
@@ -112,24 +110,25 @@ main {
 .mainOpen {
     margin-left: 240px;
 }
+
 .album {
-    /* background-color: #AD2E95; */
     color: #F172A1;
     padding: 15px;
     margin: 30px;
     border-radius: 5px;
-    
 }
-.cardDiv{
-    width:100%
+
+.cardDiv {
+    width: 100%
 }
+
 .card {
     background-color: #f172a1;
     color: #000000;
     padding: 10px;
     margin: 5px;
     border-radius: 8px;
-    width:100%
+    width: 100%
 }
 
 .footer {
@@ -139,8 +138,6 @@ main {
     margin: 5px;
 }
 
-
-
 .button {
     background-color: #F172A1;
     color: #F172A1;
@@ -149,85 +146,36 @@ main {
     cursor: pointer;
 }
 
-input ,select{
+input,
+select {
     background-color: #F0EBF4;
     color: #A1C3D1;
     padding: 5px;
     margin: 5px;
-    /* border: 1px solid #F172A1; */
     border-radius: 5px;
 }
-/* input {
-    width: 200px;
-    height: 45px;
-    border: none;
-    outline: none;
-    padding: 0px 7px;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 15px;
-    background-color: transparent;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }
-  
-  input:focus {
-    border: 2px solid transparent;
-    color: #fff;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    position: relative;
-    color: white;
-  }
-  .container label {
-    font-size: 15px;
-    padding-left: 10px;
-    position: absolute;
-    top: 13px;
-    transition: 0.3s;
-    pointer-events: none;
-  }
-  .container input:valid ~ label,
-.container input:focus ~ label {
-  transition: 0.3s;
-  padding-left: 2px;
-  transform: translateY(-35px);
-}
 
-.container input:valid,
-.container input:focus {
-  box-shadow: 3px 3px 10px rgba(0,0,0,1),
-  -1px -1px 6px rgba(255, 255, 255, 0.4),
-  inset 3px 3px 10px rgba(0,0,0,1),
-  inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-} */
-
-img,video {
-    /* border: 1px solid #AD2E95
-    ; */
+img,
+video {
     border-radius: 4px;
     padding: 5px;
     width: 300px;
-  }
-  .sticky {
+}
+
+.sticky {
     overflow: hidden;
-    position: fixed;
-    /* top: 0;
-    width: 100%;
-    padding-top: 60px; */
-  }
-  .icon{
+}
+
+.icon {
     font-size: 40px;
     width: 40px;
     margin: 15px;
 }
+
+.help-li {
+    height: 60px;
+}
+
 @media only screen and (max-width: 768px) {
     .album {
         padding: 10px;
