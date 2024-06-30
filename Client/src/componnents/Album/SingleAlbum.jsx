@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getReq,deleteReq } from "../../serverquests";
+import { getReq, deleteReq } from "../../serverquests";
 import { format } from 'date-fns';
 import * as React from "react";
 import Timeline from "@mui/lab/Timeline";
@@ -19,16 +19,19 @@ function SingleAlbum() {
   const params = useParams();
   const [allItems, setAllItems] = useState([]);
   const [displayAddItem, setDisplayAddItem] = useState(false);
-  const [deleteItemNum,setDelteItemNum]=useState(0)
-  function deleteItem(idItem)
-  {
-    const req = {
-      method: "DELETE",
-      route: `items/${idItem}`,
-    };
-    deleteReq(req).then(
-      setDelteItemNum(deleteItemNum+1)
-    )
+  const [deleteItemNum, setDelteItemNum] = useState(0)
+
+  function deleteItem(idItem) {
+    
+    if (confirm('Are You Sure To Delete Item '+idItem) == true) {
+      const req = {
+        method: "DELETE",
+        route: `items/${idItem}`,
+      };
+      deleteReq(req).then(
+        setDelteItemNum(deleteItemNum + 1)
+      )
+    }
   }
   useEffect(() => {
     if (!displayAddItem) {
@@ -42,9 +45,9 @@ function SingleAlbum() {
           setAllItems(responseJson);
           // console.log(responseJson);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
-  }, [displayAddItem,deleteItemNum]);
+  }, [displayAddItem, deleteItemNum]);
 
   return (
     <>
@@ -65,9 +68,9 @@ function SingleAlbum() {
             return (
               <TimelineItem>
                 <TimelineOppositeContent color="textSecondary">
-                  
-                  { format(  item.creationdate, 'dd/MM/yyyy')
-               
+
+                  {format(item.creationdate, 'dd/MM/yyyy')
+
                   }
                 </TimelineOppositeContent>
                 <TimelineSeparator>
@@ -75,21 +78,25 @@ function SingleAlbum() {
                   <TimelineConnector />
                 </TimelineSeparator>
                 <TimelineContent>
-                  <>
+                  <div ><>
                     {item.idtype == 1 ? (
                       <img src={item.data} />
                     ) : item.idtype == 3 ? (
                       <video controls>
                         <source src={item.data} />
                       </video>
-                    ) : (
-                      <span>{item.data}</span>
-                    )}{" "}
-                    <br />
+                    ) : item.idtype == 2 ? (<span className="icon">{String.fromCodePoint("0x" + item.data)
+                    }</span>) :
+                      (
+                        <span>{item.data}</span>
+                      )}{" "}
+
                   </>{" "}
-                  <span onClick={()=>deleteItem(item.id)}>
-                    🗑️
-                  </span>
+                    <span onClick={() => deleteItem(item.id)}>
+                      🗑️
+                    </span>
+                  </div>
+                  <br />
                 </TimelineContent>
               </TimelineItem>
             );
@@ -100,13 +107,15 @@ function SingleAlbum() {
             }
           })}
         </Timeline>
-      </div>
+      </div >
       <button onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!
       </button>
-      {displayAddItem && (
-        <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
-      )}
+      {
+        displayAddItem && (
+          <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
+        )
+      }
     </>
   );
 }

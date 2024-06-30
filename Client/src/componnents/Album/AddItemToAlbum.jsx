@@ -8,6 +8,7 @@ import { FaBeer } from "react-icons/fa";
 import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
 import { IconContext } from "react-icons";
+import EmojiPicker from 'emoji-picker-react';
 
 function AddItemToAlbum(props) {
   const user = useContext(UserContext).user;
@@ -77,7 +78,11 @@ function AddItemToAlbum(props) {
         props.setDisplayAddItem(false);
       });
   };
-
+function onEmojiSelect(emj)
+{
+  let hex = emj.emoji.codePointAt(0).toString(16)
+  onSubmit({name:hex});
+}
   useEffect(() => {
     // console.log(selectOption);
   }, [selectOption]);
@@ -134,9 +139,10 @@ function AddItemToAlbum(props) {
           // encType="multipart/form-data"
           >
             <div>
-            <FaBeer 
+            {/* <FaBeer 
               {...register("image")} 
-            />
+            /> */}
+             <EmojiPicker onEmojiClick={(emj)=>onEmojiSelect(emj)}/>
             </div>
           <button type="submit" className="btn btn-primary">
             Submit

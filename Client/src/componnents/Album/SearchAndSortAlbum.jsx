@@ -18,7 +18,7 @@ function SearchAndSortAlbum(props) {
         let foundsArr, foundIndex;
         const { name, value } = event.target;
         foundsArr = props.originalAlbums.map((t, i) => {
-          if (t != null && t[name].includes(value))
+          if (t != null && t[name].toString().includes(value))
             return { ...t, originalIndex: i, editable: false };
         });
         props.setalbums(foundsArr.filter((t) => t != null));
@@ -42,7 +42,7 @@ function SearchAndSortAlbum(props) {
     <>
       <br />
       <label htmlFor="sort">order by</label>
-      <select onChange={sortalbums} name="sort">
+      <select onChange={sortalbums} name="sort" >
         <option value="all"> </option>
         <option value="id">id</option>
         <option value="alphabet">alphabet</option>

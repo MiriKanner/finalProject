@@ -3,6 +3,8 @@ body {
     padding: 0;
     background-color: #A1C3D1;
     font-family: sans-serif;
+    padding-top: 60px;
+
 }
 
 body button {
@@ -11,6 +13,8 @@ body button {
 }
 
 nav {
+    position: relative;
+
     top: 0;
     background-color: #F172A1;
     position: absolute;
@@ -145,12 +149,12 @@ main {
     cursor: pointer;
 }
 
-input {
-    background-color: #E64398;
-    color: #F172A1;
+input ,select{
+    background-color: #F0EBF4;
+    color: #A1C3D1;
     padding: 5px;
     margin: 5px;
-    border: 1px solid #F172A1;
+    /* border: 1px solid #F172A1; */
     border-radius: 5px;
 }
 /* input {
@@ -219,7 +223,11 @@ img,video {
     width: 100%;
     padding-top: 60px; */
   }
-  
+  .icon{
+    font-size: 40px;
+    width: 40px;
+    margin: 15px;
+}
 @media only screen and (max-width: 768px) {
     .album {
         padding: 10px;
