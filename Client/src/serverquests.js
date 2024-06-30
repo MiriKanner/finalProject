@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-const URL= "http://localhost:8080"
+const URL = "http://localhost:8080"
 export async function getReq(req) {
     let answer;
     const token = Cookies.get('token');
@@ -26,7 +26,6 @@ export async function postReq(req) {
     await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: JSON.stringify(req.body),
-        //    credentials: 'same-origin',
         headers: {
             authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
@@ -47,7 +46,6 @@ export async function putReq(req) {
     await fetch(`${URL}/${req.route}`, {
         method: 'PUT',
         body: JSON.stringify(req.body),
-        //    credentials: 'same-origin',
         headers: {
             authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
@@ -65,10 +63,9 @@ export async function putReq(req) {
 export async function deleteReq(req) {
     let answer;
     const token = Cookies.get('token');
-    const urlReq=`${URL}/${req.route}`
+    const urlReq = `${URL}/${req.route}`
     await fetch(urlReq, {
         method: 'DELETE',
-      
         headers: {
             authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
