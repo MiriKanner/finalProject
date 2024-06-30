@@ -30,8 +30,11 @@ export class AuthController {
     try {
       const v = minUserSchema.validate(req.body);
       if (v.error) {
-        next(v.error);
-        return;
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
       }
       const authService = new AuthService();
       const resultItem = await authService.verifyUserAuth(req.body);
@@ -50,8 +53,11 @@ export class AuthController {
     try {
       const v = addAuthScema.validate(req.body);
       if (v.error) {
-        next(v.error);
-        return;
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
       }
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
@@ -69,8 +75,11 @@ export class AuthController {
     try {
       const v = addUserSchema.validate(req.body);
       if (v.error) {
-        next(v.error);
-        return;
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
       }
       const authService = new AuthService();
       const resultItem = await authService.addUserAndAuth(req.body);

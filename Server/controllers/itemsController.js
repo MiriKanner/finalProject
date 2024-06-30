@@ -1,5 +1,4 @@
 import { ItemsService } from "../service/itemsService.js";
-import upload from '../middleware/multerSetup.js';
 
 export class ItemsController {
 

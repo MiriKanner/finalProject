@@ -9,7 +9,6 @@ async function executeQuery(query, params){
         database: process.env.DB_NAME,
         password: process.env.PASSWORD
     });
-
     try {
         [results] = await connection.execute(query,params);
     } catch (err) {

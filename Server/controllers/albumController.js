@@ -26,7 +26,7 @@ export class AlbumController {
         try {
             const albumService = new AlbumService();
             const resultItem = await albumService.getMyAlbums(req.params.username);
-            res.status(200).json(resultItem);
+            res.status((resultItem.length > 0) ? 200 : 204).json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -39,7 +39,7 @@ export class AlbumController {
         try {
             const albumService = new AlbumService();
             const resultItem = await albumService.getMyChildrenAlbum(req.params.username);
-            res.status(200).json(resultItem);
+            res.status((resultItem.length > 0) ? 200 : 204).json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -57,12 +57,14 @@ export class AlbumController {
             }
             let v = newAlbum.validate(formDataObject)
             if (v.error) {
-                next(v.error)
+                const err = {}
+                err.statusCode = 400;
+                err.message = v.error.message;
+                next(err)
                 return
             }
             const albumService = new AlbumService();
             const imgSrc = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
-            console.log(imgSrc)//need to save in db!!!!!!
             const resultItem = await albumService.addChildAlbum(req.params.username, formDataObject, imgSrc);
             res.status(200).json(resultItem);
         }

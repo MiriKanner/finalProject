@@ -1,5 +1,5 @@
 import { ChildrenService } from "../service/childrenService.js";
-import { newChild ,childSchema} from "../serverValidations.js";
+import { newChild, childSchema } from "../serverValidations.js";
 
 export class ChildrenController {
   async getMyChildren(req, res, next) {
@@ -20,12 +20,15 @@ export class ChildrenController {
     try {
       const v = childSchema.validate(req.body);
       if (v.error) {
-        next(v.error);
-        return;
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
       }
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.verifyIsChild(req.body);
-     
+
       res.status(200).json(resultItem);
     } catch (ex) {
       const err = {};
@@ -36,12 +39,15 @@ export class ChildrenController {
   }
   async addChild(req, res, next) {
     try {
-        
+
       console.log(req.body.child);
       let v = newChild.validate(req.body.child);
       if (v.error) {
-        next(v.error);
-        return;
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
       }
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.addChildToParent(req.body.child);
