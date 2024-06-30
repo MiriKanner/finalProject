@@ -15,10 +15,7 @@ import SignUpChild from "./componnents/SignUp/SighUpChild.jsx";
 import Cookies from "js-cookie";
 import AllAlbums from "./componnents/Album/AllAlbums.jsx";
 function App() {
-  const [user, setUser] = useState(
-    JSON.parse(Cookies.get("currentUser") || null)
-    //localStorage.getItem("currentUser") ? () => getUserDetails() : undefined
-  );
+  const [user, setUser] = useState(JSON.parse(Cookies.get("currentUser") || null));
   function getUserDetails() {
     /* let url =
        "http://localhost:3000/users/" +//////???????????????????????????/
