@@ -8,7 +8,7 @@ export class ChildrenController {
       const resultItem = await childrenService.getMyChildren(
         req.params.username
       );
-      res.status(200).json(resultItem);
+      res.json(resultItem);
     } catch (ex) {
       const err = {};
       err.statusCode = 500;
@@ -29,7 +29,7 @@ export class ChildrenController {
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.verifyIsChild(req.body);
 
-      res.status(200).json(resultItem);
+      res.json(resultItem);
     } catch (ex) {
       const err = {};
       err.statusCode = 500;
@@ -51,7 +51,7 @@ export class ChildrenController {
       }
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.addChildToParent(req.body.child);
-      res.status(200).json(resultItem);
+      res.json(resultItem);
     } catch (ex) {
       const err = {};
       err.statusCode = 500;

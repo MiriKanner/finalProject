@@ -6,7 +6,7 @@ export class ItemsController {
         try {
             const itemsService = new ItemsService();
             const resultItem = await itemsService.allItemTypes();
-            res.status(200).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -20,7 +20,7 @@ export class ItemsController {
 
             const itmesService = new ItemsService();
             const resultItem = await itmesService.getMyItmes(req.params.idAlbum);
-            res.status(200).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -29,13 +29,17 @@ export class ItemsController {
             next(err)
         }
     }
-    async deleteItem(req,res,next)
-    {
+    async deleteItem(req, res, next) {
         try {
-            console.log('delete item controller'+req.params.idItem)
+            // console.log('delete item controller' + req.params.idItem)
             const itmesService = new ItemsService();
             const resultItem = await itmesService.deleteItem(req.params.idItem);
-            res.status(200).json(resultItem);
+            if (resultItem.affectedRows > 0)
+                res.json(resultItem);
+            const err = {}
+            err.statusCode = 404;
+            err.message = "comment not found";
+            next(err)
         }
         catch (ex) {
             const err = {}
@@ -44,7 +48,7 @@ export class ItemsController {
             next(err)
         }
     }
-    
+
     async addItem(req, res, next) {
         try {
             let objectForDB = {};
@@ -59,7 +63,7 @@ export class ItemsController {
                 objectForDB = req.body
             const itemsService = new ItemsService();
             const resultItem = await itemsService.addItem(req.params.idAlbum, objectForDB);
-            res.status(200).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}

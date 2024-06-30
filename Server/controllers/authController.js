@@ -1,7 +1,7 @@
 import { AuthService } from "../service/authService.js";
 import cookie from "cookie";
 import { addUserSchema, minUserSchema, addAuthScema } from "../serverValidations.js";
-import { sendEmail } from "../middleware/mailer.js";
+import { sendEmail } from "../utils/mailer.js";
 export class AuthController {
   // async updateAuth(req, res, next) {
   //     try {
@@ -39,7 +39,7 @@ export class AuthController {
       const authService = new AuthService();
       const resultItem = await authService.verifyUserAuth(req.body);
       console.log(resultItem.result)
-      res.status(200).json({ result: resultItem.result[0], token: resultItem.token });
+      res.json({ result: resultItem.result[0], token: resultItem.token });
     }
     catch (ex) {
       console.log("Authication error");
@@ -61,8 +61,7 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
-
-      res.status(200).json({ result: resultItem.result, token: resultItem.token });
+      res.json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
       const err = {};
@@ -85,8 +84,7 @@ export class AuthController {
       const resultItem = await authService.addUserAndAuth(req.body);
       const emailSent = { email: req.body.email, emailBody: "Welcome", subject: "Hello " }
       sendEmail(emailSent)
-      console.log(resultItem)
-      res.status(200).json({ result: resultItem.result, token: resultItem.token });
+      res.json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
       console.log("Authication error");
       const err = {};

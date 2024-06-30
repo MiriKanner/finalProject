@@ -26,7 +26,7 @@ export class AlbumController {
         try {
             const albumService = new AlbumService();
             const resultItem = await albumService.getMyAlbums(req.params.username);
-            res.status((resultItem.length > 0) ? 200 : 204).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -39,7 +39,7 @@ export class AlbumController {
         try {
             const albumService = new AlbumService();
             const resultItem = await albumService.getMyChildrenAlbum(req.params.username);
-            res.status((resultItem.length > 0) ? 200 : 204).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}
@@ -66,7 +66,7 @@ export class AlbumController {
             const albumService = new AlbumService();
             const imgSrc = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
             const resultItem = await albumService.addChildAlbum(req.params.username, formDataObject, imgSrc);
-            res.status(200).json(resultItem);
+            res.json(resultItem);
         }
         catch (ex) {
             const err = {}
