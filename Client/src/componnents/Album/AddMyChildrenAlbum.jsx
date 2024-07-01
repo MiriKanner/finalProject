@@ -5,12 +5,24 @@ import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import { UserContext } from "../../App";
 import { newAlbum } from '../../clientValidations.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddMyChildrenAlbum(props) {
     const user = useContext(UserContext).user;
     const [messageText, setMessageText] = useState("")
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState([])
+    const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+       // transition: Slide,
+      });
     //const options = []
     const [selectChild, setSelectChild] = useState(null)
     useEffect(() => {
@@ -23,7 +35,9 @@ function AddMyChildrenAlbum(props) {
             getReq(req).then((response) => response.json()).then((responseJson) => {
                 responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
                 setOptions(tempOption)
-            })
+            }).catch((err) =>
+                notify(err.errorCode, err.errorText)
+            )
             console.log(options)
         }
     }, [])
@@ -61,13 +75,14 @@ function AddMyChildrenAlbum(props) {
             // } else {
             //     alert("wrong authentication");
             // }
-        });
+        }).catch(err=>          notify(err.errorCode,err.errorText)
+        )
     };
 
 
 
     return (
-        <>
+        <> <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                 <div className="container">
                     <label htmlFor="name">Enter Name</label>

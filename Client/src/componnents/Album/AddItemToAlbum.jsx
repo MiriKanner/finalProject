@@ -9,6 +9,8 @@ import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
 import { IconContext } from "react-icons";
 import EmojiPicker from 'emoji-picker-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddItemToAlbum(props) {
   const user = useContext(UserContext).user;
@@ -16,7 +18,17 @@ function AddItemToAlbum(props) {
   const { register, handleSubmit } = useForm();
   const [options, setOptions] = useState([]);
   const [selectOption, setSelectOption] = useState(null);
-
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
   useEffect(() => {
     if (options.length < 1) {
       const req = {
@@ -34,7 +46,7 @@ function AddItemToAlbum(props) {
             })
           );
           setOptions(tempOption);
-        });
+        })
     }
   }, []);
 
@@ -60,7 +72,8 @@ function AddItemToAlbum(props) {
         // } else {
         //     alert("wrong authentication");
         // }
-      });
+      }).catch(err=>notify(err.errorCode,err.errorText)
+      )
   };
   const onSubmitPhoto = (data) => {
     const dataForm = new FormData();
@@ -76,7 +89,8 @@ function AddItemToAlbum(props) {
       .then((response) => response.json())
       .then((responseJson) => {
         props.setDisplayAddItem(false);
-      });
+      }).catch(err=>          notify(err.errorCode,err.errorText)
+      )
   };
 function onEmojiSelect(emj)
 {
@@ -90,6 +104,7 @@ function onEmojiSelect(emj)
 
   return (
     <>
+     <ToastContainer />
       <div className="container">
         <label htmlFor="option">What are we adding to the album?</label>
         <Select id="option"

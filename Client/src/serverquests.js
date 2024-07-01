@@ -27,8 +27,12 @@ export async function getReq(req) {
         if (response.ok)
             return response
         else {
-            console.log(response)
-            throw new Error
+            throw (
+                {
+                    errorCode: response.status,
+                    errorText: response.statusText
+                }
+            )
         }
     }).then(data => {
         answer = data
@@ -49,7 +53,13 @@ export async function postReq(req) {
     }).then(response => {
         if (response.ok)
             return response
-        else throw new Error
+        else throw (
+            {
+                errorCode: response.
+                    status,
+                errorText: response.
+                    statusText
+            })
     }).then(data => {
         answer = data
     });
@@ -69,7 +79,13 @@ export async function putReq(req) {
     }).then(response => {
         if (response.ok)
             return response
-        else throw new Error
+        else throw (
+            {
+                errorCode: response.
+                    status,
+                errorText: response.
+                    statusText
+            })
     }).then(data => {
         answer = data
     });
@@ -89,7 +105,13 @@ export async function deleteReq(req) {
     }).then(response => {
         if (response.ok)
             return response
-        else throw new Error
+        else throw new Error(
+            {
+                errorCode: response.
+                    status,
+                errorText: response.
+                    statusText
+            })
     }).then(data => {
         answer = data
     });
@@ -108,7 +130,13 @@ export async function postMediaReq(req) {
     }).then(response => {
         if (response.ok)
             return response
-        else throw new Error
+        else throw new Error(
+            {
+                errorCode: response.
+                    status,
+                errorText:
+                    statusText
+            })
     }).then(data => {
         answer = data
     });

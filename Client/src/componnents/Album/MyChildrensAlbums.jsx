@@ -8,7 +8,8 @@ import AddMyChildrenAlbum from "./AddMyChildrenAlbum";
 import AllAlbums from "./AllAlbums";
 import SearchAndSortAlbum from "./SearchAndSortAlbum";
 //import { CardGroup, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function MyChildrensAlbums() {
   const user = useContext(UserContext).user;
   const [albums, setalbums] = useState([]);
@@ -28,15 +29,27 @@ function MyChildrensAlbums() {
           setalbums(responseJson);
           // console.log(responseJson);
         })
-        .catch((err) => {});
+        .catch((err) =>           notify(err.errorCode,err.errorText)
+        );
     }
   }, [displayAddMyChildrenalbums]);
  
-  
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
 
  
   return (
     <>
+     <ToastContainer />
          <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
 
       <button

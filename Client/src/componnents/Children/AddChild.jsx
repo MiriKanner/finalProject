@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { getReq, postReq } from "../../serverquests";
+import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../App";
 import { newChild } from '../../clientValidations.js'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddChild(props) {
     const user = useContext(UserContext).user;
     const [messageText, setMessageText] = useState("")
@@ -24,11 +26,23 @@ function AddChild(props) {
         };
         postReq(req).then((response) => response.json()).then((responseJson) => {
             props.setDisplayAddChild(false)
-            });
+            }).catch(err=>          notify(err.errorCode,err.errorText)
+            )
     };
 
-
+    const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+       // transition: Slide,
+      });
     return(<>
+     <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="container">
                     <label htmlFor="username">Enter User Name</label>

@@ -7,6 +7,8 @@ import { UserContext } from "../../App";
 import AllAlbums from "../Album/AllAlbums";
 import SearchAndSortAlbum from "../Album/SearchAndSortAlbum";
 //import { CardGroup, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SingleChild() {
   const params=useParams()
@@ -28,15 +30,27 @@ function SingleChild() {
           setalbums(responseJson);
           // console.log(responseJson);
         })
-        .catch((err) => {});
+        .catch((err) =>           notify(err.errorCode,err.errorText)
+        );
     }
   , []);
- 
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
   
 
  
   return (
     <>
+     <ToastContainer />
         <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
       <div
         className="album"
