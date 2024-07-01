@@ -1,5 +1,5 @@
 import { executeQuery } from "../dataAccess/db.js";
-import { getPasswordQuery, updateEmailUserQuery, getUserId, addQuery } from "../dataAccess/queries.js";
+import { getPasswordQuery, updateEmailUserQuery, getUserId, addQuery ,isChildQuery} from "../dataAccess/queries.js";
 import pkg from "crypto-js";
 const { SHA256, enc } = pkg;
 import { signToken, signRefreshtoken } from "../middleware/jwt.js";
@@ -13,11 +13,21 @@ export class AuthService {
     const refreshtoken = signRefreshtoken(authItem.username);
     return { result: result, token: token, refreshtoken: refreshtoken };
   }
+  async getChildUser(userChildItem)
+  {
+    console.log(userChildItem)
+    const isChildQ=isChildQuery()
+    console.log(isChildQ)
+    const result = await executeQuery(isChildQ, [userChildItem.username,userChildItem.usernameParent,userChildItem.birthday]);
+    if (result.length == 0) throw { message: "authertaction as child failed", errno: 401 };
+    return result;
+  }
   async addAuth(authItem) {
     try {
       const authQuery = addQuery('auth');
       const updateQuery = updateEmailUserQuery()
       const password = SHA256(authItem.password).toString(enc.Hex);
+      console.log(authItem)
       const authResult = await executeQuery(authQuery, [authItem.username, password]);
       const updateResult = await executeQuery(updateQuery, [authItem.email, authItem.username]);
       const getUserIdQ = getUserId()
@@ -26,7 +36,7 @@ export class AuthService {
       const refreshtoken = signRefreshtoken(authItem.username);
       const result = {
         authResult: authResult,
-        updateResult: { result: updateResult, id: userId[0] }
+        updateResult: { result: updateResult, id: userId[0] },
       };
       return { token: token, refreshtoken: refreshtoken, result: result };
     } catch (ex) {

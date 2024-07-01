@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { postReq } from "../../serverquests";
+import { getReq, postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
@@ -17,7 +17,7 @@ function SignUpChild() {
   const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
-  const [correctUser, setCorrectUser] = useState(false);
+  const [correctUser, setCorrectUser] = useState(undefined);
   const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
@@ -35,21 +35,22 @@ function SignUpChild() {
       birthday: data.birthday,
       usernameParent: data.usernameParent,
     };
+    
     let v = childSchema.validate(child);
     if (v.error) {
       setMessageText(v.error.details[0]);
       return;
     }
-    const req = { method: "GET", route: "auth/signUpChild", body: child };
-
+    const req = { method: "POST", route: "auth/isChild", body: child };
     postReq(req)
       .then((response) => response.json())
       .then((responseJson) => {
-        setCorrectUser(true);
+        setCorrectUser(responseJson[0]);
       })
-      .catch(err=>          notify(err.errorCode,err.errorText)
+      .catch(err=> notify(err.errorCode,err.errorText)
       );
   };
+  
   const onSubmit = (data) => {
     let user = {
       username: data.username,
@@ -67,24 +68,26 @@ function SignUpChild() {
     postReq(req).then((response)=>response.json())
       .then((responseJson) => {
         // if (responseJson.length != 0)
-        {
-          console.log(responseJson);
+        
           const userLocal = {
             username: data.username,
             email: data.email,
-            id: responseJson.result.updateResult.id.id,
+            id: responseJson.result.userResult.insertId,
           };
-     
-          Cookies.set('currentUser', JSON.stringify({
-            userLocal
-          })
+          Cookies.set("currentUser",
+            JSON.stringify({
+              username: userLocal.username,
+              email: userLocal.email
+            })
+          );
+          Cookies.set("token", responseJson.token)
+          userCo.setUser(userLocal);
+          navigate("/" + userLocal.username + "/home");}
         )
 
-          userCo.setUser(userLocal);
-          navigate("/" + userLocal.username + "/home");
-        }
-      })
-      .catch((er) => {
+        
+      
+      .catch((err) => {
         notify(err.errorCode,err.errorText)
       });
   };

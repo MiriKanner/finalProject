@@ -50,7 +50,7 @@ export function myAlbumsQuery() {
  and users.isactive=1 and childandparent.isactive=1 and album.isactive=1;`;
 }
 export function isChildQuery() {
-  `select childUser.id,childUser.username from albumdb.users as childUser, albumdb.users as parentUser,albumdb.childandparent 
+  return `select childUser.id,childUser.username from albumdb.users as childUser, albumdb.users as parentUser,albumdb.childandparent 
     where 
    childUser.username=? and parentUser.username=? 
     and 

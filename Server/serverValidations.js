@@ -25,11 +25,11 @@ const newChild = Joi.object({
   idparent: Joi.number().required()
 })
 const addAuthScema = Joi.object({
-  username: Joi.string().min(3).max(15).required(),
-  birthday: Joi.date().required(),
-  usernameParent: Joi.string().min(3).max(15).required()
-  // email: Joi.string().email({ tlds: { allow: false } }).required(),
-  // password: Joi.string().min(4).max(20).required(),
+   username: Joi.string().min(3).max(15).required(),
+  // birthday: Joi.date().required(),
+  // usernameParent: Joi.string().min(3).max(15).required()
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
+  password: Joi.string().min(4).max(20).required()
 });
 const childSchema = Joi.object({
   usernameParent: Joi.string().min(3).max(15).required(),

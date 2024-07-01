@@ -1,5 +1,5 @@
 import { AuthService } from "../service/authService.js";
-import { addUserSchema, minUserSchema, addAuthScema } from "../serverValidations.js";
+import { addUserSchema, minUserSchema, addAuthScema ,childSchema} from "../serverValidations.js";
 import { sendEmail } from "../utils/mailer.js";
 export class AuthController {
   // async updateAuth(req, res, next) {
@@ -61,6 +61,7 @@ export class AuthController {
       next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message });
     }
   }
+
   async addAuthAndUser(req, res, next) {
     try {
       const v = addUserSchema.validate(req.body);
@@ -76,6 +77,26 @@ export class AuthController {
       const emailSent = { email: req.body.email, emailBody: "Welcome", subject: "Hello " }
       sendEmail(emailSent)
       res.json({ result: resultItem.result, token: resultItem.token });
+    } catch (ex) {
+      next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message });
+    }
+  }
+  async getChildUser(req,res,next)
+  {
+    try {
+      console.log(req.body)
+      const v = childSchema.validate(req.body);
+      if (v.error) {
+        const err = {}
+        err.statusCode = 400;
+        err.message = v.error.message;
+        next(err)
+        return
+      }
+      
+      const authService = new AuthService();
+      const resultItem = await authService.getChildUser(req.body);
+      res.json(resultItem);
     } catch (ex) {
       next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message });
     }
