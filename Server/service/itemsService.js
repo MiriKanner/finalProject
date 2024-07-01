@@ -2,9 +2,11 @@ import { executeQuery } from '../dataAccess/db.js';
 import { getItemTypesQuery, getMyItmesQuery, addQuery, deleteQuery } from '../dataAccess/queries.js'
 export class ItemsService {
     async deleteItem(itemId) {
-        const deleteItemQuery = deleteQuery('itemsofalbum')
-        const result = await executeQuery(deleteItemQuery, [itemId]);
-        return result
+        try {
+            const deleteItemQuery = deleteQuery('itemsofalbum')
+            const result = await executeQuery(deleteItemQuery, [itemId]);
+            return result
+        } catch (ex) { throw ex }
     }
     async allItemTypes() {
         const allItemTypes = getItemTypesQuery();
@@ -18,8 +20,6 @@ export class ItemsService {
         return result;
     }
     async addItem(albumId, item) {
-        // const addItemToAlbum = addItemToAlbumQuery();
-        //const result = await executeQuery(addItemToAlbum, [item.creationdate, albumId, item.idtype, item.data]);
         const addItemQ = addQuery('itemsofalbum')
         const result = await executeQuery(addItemQ, [item.creationdate, albumId, item.idtype, item.data]);
         return result;

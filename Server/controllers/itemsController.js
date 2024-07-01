@@ -31,7 +31,6 @@ export class ItemsController {
     }
     async deleteItem(req, res, next) {
         try {
-            // console.log('delete item controller' + req.params.idItem)
             const itmesService = new ItemsService();
             const resultItem = await itmesService.deleteItem(req.params.idItem);
             if (resultItem.affectedRows > 0)

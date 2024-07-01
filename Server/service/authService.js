@@ -8,7 +8,7 @@ export class AuthService {
     const authQuery = getPasswordQuery();
     const password = SHA256(authItem.password).toString(enc.Hex);
     const result = await executeQuery(authQuery, [authItem.username, password]);
-    if (result.length == 0) throw { message: "login failed", errno: 404 };
+    if (result.length == 0) throw { message: "login failed", errno: 401 };
     const token = signToken(authItem.username)
     const refreshtoken = signRefreshtoken(authItem.username);
     return { result: result, token: token, refreshtoken: refreshtoken };
