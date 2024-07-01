@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { UserContext } from "../../App";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import AddChild from "./AddChild";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyChildren() {
     const navigate = useNavigate();
@@ -24,10 +25,22 @@ function MyChildren() {
         getReq(req).then((response) => response.json()).then((responseJson) => {
             setChildren(responseJson)
             //console.log(responseJson);
-        }).catch(err => { })
+        }).catch(err =>           notify(err.errorCode,err.errorText)
+        )
 
     }
 },  [displayAddChild])
+const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
 
     return (
         <>
@@ -48,6 +61,7 @@ function MyChildren() {
                     </div>
                 ))}
             </div >
+            <ToastContainer />
             {/* {children.map((album, index) => {
         return <><h3>{album.name}</h3>
           <h3>{album.childName}</h3>

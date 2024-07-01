@@ -7,6 +7,8 @@ import { UserContext } from "../../App";
 import PasswordStrengthBar from "react-password-strength-bar";
 import Cookies from "js-cookie";
 import { userSignupSchema } from "../../clientValidations";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -28,7 +30,17 @@ function SignUp() {
       setMessageText(v.error.details[0]);
       return;
     }
-
+    const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+     // transition: Slide,
+    });
     const req = { method: "POST", route: "auth/signUp", body: user };
     postReq(req)
       .then((res) => res.json())
@@ -53,12 +65,14 @@ function SignUp() {
         }
       })
       .catch((er) => {
-        console.log(er);
+        notify(err.errorCode,err.errorText)
+
       });
   };
 
   return (
     <>
+     <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
           <label htmlFor="username">Enter UserName</label>

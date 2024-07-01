@@ -7,6 +7,8 @@ import { userLoginSchema } from "../../clientValidations";
 import Recaptcha from "react-recaptcha";
 import ReCAPTCHA from "react-google-recaptcha";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const captchaRef = useRef(null);
@@ -14,7 +16,17 @@ function Login() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
   const [messageText, setMessageText] = useState("");
-
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     let userToValidate = { username: data.username, password: data.password };
@@ -49,7 +61,8 @@ function Login() {
         } else {
           alert("wrong authentication");
         }
-      });
+      }).catch(err=> notify(err.errorCode,err.errorText)
+      )
   };
   function callback() {
     console.log("load chapta");
@@ -60,6 +73,7 @@ function Login() {
   }
   return (
     <>
+     <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
           <label htmlFor="username">Enter UserName</label>

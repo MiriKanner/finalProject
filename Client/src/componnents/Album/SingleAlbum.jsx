@@ -24,8 +24,19 @@ function SingleAlbum() {
   const [allItems, setAllItems] = useState([]);
   const [displayAddItem, setDisplayAddItem] = useState(false);
   const [deleteItemNum, setDelteItemNum] = useState(0)
+  const [hasLoaded, setHasLoaded] = useState(false);
 
-  const notify = () => toast.error("Wow so easy!");
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
 
   function deleteItem(idItem) {
 
@@ -36,21 +47,14 @@ function SingleAlbum() {
       };
       deleteReq(req).then(
         setDelteItemNum(deleteItemNum + 1)
-      ).catch(toast.error('🦄 Wow so easy!', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-      }))
+      ).catch((err)=>
+        notify(err.errorCode,err.errorText)
+
+      )
     }
   }
   useEffect(() => {
-    if (!displayAddItem) {
+    if (!displayAddItem&&!hasLoaded) {
       const req = {
         method: "GET",
         route: `items/${params.albumId}`,
@@ -59,10 +63,13 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
-          notify()
+          setHasLoaded(true);
           // console.log(responseJson);
-        })
-        .catch((err) => { });
+        }).catch((err) => {
+          notify(err.errorCode,err.errorText)
+        }
+        )
+
     }
   }, [displayAddItem, deleteItemNum]);
   function AllAlbumMatrix(allItems) {

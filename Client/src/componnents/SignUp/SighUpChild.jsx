@@ -6,7 +6,11 @@ import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { childSignupSchema, childSchema } from "../../clientValidations";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cookies from "js-cookie";
+
+
 function SignUpChild() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -14,6 +18,17 @@ function SignUpChild() {
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
   const [correctUser, setCorrectUser] = useState(false);
+  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+   // transition: Slide,
+  });
   const onSubmitIsUser = (data) => {
     let child = {
       username: data.username,
@@ -32,7 +47,8 @@ function SignUpChild() {
       .then((responseJson) => {
         setCorrectUser(true);
       })
-      .catch();
+      .catch(err=>          notify(err.errorCode,err.errorText)
+      );
   };
   const onSubmit = (data) => {
     let user = {
@@ -58,53 +74,23 @@ function SignUpChild() {
             email: data.email,
             id: responseJson.result.updateResult.id.id,
           };
-          // var nodemailer = require("nodemailer");
-
-          // var transporter = nodemailer.createTransport({
-          //   service: "gmail",
-          //   auth: {
-          //     user: "youremail@gmail.com",
-          //     pass: "yourpassword",
-          //   },
-          // });
-
-          // var mailOptions = {
-          //   from: "youremail@gmail.com",
-          //   to: "myfriend@yahoo.com",
-          //   subject: "Sending Email using Node.js",
-          //   text: "That was easy!",
-          // };
-
-          // transporter.sendMail(mailOptions, function (error, info) {
-          //   if (error) {
-          //     console.log(error);
-          //   } else {
-          //     console.log("Email sent: " + info.response);
-          //   }
-          // });
+     
           Cookies.set('currentUser', JSON.stringify({
             userLocal
-            //token: responseJson[0].token
-          })   
+          })
         )
-          //   localStorage.setItem(
-          //   "currentUser",
-          //   JSON.stringify({
-          //     userLocal,
-          //     //token: responseJson[0].token
-          //   })
-          // );
+
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
       })
       .catch((er) => {
-        console.log(er);
+        notify(err.errorCode,err.errorText)
       });
   };
 
   return (
-    <>
+    <> <ToastContainer />
       {!correctUser && (
         <form onSubmit={handleSubmit(onSubmitIsUser)}>
           <div className="container">
