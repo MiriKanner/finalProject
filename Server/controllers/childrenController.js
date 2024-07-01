@@ -39,8 +39,6 @@ export class ChildrenController {
   }
   async addChild(req, res, next) {
     try {
-
-      console.log(req.body.child);
       let v = newChild.validate(req.body.child);
       if (v.error) {
         const err = {}

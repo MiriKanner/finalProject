@@ -37,7 +37,7 @@ function MyChildren() {
                 {children.map((child, index) => (
                     <div key={index}>
                         <div className="card"// onClick={()=> navigate(`./${child.albumId}`)}
-                            shadow="sm" key={child.id} isPressable
+                            shadow="sm" key={child.id} //isPressable
                             onClick={() => navigate(`./${child.childName}/albums`)} >
                      
                             <div className="text-small justify-between">

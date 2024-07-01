@@ -1,5 +1,4 @@
 import { AuthService } from "../service/authService.js";
-import cookie from "cookie";
 import { addUserSchema, minUserSchema, addAuthScema } from "../serverValidations.js";
 import { sendEmail } from "../utils/mailer.js";
 export class AuthController {
@@ -38,7 +37,7 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.verifyUserAuth(req.body);
-      console.log(resultItem.result)
+      res.cookie('jwt', resultItem.refreshtoken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 259200000 });
       res.json({ result: resultItem.result[0], token: resultItem.token });
     }
     catch (ex) {

@@ -5,6 +5,9 @@ const issuer = "JOYFULJOURNEYS"
 
 export const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
+    const cookies = req.cookies;
+    if (cookies)
+        console.log(cookies)
     if (!token)
         return res.sendStatus(403).send("no access Token");
     try {

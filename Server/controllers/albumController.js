@@ -8,7 +8,6 @@ export class AlbumController {
     //         res.status(200).json({ status: 200, data: resultItem });
     //     }
     //     catch (ex) {
-    //         console.log('albumication error')
     //         const err = {}
     //         switch (ex.message) {
     //             case "albumentication failed":
@@ -82,7 +81,6 @@ export class AlbumController {
     //         res.status(200).json({ status: 200, data: resultItem });
     //     }
     //     catch (ex) {
-    //         console.log('albumication error')
     //         const err = {}
     //         err.statusCode = 500;
     //         err.message = ex;
@@ -98,7 +96,6 @@ export class AlbumController {
     //         res.status(200).json({status: 200, data: result});
     //     }
     //     catch (ex) {
-    //         console.log('albumication error')
     //         const err = {}
     //         err.statusCode = 500;
     //         err.message = ex;

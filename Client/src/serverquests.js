@@ -1,15 +1,28 @@
 import Cookies from "js-cookie";
-
 const URL = "http://localhost:8080"
+
+function getToken() {
+    let token = Cookies.get('token');
+    // try {
+    //     decode(token);
+    //     const { exp } = decode(refreshToken);
+    //     if (Date.now() >= exp * 1000) {
+    //         return false;
+    //     }
+    // } catch (ex) { }
+    return token;
+}
+
 export async function getReq(req) {
     let answer;
-    const token = Cookies.get('token');
+    const token = getToken()
     await fetch(`${URL}/${req.route}`, {
         method: 'GET',
         headers: {
             authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
         },
+        withCredentials: true,
     }).then(response => {
         if (response.ok)
             return response
@@ -22,7 +35,7 @@ export async function getReq(req) {
 
 export async function postReq(req) {
     let answer;
-    const token = Cookies.get('token');
+    const token = getToken()
     await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: JSON.stringify(req.body),
@@ -42,7 +55,7 @@ export async function postReq(req) {
 
 export async function putReq(req) {
     let answer;
-    const token = Cookies.get('token');
+    const token = getToken()
     await fetch(`${URL}/${req.route}`, {
         method: 'PUT',
         body: JSON.stringify(req.body),
@@ -62,7 +75,7 @@ export async function putReq(req) {
 
 export async function deleteReq(req) {
     let answer;
-    const token = Cookies.get('token');
+    const token = getToken()
     const urlReq = `${URL}/${req.route}`
     await fetch(urlReq, {
         method: 'DELETE',
@@ -82,7 +95,7 @@ export async function deleteReq(req) {
 
 export async function postMediaReq(req) {
     let answer;
-    const token = Cookies.get('token');
+    const token = getToken()
     await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: req.body,

@@ -7,13 +7,13 @@ import { authRouter } from './router/authRouter.js';
 import { albumRouter } from './router/albumRouter.js';
 import { childrenRouter } from './router/childrenRouter.js';
 import { itemsRouter } from './router/itemsRouter.js';
-
 const port = process.env.PORT || 8080;
 
 const app = express();
 app.use('/uploads', express.static('uploads'))
 app.use(express.json());
-app.use(cors({ credentials: true }));
+ app.use(cors({ credentials: true }));
+//app.use(cors(corsOptions))
 app.use(logActions);
 
 app.use('/auth', authRouter);
