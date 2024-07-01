@@ -23,6 +23,9 @@ app.use(cookieParser())
 app.use('/album', verifyToken, albumRouter)
 app.use('/children', verifyToken, childrenRouter)
 app.use('/items', verifyToken, itemsRouter)
+// app.use('/album', albumRouter)
+// app.use('/children', childrenRouter)
+// app.use('/items', itemsRouter)
 
 app.use(logErrors);
 

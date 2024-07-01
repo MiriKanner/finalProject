@@ -99,8 +99,8 @@ export async function deleteReq(req) {
     await fetch(urlReq, {
         method: 'DELETE',
         headers: {
-            authorization: token,
             'Content-type': 'application/json; charset=UTF-8',
+             authorization: token
         },
     }).then(response => {
         if (response.ok)

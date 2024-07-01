@@ -50,6 +50,7 @@ export class ItemsController {
 
     async addItem(req, res, next) {
         try {
+            console.log('hiii add item')
             let objectForDB = {};
             if (req.body.idtype == 1 || req.body.idtype == 3) {
                 console.log(process.env.PORT)
