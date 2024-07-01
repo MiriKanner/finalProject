@@ -26,7 +26,10 @@ export async function getReq(req) {
     }).then(response => {
         if (response.ok)
             return response
-        else throw new Error
+        else {
+            console.log(response)
+            throw new Error
+        }
     }).then(data => {
         answer = data
     });

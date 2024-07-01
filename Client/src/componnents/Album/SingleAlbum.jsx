@@ -16,12 +16,16 @@ import TimelineOppositeContent, {
 import AddItemToAlbum from "./AddItemToAlbum";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SingleAlbum() {
   const params = useParams();
   const [allItems, setAllItems] = useState([]);
   const [displayAddItem, setDisplayAddItem] = useState(false);
   const [deleteItemNum, setDelteItemNum] = useState(0)
+
+  const notify = () => toast.error("Wow so easy!");
 
   function deleteItem(idItem) {
 
@@ -32,7 +36,17 @@ function SingleAlbum() {
       };
       deleteReq(req).then(
         setDelteItemNum(deleteItemNum + 1)
-      )
+      ).catch(toast.error('🦄 Wow so easy!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      }))
     }
   }
   useEffect(() => {
@@ -45,15 +59,15 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
+          notify()
           // console.log(responseJson);
         })
         .catch((err) => { });
     }
   }, [displayAddItem, deleteItemNum]);
-  function AllAlbumMatrix(allItems)
-  {
-      let col=allItems.length/3;
-      let row=3
+  function AllAlbumMatrix(allItems) {
+    let col = allItems.length / 3;
+    let row = 3
   }
   function srcset(image, size, rows = 1, cols = 1) {
     return {
@@ -121,7 +135,7 @@ function SingleAlbum() {
           })}
         </Timeline>
       </div >
-      <div> 
+      <div>
         <ImageList
           sx={{ width: 500, height: 450 }}
           variant="quilted"
@@ -129,7 +143,7 @@ function SingleAlbum() {
           rowHeight={121}
         >
           {allItems.map((item) => (
-                (item.idtype==1)&&
+            (item.idtype == 1) &&
             < ImageListItem key={item.id} cols={item.cols || 1} rows={item.rows || 1} >
               <img
                 {...srcset(item.data, 121, item.rows, item.cols)}
@@ -149,6 +163,7 @@ function SingleAlbum() {
           <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
         )
       }
+      <ToastContainer />
     </>
   );
 }
