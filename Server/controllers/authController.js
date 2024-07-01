@@ -41,11 +41,7 @@ export class AuthController {
       res.json({ result: resultItem.result[0], token: resultItem.token });
     }
     catch (ex) {
-      console.log("Authication error");
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno || 500, message: ex.message });
     }
   }
   async addAuth(req, res, next) {
@@ -62,11 +58,7 @@ export class AuthController {
       const resultItem = await authService.addAuth(req.body);
       res.json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
-      console.log("Authication error");
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message });
     }
   }
   async addAuthAndUser(req, res, next) {
@@ -85,11 +77,7 @@ export class AuthController {
       sendEmail(emailSent)
       res.json({ result: resultItem.result, token: resultItem.token });
     } catch (ex) {
-      console.log("Authication error");
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message });
     }
   }
 

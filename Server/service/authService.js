@@ -8,7 +8,7 @@ export class AuthService {
     const authQuery = getPasswordQuery();
     const password = SHA256(authItem.password).toString(enc.Hex);
     const result = await executeQuery(authQuery, [authItem.username, password]);
-    if (result.length == 0) throw new Error();
+    if (result.length == 0) throw { message: "login failed", errno: 404 };
     const token = signToken(authItem.username)
     const refreshtoken = signRefreshtoken(authItem.username);
     return { result: result, token: token, refreshtoken: refreshtoken };
@@ -30,7 +30,7 @@ export class AuthService {
       };
       return { token: token, refreshtoken: refreshtoken, result: result };
     } catch (ex) {
-      console.log("my error \n" + ex);
+      throw ex
     }
   }
   async addUserAndAuth(userAndAuthItem) {
@@ -53,7 +53,7 @@ export class AuthService {
       };
       return { token: token, refreshtoken: refreshtoken, result: result };
     } catch (ex) {
-      console.log("my error \n" + ex);
+      throw ex
     }
   }
   // async updateAuth(authItem) {
