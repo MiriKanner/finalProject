@@ -1,7 +1,6 @@
 import { ItemsService } from "../service/itemsService.js";
 
 export class ItemsController {
-
     async getItemOptions(req, res, next) {
         try {
             const itemsService = new ItemsService();
@@ -17,9 +16,9 @@ export class ItemsController {
     }
     async getMyItems(req, res, next) {
         try {
-
             const itmesService = new ItemsService();
             const resultItem = await itmesService.getMyItmes(req.params.idAlbum);
+            console.log(resultItem)
             res.json(resultItem);
         }
         catch (ex) {
@@ -35,10 +34,12 @@ export class ItemsController {
             const resultItem = await itmesService.deleteItem(req.params.idItem);
             if (resultItem.affectedRows > 0)
                 res.json(resultItem);
-            const err = {}
-            err.statusCode = 404;
-            err.message = "comment not found";
-            next(err)
+            else {
+                const err = {}
+                err.statusCode = 404;
+                err.message = "item not found";
+                next(err)
+            }
         }
         catch (ex) {
             const err = {}

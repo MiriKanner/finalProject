@@ -56,26 +56,4 @@ export class AuthService {
       throw ex
     }
   }
-  // async updateAuth(authItem) {
-  //     const verifyQuery = getByValueQuery('auth','userName')
-  //     const result1 = await executeQuery(verifyQuery, [authItem.name]);
-  //     if (result1[0].password == authItem.oldPassword) {
-  //         let authQuery = updateQuery('auth', ['password']);
-  //         const result2 = await executeQuery(authQuery, [ authItem.newPassword, authItem.name]);
-  //         return { result2 }
-  //     }else {
-  //         throw new Error('Authentication failed')
-  //     }
-  // }
-
-  // async deleteAuthAndUser (userItem) {
-  //     const deleteAuth = deleteQuery('auth');
-  //     const deleteUser = deleteQuery('users');
-  //     const authResult = await executeQuery(deleteAuth, [userItem.name]);
-  //     const userResult = await executeQuery(deleteUser, [userItem.userId]);
-  //     return {
-  //         authResult: authResult,
-  //         userResult: userResult
-  //     }
-  // }
 }
