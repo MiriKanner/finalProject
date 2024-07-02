@@ -14,6 +14,7 @@ import SingleChild from "./componnents/Children/SingleChild";
 import SignUpChild from "./componnents/SignUp/SighUpChild.jsx";
 import Cookies from "js-cookie";
 import AllAlbums from "./componnents/Album/AllAlbums.jsx";
+import HomePage from "./componnents/Home/HomePage";
 function App() {
   const [user, setUser] = useState(JSON.parse(Cookies.get("currentUser") || null));
   function getUserDetails() {

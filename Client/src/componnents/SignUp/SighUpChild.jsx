@@ -74,10 +74,8 @@ function SignUpChild() {
             id: responseJson.result.userResult.id,
           };
           Cookies.set("currentUser",
-            JSON.stringify({
-              username: userLocal.username,
-              email: userLocal.email
-            })
+            JSON.stringify(     userLocal  
+            )
           );
           Cookies.set("token", responseJson.token)
           userCo.setUser(userLocal);

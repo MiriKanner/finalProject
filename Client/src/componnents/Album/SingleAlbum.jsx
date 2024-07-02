@@ -19,6 +19,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GrGallery } from "react-icons/gr";
+import { LiaListUlSolid } from "react-icons/lia";
 
 function SingleAlbum() {
   const params = useParams();
@@ -75,9 +76,8 @@ function SingleAlbum() {
   function srcset(image, size, rows = 1, cols = 1) {
     return {
       src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-      srcSet: `${image}?w=${size * cols}&h=${
-        size * rows
-      }&fit=crop&auto=format&dpr=2 2x`,
+      srcSet: `${image}?w=${size * cols}&h=${size * rows
+        }&fit=crop&auto=format&dpr=2 2x`,
     };
   }
   function allItemsImageMatrix(items) {
@@ -109,7 +109,7 @@ function SingleAlbum() {
   return (
     <>
       <button onClick={() => setGalleryDisplay(!galleryDisplay)}>
-        {<GrGallery />}
+        {!galleryDisplay ? <GrGallery /> : <LiaListUlSolid />}
       </button>
       {!galleryDisplay && (
         <div>
@@ -165,7 +165,9 @@ function SingleAlbum() {
       {galleryDisplay && (
         <div className="imgeGallery">
           <ImageList
-            sx={{ width: 500, height: 450 }}
+            sx={{ width: 500
+              , height: 450
+             }}
             variant="quilted"
             cols={galleryDisplay.length > 20 ? 4 : 3}
             rowHeight={150}
