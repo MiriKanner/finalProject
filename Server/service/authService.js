@@ -15,9 +15,7 @@ export class AuthService {
   }
   async getChildUser(userChildItem)
   {
-    console.log(userChildItem)
     const isChildQ=isChildQuery()
-    console.log(isChildQ)
     const result = await executeQuery(isChildQ, [userChildItem.username,userChildItem.usernameParent,userChildItem.birthday]);
     if (result.length == 0) throw { message: "authertaction as child failed", errno: 401 };
     return result;
@@ -27,7 +25,6 @@ export class AuthService {
       const authQuery = addQuery('auth');
       const updateQuery = updateEmailUserQuery()
       const password = SHA256(authItem.password).toString(enc.Hex);
-      console.log(authItem)
       const authResult = await executeQuery(authQuery, [authItem.username, password]);
       const updateResult = await executeQuery(updateQuery, [authItem.email, authItem.username]);
       const getUserIdQ = getUserId()
@@ -36,7 +33,7 @@ export class AuthService {
       const refreshtoken = signRefreshtoken(authItem.username);
       const result = {
         authResult: authResult,
-        updateResult: { result: updateResult, id: userId[0] },
+        userResult: { result: updateResult, id: userId[0] },
       };
       return { token: token, refreshtoken: refreshtoken, result: result };
     } catch (ex) {

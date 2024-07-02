@@ -64,7 +64,7 @@ function SignUp() {
           navigate("/" + userLocal.username + "/home");
         }
       })
-      .catch((er) => {
+      .catch((err) => {
         notify(err.errorCode,err.errorText)
 
       });

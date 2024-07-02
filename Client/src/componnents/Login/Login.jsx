@@ -4,8 +4,6 @@ import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { userLoginSchema } from "../../clientValidations";
-import Recaptcha from "react-recaptcha";
-import ReCAPTCHA from "react-google-recaptcha";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -105,15 +103,6 @@ function Login() {
           Submit
         </button>
       </form>
-      {/* <Recaptcha
-    sitekey="6Lc7If8pAAAAAE2XO4B3ATN3BgJDjrY__ith8Ccn"
-    render="explicit"
-    onloadCallback={()=>callback}
-    // verifyCallback={()=>verifyCallback}
-  /> */}
-      {/* <reCAPTCHA sitekey='6LdWP_8pAAAAAMYAuj6vaa4kV5ujwNEdEE5XtGyS' /> */}
-      <ReCAPTCHA sitekey={site_key} />
-      {/* <script src="https://www.google.com/recaptcha/enterprise.js?render=6Leigv0pAAAAAEmy8gP5AjC5ePpxa4CdHAWlUAk7"></script> */}
       <Link to="/signup">don't have acount? please sign up</Link>
       <br />
       <Link to="/signup/child">child of user? please create auth</Link>

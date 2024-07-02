@@ -27,7 +27,6 @@ function SignUpChild() {
     draggable: true,
     progress: undefined,
     theme: "light",
-   // transition: Slide,
   });
   const onSubmitIsUser = (data) => {
     let child = {
@@ -68,11 +67,11 @@ function SignUpChild() {
     postReq(req).then((response)=>response.json())
       .then((responseJson) => {
         // if (responseJson.length != 0)
-        
+        console.log(responseJson.result.userResult)
           const userLocal = {
             username: data.username,
             email: data.email,
-            id: responseJson.result.userResult.insertId,
+            id: responseJson.result.userResult.id,
           };
           Cookies.set("currentUser",
             JSON.stringify({
