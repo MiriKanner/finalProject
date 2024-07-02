@@ -30,7 +30,7 @@ function SignUp() {
       setMessageText(v.error.details[0]);
       return;
     }
-    const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -39,7 +39,7 @@ function SignUp() {
       draggable: true,
       progress: undefined,
       theme: "light",
-     // transition: Slide,
+      // transition: Slide,
     });
     const req = { method: "POST", route: "auth/signUp", body: user };
     postReq(req)
@@ -54,10 +54,9 @@ function SignUp() {
             id: responseJson.result.userResult.insertId,
           };
           Cookies.set("currentUser",
-            JSON.stringify({
-              username: userLocal.username,
-              email: userLocal.email
-            })
+            JSON.stringify(
+              userLocal
+            )
           );
           Cookies.set("token", responseJson.token)
           userCo.setUser(userLocal);
@@ -65,14 +64,14 @@ function SignUp() {
         }
       })
       .catch((er) => {
-        notify(err.errorCode,err.errorText)
+        notify(err.errorCode, err.errorText)
 
       });
   };
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
           <label htmlFor="username">Enter UserName</label>

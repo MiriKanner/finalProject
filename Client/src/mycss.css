@@ -5,6 +5,7 @@ body {
     font-family: sans-serif;
     padding-top: 60px;
     padding-left: 10px;
+    place-items: normal !important;
 }
 
 #root {
@@ -195,7 +196,7 @@ video {
 .icon,
 .imgItem {
     font-size: 40px;
-    width: 40px;
+    /* width: 40px; */
     margin: 15px;
 }
 
@@ -207,7 +208,10 @@ video {
 .help-li {
     height: 60px;
 }
-
+.css-uym98a-MuiImageList-root
+{
+    height: auto;
+}
 form {
     margin: 10%;
     display: flex;
@@ -250,6 +254,7 @@ button:hover {
 .imgeGallery {
     display: block;
     margin:20px;
+    height: auto;
     /* margin-left: 60px; */
     /* height: 200px; */
 }
