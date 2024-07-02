@@ -9,9 +9,11 @@ const transporter = NodeMailer.createTransport({
     pass: process.env.PASSWORD_MAIL,
   },
 });
-// const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-5\\server\\templates\\templates.html', 'utf8');
-const styledEmailContent = fs.readFileSync("C:\\Users\\קנר מרים חוה\\finalProject-1\\Server\\template\\welcome-template.html", "utf8");
- const replacedEmailContent = styledEmailContent
+
+const __dirname = path.resolve();
+const styledEmailContent = fs.readFileSync(path.resolve(__dirname, './template/welcome-template.html'));
+
+const replacedEmailContent = styledEmailContent
 //   .replace("${emailBody}", emailBody)
 //   .replace("${params}", params)
 //   .replace("${mail}", process.env.MAIL_EMAIL);
