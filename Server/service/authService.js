@@ -33,7 +33,7 @@ export class AuthService {
       const refreshtoken = signRefreshtoken(authItem.username);
       const result = {
         authResult: authResult,
-        userResult: { result: updateResult, id: userId[0] },
+        userResult: { result: updateResult, id: userId[0].id },
       };
       return { token: token, refreshtoken: refreshtoken, result: result };
     } catch (ex) {
