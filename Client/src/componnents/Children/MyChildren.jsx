@@ -50,7 +50,8 @@ const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. 
 
     return (
         <>
-            <button onClick={() => setDisplayAddChild(!displayAddChild)}>Add Child</button>
+        
+            <button onClick={() => setDisplayAddChild(!displayAddChild)}>    <i className="material-icons">person_add</i></button>
             {displayAddChild && <AddChild setDisplayAddChild={setDisplayAddChild} />}
             <div className="childContanier" >
                 {

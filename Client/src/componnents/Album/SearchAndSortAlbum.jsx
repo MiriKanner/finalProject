@@ -1,43 +1,43 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 
 function SearchAndSortAlbum(props) {
-    const [searchType, setSearchType] = useState();
-    const albums=props.albums
-    
-    function selectSearchType(event) {
-        let foundsArr;
-        if (event.target.value == "all") {
-          foundsArr = props.originalAlbums.map((t, i) => {
-            if (t != null) return { ...t, originalIndex: i, editable: false };
-          });
-          props.setalbums(foundsArr.filter((t) => t != null));
-          setSearchType();
-        } else setSearchType(event.target.value);
-      }
-      function searchalbums(event) {
-        let foundsArr, foundIndex;
-        const { name, value } = event.target;
-        foundsArr = props.originalAlbums.map((t, i) => {
-          if (t != null && t[name].toString().includes(value))
-            return { ...t, originalIndex: i, editable: false };
-        });
-        props.setalbums(foundsArr.filter((t) => t != null));
-      }
-      function sortalbums(event) {
-        event.preventDefault();
-        let sortArr = albums.slice();
-        switch (event.target.value) {
-          case "id":
-            props.setalbums(sortArr.sort((a, b) => a.albumId - b.albumId));
-            break;
-          case "alphabet":
-            props.setalbums(sortArr.sort((a, b) => (a.name > b.name ? 1 : -1)));
-            break;
-          case "random":
-            props.setalbums(sortArr.sort(() => (Math.random() > 0.5 ? -1 : 1)));
-            break;
-        }
-      }    
+  const [searchType, setSearchType] = useState();
+  const albums = props.albums
+
+  function selectSearchType(event) {
+    let foundsArr;
+    if (event.target.value == "all") {
+      foundsArr = props.originalAlbums.map((t, i) => {
+        if (t != null) return { ...t, originalIndex: i, editable: false };
+      });
+      props.setalbums(foundsArr.filter((t) => t != null));
+      setSearchType();
+    } else setSearchType(event.target.value);
+  }
+  function searchalbums(event) {
+    let foundsArr, foundIndex;
+    const { name, value } = event.target;
+    foundsArr = props.originalAlbums.map((t, i) => {
+      if (t != null && t[name].toString().includes(value))
+        return { ...t, originalIndex: i, editable: false };
+    });
+    props.setalbums(foundsArr.filter((t) => t != null));
+  }
+  function sortalbums(event) {
+    event.preventDefault();
+    let sortArr = albums.slice();
+    switch (event.target.value) {
+      case "id":
+        props.setalbums(sortArr.sort((a, b) => a.albumId - b.albumId));
+        break;
+      case "alphabet":
+        props.setalbums(sortArr.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)));
+        break;
+      case "random":
+        props.setalbums(sortArr.sort(() => (Math.random() > 0.5 ? -1 : 1)));
+        break;
+    }
+  }
   return (
     <>
       <br />
@@ -57,29 +57,29 @@ function SearchAndSortAlbum(props) {
         <option value="childName">child name</option>
       </select>
       <br />
-
-      {searchType ? (
-        searchType == "id" ? (
-          <>
-            <label htmlFor="id">id</label>
-            <input
-              type="text"
-              name="id"
-              onChange={(event) => searchalbums(event)}
-            />
-          </>
+      <div className="input-con">
+        {searchType ? (
+          searchType == "id" ? (
+            <>
+              <label htmlFor="id">id</label>
+              <input
+                type="text"
+                name="id"
+                onChange={(event) => searchalbums(event)}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                name={searchType}
+                onChange={(event) => searchalbums(event)}
+              />
+            </>
+          )
         ) : (
-          <>
-            <input
-              type="text"
-              name={searchType}
-              onChange={(event) => searchalbums(event)}
-            />
-          </>
-        )
-      ) : (
-        <></>
-      )}
+          <></>
+        )}</div>
     </>
   );
 }

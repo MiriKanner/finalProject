@@ -4,29 +4,24 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-
+import { useParams } from "react-router-dom";
 function AllAlbums(props) {
   const navigate = useNavigate();
   const albums = props.albums;
-
+ const {username}=useParams();
   return (
     <>
       <div>
         {albums.map((item, index) => (
-          <div
-            className="divCard"
-            onClick={() => navigate(`./${item.albumId}`)}
-          >
-            <Card sx={{ maxWidth: 345 }}>
+          <div className="divCard"
+            onClick={() => navigate(`/${username}/mychildren'salbums/${item.albumId}`)}>
+            <Card sx={{ maxWidth: 345 }} key={index}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="250"
                   width="276"
-                  image={
-                    item.albumPhoto ||
-                    "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"
-                  }
+                  image={item.albumPhoto || "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"}
                   alt={item.name}
                 />
                 <CardContent>
@@ -48,29 +43,3 @@ function AllAlbums(props) {
   );
 }
 export default AllAlbums;
-{
-  /* {albums.map((item, index) => (
-      <div key={index} className="cardDiv">
-        <div className="card"
-          onClick={() => navigate(`./${item.albumId}`)}
-          shadow="sm"
-          key={item.id}
-          // isPressable
-          style={{ flex: 1 }}>
-
-          <img
-            shadow="sm"
-            radius="lg"
-            width="100%"
-            alt={item.name}
-            className="w-full object-cover h-[140px]"
-            src={item.albumPhoto || "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"} />
-          <div className="text-small justify-between">
-            <b>{item.name}</b>
-            <p>{new Date(item.creationdate).toLocaleDateString()}</p>
-            <p className="text-default-500">{item.childName}</p>
-          </div>
-        </div>
-      </div>
-    ))} */
-}

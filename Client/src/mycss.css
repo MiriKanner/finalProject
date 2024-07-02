@@ -6,6 +6,7 @@ body {
     padding-top: 60px;
     padding-left: 10px;
     place-items: normal !important;
+    color: #F0EBF4;
 }
 
 #root {
@@ -13,7 +14,7 @@ body {
 }
 
 body button {
-    background-color: #B39BC8;
+    background-color: #f371a1;
     color: #F0EBF4;
 }
 
@@ -34,7 +35,7 @@ nav i {
     margin: auto 0 auto 10px;
     padding: 15px;
     transition: transform 1s;
-    color: black
+    color: #F0EBF4;
 }
 
 nav i:hover {
@@ -80,12 +81,12 @@ aside ul li {
     font-weight: 400;
     transition: transform 1s;
     cursor: pointer;
-    color: black;
+
 }
 
 aside ul li i {
     margin-right: 1em;
-    color: black;
+
 }
 
 aside ul li:hover {
@@ -97,6 +98,7 @@ aside ul li:hover {
 }
 
 .drawerOpen {
+    margin-top: 35px;
     width: 240px;
 }
 
@@ -117,21 +119,25 @@ main {
 .mainOpen {
     margin-left: 240px;
 }
-.child{
-        background-color: #A1C3D1; 
-        
+
+.child {
+    background-color: #A1C3D1;
+
 }
-.album ,.child{
+
+.album,
+.child {
     /* background-color: #A1C3D1; */
     /* color: #A1C3D1; */
     padding: 15px;
     margin: 30px;
     border-radius: 5px;
     /* width: 200px; */
-   
+
     /* display: flex; */
 }
-.childContanier{
+
+.childContanier {
     display: flex;
     margin-left: 80px;
 }
@@ -174,10 +180,13 @@ main {
 input,
 select {
     background-color: #F0EBF4;
-    color: #A1C3D1;
     padding: 5px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
+}
+
+label {
+    color: #000000;
 }
 
 img,
@@ -208,22 +217,28 @@ video {
 .help-li {
     height: 60px;
 }
-.css-uym98a-MuiImageList-root
-{
+
+.css-uym98a-MuiImageList-root {
     height: auto;
 }
+
 form {
     margin: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 2%;
-    background-color: #efdffd;
+    /* background-color: #F0EBF4; */
     border: 1px solid #B39BC8;
     padding: 15px;
     margin: 10px;
     font-family: Arial, sans-serif;
     font-size: 14px;
+}
+
+.input-con {
+    width: 50%;
+    margin: 0 auto;
 }
 
 input {
@@ -241,7 +256,7 @@ button {
 }
 
 button:hover {
-    background-color: #e9598e;
+    background-color: #f0528c;
 }
 
 /* .container{
@@ -253,22 +268,29 @@ button:hover {
 
 .imgeGallery {
     display: block;
-    margin:20px;
+    margin: 20px;
     height: auto;
     /* margin-left: 60px; */
     /* height: 200px; */
 }
 
 @media only screen and (max-width: 768px) {
-    .childContanier{
+    .childContanier {
         display: block;
     }
+
     .album {
         padding: 10px;
         margin: 5px;
+        margin-left: 25px;
     }
+
     img {
         width: 100%
+    }
+
+    .imgItem {
+        width: 150px;
     }
 
     .card {
@@ -281,9 +303,9 @@ button:hover {
         margin: 4px;
     }
 
-    .image {
+    /* .image {
         border-radius: 6px;
-    }
+    } */
 
     .button {
         padding: 4px 8px;
