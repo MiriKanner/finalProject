@@ -51,12 +51,13 @@ function Login() {
           Cookies.set("currentUser",
             JSON.stringify({
               username: responseJson.result.username,
-              email: responseJson.result.email
+              email: responseJson.result.email,
+              id:responseJson.result.id
             })
           );
           Cookies.set("token", responseJson.token)
           user.setUser(responseJson.result);
-
+          console.log(responseJson.result)
           navigate("/" + responseJson.result.username + "/home");
         } else {
           alert("wrong authentication");

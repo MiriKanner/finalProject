@@ -13,6 +13,7 @@ function AddChild(props) {
         
     }, [])
     const onSubmit = (data) => {
+        console.log(user)
         let child = { username: data.username, nickname: data.nickname,birthday:data.birthday,idparent:user.id }
         let v = newChild.validate(child)
         if (v.error) {
