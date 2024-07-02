@@ -10,7 +10,7 @@ const transporter = NodeMailer.createTransport({
   },
 });
 // const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-5\\server\\templates\\templates.html', 'utf8');
-const styledEmailContent = fs.readFileSync("C:\\Users\\A\\finalProject\\Server\\template\\welcome-template.html", "utf8");
+const styledEmailContent = fs.readFileSync("C:\\Users\\קנר מרים חוה\\finalProject-1\\Server\\template\\welcome-template.html", "utf8");
  const replacedEmailContent = styledEmailContent
 //   .replace("${emailBody}", emailBody)
 //   .replace("${params}", params)
