@@ -31,6 +31,7 @@ function MyChildrensAlbums() {
         })
         .catch((err) =>           notify(err.errorCode,err.errorText)
         );
+
     }
   }, [displayAddMyChildrenalbums]);
  
@@ -60,7 +61,7 @@ function MyChildrensAlbums() {
         Add albums to my child
       </button>
       {displayAddMyChildrenalbums && (
-        <AddMyChildrenAlbum
+        <AddMyChildrenAlbum 
           setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums}
         />
       )}
@@ -68,7 +69,7 @@ function MyChildrensAlbums() {
         className="album"
         // style={{ display: "flex", flexDirection: "row" }}
       >
-        <AllAlbums albums={albums} />
+        <AllAlbums albums={albums} displayAddMyChildrenalbums={displayAddMyChildrenalbums} />
       </div>
     </>
   );

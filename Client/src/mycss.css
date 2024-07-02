@@ -4,6 +4,7 @@ body {
     background-color: #F0EBF4;
     font-family: sans-serif;
     padding-top: 60px;
+    padding-left: 10px;
 }
 
 #root {
@@ -54,10 +55,15 @@ aside {
     left: 0;
     bottom: 0;
     background-color: #A1C3D1;
-    opacity: 0.5;
     transition: width 0.5s ease-in-out;
     height: auto;
     z-index: 0;
+}
+
+.divCard {
+    margin: 10px;
+    width: 276px;
+    display: inline-block;
 }
 
 aside ul {
@@ -110,12 +116,23 @@ main {
 .mainOpen {
     margin-left: 240px;
 }
-
-.album {
-    color: #A1C3D1;
+.child{
+        background-color: #A1C3D1; 
+        
+}
+.album ,.child{
+    /* background-color: #A1C3D1; */
+    /* color: #A1C3D1; */
     padding: 15px;
     margin: 30px;
     border-radius: 5px;
+    /* width: 200px; */
+   
+    /* display: flex; */
+}
+.childContanier{
+    display: flex;
+    margin-left: 80px;
 }
 
 .cardDiv {
@@ -123,6 +140,7 @@ main {
     /* width: calc(50% - 10px); */
     width: 300px;
     display: inline-block;
+
     margin: 1%;
 }
 
@@ -189,6 +207,7 @@ video {
 .help-li {
     height: 60px;
 }
+
 form {
     margin: 10%;
     display: flex;
@@ -220,18 +239,29 @@ button {
 button:hover {
     background-color: #e9598e;
 }
+
 /* .container{
     width: 50%;
 }
 .form-control{
     width: 50%;
 } */
+
+.imgeGallery {
+    display: block;
+    margin:20px;
+    /* margin-left: 60px; */
+    /* height: 200px; */
+}
+
 @media only screen and (max-width: 768px) {
+    .childContanier{
+        display: block;
+    }
     .album {
         padding: 10px;
         margin: 5px;
     }
-
     img {
         width: 100%
     }

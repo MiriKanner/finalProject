@@ -4,10 +4,16 @@ import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../App";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {  CardBody, CardFooter, Image } from "@nextui-org/react";
 import AddChild from "./AddChild";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 function MyChildren() {
     const navigate = useNavigate();
@@ -46,20 +52,30 @@ const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. 
         <>
             <button onClick={() => setDisplayAddChild(!displayAddChild)}>Add Child</button>
             {displayAddChild && <AddChild setDisplayAddChild={setDisplayAddChild} />}
-            <div  className="gap-2 grid grid-cols-2 sm:grid-cols-4">
-                {children.map((child, index) => (
-                    <div key={index}>
-                        <div className="card"// onClick={()=> navigate(`./${child.albumId}`)}
-                            shadow="sm" key={child.id} //isPressable
-                            onClick={() => navigate(`./${child.childName}/albums`)} >
-                     
-                            <div className="text-small justify-between">
-                                <b>{(child.nickname).toLowerCase()}</b>
-                                {/* <p className="text-default-500">{child.price}</p> */}
-                            </div>
-                        </div>
-                    </div>
-                ))}
+            <div className="childContanier" >
+                {
+                    children.map(child=>
+                        (<div className="child" >
+                            <React.Fragment>
+                            <CardContent>
+                              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {child.id}
+                              </Typography>
+                              <Typography variant="h5" component="div">
+                               {child.username}
+                              </Typography>
+                              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                {child.nickname}
+                              </Typography>
+                            </CardContent>
+                            <CardActions>
+                              <Button   onClick={() => navigate(`./${child.childName}/albums`)}  size="small">See Albums</Button>
+                            </CardActions>
+                          </React.Fragment>
+                          </div>
+                        )
+                    )
+                }
             </div >
             <ToastContainer />
             {/* {children.map((album, index) => {
@@ -72,3 +88,19 @@ const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. 
 }
 
 export default MyChildren;
+
+
+// {children.map((child, index) => (
+//     <div key={index}>
+//         <div className="card"// onClick={()=> navigate(`./${child.albumId}`)}
+//             shadow="sm" key={child.id} //isPressable
+//             onClick={() => navigate(`./${child.childName}/albums`)} 
+//             >
+     
+//             <div className="text-small justify-between">
+//                 <b>{(child.nickname).toLowerCase()}</b>
+//                 {/* <p className="text-default-500">{child.price}</p> */}
+//             </div>
+//         </div>
+//     </div>
+// ))}
