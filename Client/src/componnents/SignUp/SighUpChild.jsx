@@ -18,7 +18,7 @@ function SignUpChild() {
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
   const [correctUser, setCorrectUser] = useState(undefined);
-  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+  const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -34,7 +34,7 @@ function SignUpChild() {
       birthday: data.birthday,
       usernameParent: data.usernameParent,
     };
-    
+
     let v = childSchema.validate(child);
     if (v.error) {
       setMessageText(v.error.details[0]);
@@ -46,10 +46,10 @@ function SignUpChild() {
       .then((responseJson) => {
         setCorrectUser(responseJson[0]);
       })
-      .catch(err=> notify(err.errorCode,err.errorText)
+      .catch(err => notify(err.errorCode, err.errorText)
       );
   };
-  
+
   const onSubmit = (data) => {
     let user = {
       username: data.username,
@@ -64,28 +64,21 @@ function SignUpChild() {
     }
 
     const req = { method: "POST", route: "auth/signUpChild", body: user };
-    postReq(req).then((response)=>response.json())
+    postReq(req).then((response) => response.json())
       .then((responseJson) => {
         // if (responseJson.length != 0)
         console.log(responseJson.result.userResult)
-          const userLocal = {
-            username: data.username,
-            email: data.email,
-            id: responseJson.result.userResult.id,
-          };
-          Cookies.set("currentUser",
-            JSON.stringify(     userLocal  
-            )
-          );
-          Cookies.set("token", responseJson.token)
-          userCo.setUser(userLocal);
-          navigate("/" + userLocal.username + "/home");}
-        )
-
-        
-      
-      .catch((err) => {
-        notify(err.errorCode,err.errorText)
+        const userLocal = {
+          username: data.username,
+          email: data.email,
+          id: responseJson.result.userResult.id,
+        };
+        Cookies.set("currentUser", JSON.stringify(userLocal));
+        Cookies.set("token", responseJson.token)
+        userCo.setUser(userLocal);
+        navigate("/" + userLocal.username + "/home");
+      }).catch((err) => {
+        notify(err.errorCode, err.errorText)
       });
   };
 
@@ -99,7 +92,6 @@ function SignUpChild() {
               type="text"
               className="form-control"
               id="username"
-              //aria-describedby="emailHelp"
               placeholder="Enter User Name"
               {...register("username")}
             />
@@ -110,7 +102,6 @@ function SignUpChild() {
               type="date"
               className="form-control"
               id="birthday"
-              //aria-describedby="emailHelp"
               placeholder="Enter Birth Day"
               {...register("birthday")}
             />
@@ -121,7 +112,6 @@ function SignUpChild() {
               type="text"
               className="form-control"
               id="parentUserName"
-              //aria-describedby="emailHelp"
               placeholder="Enter Parent User Name"
               {...register("usernameParent")}
             />
@@ -141,17 +131,11 @@ function SignUpChild() {
               className="form-control"
               id="password"
               placeholder="Password"
-              //value={password}
-              onChange={(event) => {
-                setInputValue(event.target.value);
-              }}
-              {...register("password")}
-            />
+              onChange={(event) => { setInputValue(event.target.value) }}
+              {...register("password")} />
             <PasswordStrengthBar
               password={password}
-              onChangeScore={(score, feedback) => {
-                console.log(score, feedback);
-              }}
+              onChangeScore={(score, feedback) => { console.log(score, feedback) }}
             />
           </div>
 

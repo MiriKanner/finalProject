@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
-// import Info from "../components/Info";
 import { UserContext } from "../../App.jsx";
-import "../../mycss.css";
 import Cookies from "js-cookie";
-import HomePage from "./HomePage.jsx";
 import { IoMdLogOut } from "react-icons/io";
 import { RiContactsBook2Fill } from "react-icons/ri";
 

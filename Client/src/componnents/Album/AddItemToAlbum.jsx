@@ -1,13 +1,9 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { postReq, getReq, postMediaReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import Select from "react-select";
 import { UserContext } from "../../App";
-import { FaBeer } from "react-icons/fa";
-import * as FaIcons from "react-icons/fa";
-import * as MdIcons from "react-icons/md";
-import { IconContext } from "react-icons";
 import EmojiPicker from 'emoji-picker-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +14,7 @@ function AddItemToAlbum(props) {
   const { register, handleSubmit } = useForm();
   const [options, setOptions] = useState([]);
   const [selectOption, setSelectOption] = useState(null);
-  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+  const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -27,7 +23,7 @@ function AddItemToAlbum(props) {
     draggable: true,
     progress: undefined,
     theme: "light",
-   // transition: Slide,
+    // transition: Slide,
   });
   useEffect(() => {
     if (options.length < 1) {
@@ -72,7 +68,7 @@ function AddItemToAlbum(props) {
         // } else {
         //     alert("wrong authentication");
         // }
-      }).catch(err=>notify(err.errorCode,err.errorText)
+      }).catch(err => notify(err.errorCode, err.errorText)
       )
   };
   const onSubmitPhoto = (data) => {
@@ -89,26 +85,28 @@ function AddItemToAlbum(props) {
       .then((response) => response.json())
       .then((responseJson) => {
         props.setDisplayAddItem(false);
-      }).catch(err=>          notify(err.errorCode,err.errorText)
+      }).catch(err => notify(err.errorCode, err.errorText)
       )
   };
-function onEmojiSelect(emj)
-{
-  let hex = emj.emoji.codePointAt(0).toString(16)
-  onSubmit({name:hex});
-}
-  useEffect(() => {
-    // console.log(selectOption);
-  }, [selectOption]);
-  const [file, setFile] = useState();
+  function onEmojiSelect(emj) {
+    let hex = emj.emoji.codePointAt(0).toString(16)
+    onSubmit({ name: hex });
+  }
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <div className="container">
         <label htmlFor="option">What are we adding to the album?</label>
         <Select id="option"
           options={options}
+          styles={{control: (provided) => ({
+            ...provided,
+            boxShadow: "none",
+            border: "none",
+            color: "#000",
+            width:"100%"
+          })}}
           onChange={(choise) => setSelectOption(choise)} />
       </div>
 
@@ -151,14 +149,14 @@ function onEmojiSelect(emj)
 
       {selectOption?.label == "icon" && (
         <form onSubmit={handleSubmit(onSubmit)}
-          // encType="multipart/form-data"
-          >
-            <div>
+        // encType="multipart/form-data"
+        >
+          <div>
             {/* <FaBeer 
               {...register("image")} 
             /> */}
-             <EmojiPicker onEmojiClick={(emj)=>onEmojiSelect(emj)}/>
-            </div>
+            <EmojiPicker onEmojiClick={(emj) => onEmojiSelect(emj)} />
+          </div>
           <button type="submit" >
             Submit
           </button>

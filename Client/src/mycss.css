@@ -6,7 +6,6 @@ body {
     padding-top: 60px;
     padding-left: 10px;
     place-items: normal !important;
-    color: #F0EBF4;
 }
 
 #root {
@@ -81,12 +80,10 @@ aside ul li {
     font-weight: 400;
     transition: transform 1s;
     cursor: pointer;
-
 }
 
 aside ul li i {
     margin-right: 1em;
-
 }
 
 aside ul li:hover {
@@ -122,19 +119,13 @@ main {
 
 .child {
     background-color: #A1C3D1;
-
 }
 
 .album,
 .child {
-    /* background-color: #A1C3D1; */
-    /* color: #A1C3D1; */
     padding: 15px;
     margin: 30px;
     border-radius: 5px;
-    /* width: 200px; */
-
-    /* display: flex; */
 }
 
 .childContanier {
@@ -143,14 +134,10 @@ main {
 }
 
 .cardDiv {
-    /* width: 100%; */
-    /* width: calc(50% - 10px); */
     width: 300px;
     display: inline-block;
-
     margin: 1%;
 }
-
 
 .card {
     background-color: #A1C3D1;
@@ -205,14 +192,12 @@ video {
 .icon,
 .imgItem {
     font-size: 40px;
-    /* width: 40px; */
     margin: 15px;
 }
 
 .imgItem {
     width: 200px;
 }
-
 
 .help-li {
     height: 60px;
@@ -228,7 +213,6 @@ form {
     flex-direction: column;
     align-items: center;
     margin-top: 2%;
-    /* background-color: #F0EBF4; */
     border: 1px solid #B39BC8;
     padding: 15px;
     margin: 10px;
@@ -270,8 +254,10 @@ button:hover {
     display: block;
     margin: 20px;
     height: auto;
-    /* margin-left: 60px; */
-    /* height: 200px; */
+}
+
+.sticky h3 {
+    color: #F0EBF4;
 }
 
 @media only screen and (max-width: 768px) {
@@ -302,10 +288,6 @@ button:hover {
         padding: 6px;
         margin: 4px;
     }
-
-    /* .image {
-        border-radius: 6px;
-    } */
 
     .button {
         padding: 4px 8px;
