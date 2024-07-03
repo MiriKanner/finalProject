@@ -13,6 +13,7 @@ body {
     right: 0;
     left: 0;
     overflow: auto;
+    justify-content: center;
 }
 
 #root {
@@ -362,6 +363,13 @@ html {
 }
 
 @media only screen and (max-width: 768px) {
+    .timeLine {
+        margin-left: 70px;
+    }
+    .timeLineItem{
+        width: 180px;
+    }
+
     .gallery-display-button {
         display: none
     }

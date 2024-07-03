@@ -112,7 +112,7 @@ function SingleAlbum() {
         {!galleryDisplay ? <GrGallery /> : <LiaListUlSolid />}
       </button>
       {!galleryDisplay && (
-        <div>
+        <div className="timeLine">
           <Timeline
             sx={{
               [`& .${timelineOppositeContentClasses.root}`]: {
@@ -131,7 +131,7 @@ function SingleAlbum() {
                     <TimelineConnector />
                   </TimelineSeparator>
                   <TimelineContent>
-                    <div>
+                    <div className="timeLineItem">
                       <>
                         {item.idtype == 1 ? (
                           <img className="imgItem" src={item.data} />
@@ -144,7 +144,7 @@ function SingleAlbum() {
                             {String.fromCodePoint("0x" + item.data)}
                           </span>
                         ) : (
-                          <span>{item.data}</span>
+                          <p style={{display:"block", overflow:"hidden"}}>{item.data}</p>
                         )}{" "}
                       </>{" "}
                       <span onClick={() => deleteItem(item.id)}>🗑️</span>
