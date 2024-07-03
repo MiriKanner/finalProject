@@ -1,26 +1,6 @@
 import { AlbumService } from '../service/albumService.js'
 import { newAlbum } from '../serverValidations.js'
 export class AlbumController {
-    // async updatealbum(req, res, next) {       
-    //     try {
-    //         const albumService = new albumService();
-    //         const resultItem = await albumService.updatealbum(req.body);
-    //         res.status(200).json({ status: 200, data: resultItem });
-    //     }
-    //     catch (ex) {
-    //         const err = {}
-    //         switch (ex.message) {
-    //             case "albumentication failed":
-    //                 err.statusCode = 408;
-    //                 break;
-    //             default:
-    //                 err.statusCode = 500;
-    //                 break;
-    //         }
-    //         err.message = ex; 
-    //         next(err)
-    //     }
-    // }
     async getMyAlbums(req, res, next) {
         try {
             const albumService = new AlbumService();
@@ -28,7 +8,7 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            next({ statusCode: 500, message: ex })
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
     async getMyChildrenAlbum(req, res, next) {
@@ -38,10 +18,9 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            next({ statusCode: 500, message: ex })
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
-
     async addChildsAlbum(req, res, next) {
         try {
             const formDataObject = {};
@@ -59,37 +38,7 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            next({ statusCode: 500, message: ex })
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
-    // async addalbumAndUser(req, res, next) {
-    //     try {
-    //         const albumService = new albumService();
-    //         const resultItem = await albumService.addUserAndalbum(req.body)
-    //         res.status(200).json({ status: 200, data: resultItem });
-    //     }
-    //     catch (ex) {
-    //         const err = {}
-    //         err.statusCode = 500;
-    //         err.message = ex;
-    //         next(err)
-    //     }
-    // }
-
-    // async deletealbumAndUser(req, res, next) {
-
-    //     try {
-    //         const albumService = new albumService();            
-    //         const result = await albumService.deletealbumAndUser(req.body);
-    //         res.status(200).json({status: 200, data: result});
-    //     }
-    //     catch (ex) {
-    //         const err = {}
-    //         err.statusCode = 500;
-    //         err.message = ex;
-    //         next(err)
-    //     }
-    // }
-
-
 }

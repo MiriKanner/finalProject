@@ -7,7 +7,7 @@ export class ChildrenService {
         const result = await executeQuery(myChildrenQuery, [username]);
         return result;
     }
-    async vertifyIsChild(childItem) {
+    async verifyIsChild(childItem) {
         const ischildQuery = isChildQuery();
         const result = await executeQuery(ischildQuery, [childItem.username, childItem.usernameParent, childItem.birthday]);
         if (result.length == 0) throw new { errno: 404, message: "no such child" }
