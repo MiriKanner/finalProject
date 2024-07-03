@@ -5,7 +5,7 @@ function HomePage() {
     <div className="overlay">
       
       <div className="home-page">
-        <h1>Welcome to the Joyful Journries</h1>
+        <h1>Welcome to Joyful Journries</h1>
 
         <h2>About Us</h2>
         <p>

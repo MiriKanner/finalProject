@@ -21,11 +21,11 @@ body {
     padding-top: 0;
 }
 
+/*
 .home-page {
 
     margin: 0;
     padding: 0;
-    /* background-color: #n; */
     font-family: sans-serif;
     padding-top: 60px;
     margin-left: 60px;
@@ -34,8 +34,7 @@ body {
 .home-page p {
     display: block;
     width: 100%;
-    /* background-color: #f371a1; */
-}
+}*/
 
 body button {
     background-color: #f371a1;
@@ -292,6 +291,7 @@ button:hover {
 }
 
 /* .overlay {height: 900px;} */
+/*
 .overlay {
     background: url('http://www.autodatz.com/wp-content/uploads/2017/05/Old-Car-Wallpapers-Hd-36-with-Old-Car-Wallpapers-Hd.jpg');
     text-align: center;
@@ -310,7 +310,7 @@ button:hover {
 .overlay {
     width: 100%;
     height: 100%;
-    /* padding: 50px; */
+    padding: 50px;
     color: #FFF;
     text-shadow: 1px 1px 1px #333;
     background-image: linear-gradient(135deg, #9f05ff69 10%, #fd5e086b 100%);
@@ -355,18 +355,72 @@ button:hover {
 
 .overlay button:hover {
     cursor: pointer;
-}
+}*/
 
 html {
     height: 100%;
     overflow: auto;
 }
 
+
+/*----------------------------------*/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-left: 70px;
+}
+
+.home-page {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    text-align: center;
+}
+
+.home-page h1 {
+    color: #F172A1;
+    margin-bottom: 20px;
+    font-family: 'Dancing Script', cursive;
+    text-decoration: wavy;
+    text-shadow:
+        -1px -1px 0 #F172A1,
+        1px -1px 0 #F172A1,
+        -1px 1px 0 #F172A1,
+        1px 1px 0 #000;
+}
+
+.home-page h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.home-page p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.home-page p:last-child {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #999;
+}
+
+/*----------------------------*/
 @media only screen and (max-width: 768px) {
     .timeLine {
         margin-left: 70px;
     }
-    .timeLineItem{
+
+    .timeLineItem {
         width: 180px;
     }
 
@@ -393,7 +447,6 @@ html {
     }
 
     .card {
-        /* padding: 8px; */
         margin: 4px;
     }
 
@@ -409,5 +462,8 @@ html {
     .input {
         padding: 4px;
         margin: 4px;
+    }
+    .container{
+        width: 300px;
     }
 }
