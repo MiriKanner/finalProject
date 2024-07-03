@@ -1,5 +1,5 @@
 import { executeQuery } from '../dataAccess/db.js';
-import { getMyChildrenAlbumQuery, myAlbumsQuery, addQuery, getParentChildRelationIdQuery/*, updateQuery, getQuery, getByValueQuery, deleteQuery */ } from '../dataAccess/queries.js';
+import { getMyChildrenAlbumQuery, myAlbumsQuery, addQuery, getParentChildRelationIdQuery } from '../dataAccess/queries.js';
 
 export class AlbumService {
     async getMyAlbums(username) {

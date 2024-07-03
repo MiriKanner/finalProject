@@ -10,51 +10,35 @@ export class ChildrenController {
       );
       res.json(resultItem);
     } catch (ex) {
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno||500, message: ex.message||ex })
     }
   }
   async verifyIsChild(req, res, next) {
     try {
       const v = childSchema.validate(req.body);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
       }
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.verifyIsChild(req.body);
-
       res.json(resultItem);
     } catch (ex) {
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno||500, message: ex.message||ex })
     }
   }
   async addChild(req, res, next) {
     try {
       let v = newChild.validate(req.body.child);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
       }
       const childrenService = new ChildrenService();
       const resultItem = await childrenService.addChildToParent(req.body.child);
       res.json(resultItem);
     } catch (ex) {
-      const err = {};
-      err.statusCode = 500;
-      err.message = ex;
-      next(err);
+      next({ statusCode: ex.errno||500, message: ex.message||ex })
     }
   }
 }

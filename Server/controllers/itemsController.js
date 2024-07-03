@@ -8,10 +8,7 @@ export class ItemsController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
     async getMyItems(req, res, next) {
@@ -22,10 +19,7 @@ export class ItemsController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
     async deleteItem(req, res, next) {
@@ -35,17 +29,11 @@ export class ItemsController {
             if (resultItem.affectedRows > 0)
                 res.json(resultItem);
             else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = "item not found";
-                next(err)
+                next({ statusCode: 404, message: "item not found" })
             }
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
 
@@ -67,10 +55,7 @@ export class ItemsController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: ex.errno || 500, message: ex.message || ex })
         }
     }
 }

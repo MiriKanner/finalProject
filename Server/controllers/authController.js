@@ -29,10 +29,7 @@ export class AuthController {
     try {
       const v = minUserSchema.validate(req.body);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
       }
       const authService = new AuthService();
@@ -48,10 +45,7 @@ export class AuthController {
     try {
       const v = addAuthScema.validate(req.body);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
       }
       const authService = new AuthService();
@@ -66,10 +60,7 @@ export class AuthController {
     try {
       const v = addUserSchema.validate(req.body);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
       }
       const authService = new AuthService();
@@ -87,13 +78,9 @@ export class AuthController {
       console.log(req.body)
       const v = childSchema.validate(req.body);
       if (v.error) {
-        const err = {}
-        err.statusCode = 400;
-        err.message = v.error.message;
-        next(err)
+        next({statusCode: 400,message: v.error.message})
         return
-      }
-      
+      }      
       const authService = new AuthService();
       const resultItem = await authService.getChildUser(req.body);
       res.json(resultItem);
