@@ -1,7 +1,7 @@
 import React, { useRef, useState, createContext, useContext } from "react";
 import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
-import { Link, json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { userLoginSchema } from "../../clientValidations";
 import Cookies from "js-cookie";
@@ -9,8 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
-  const captchaRef = useRef(null);
-  const site_key = "6LdZZAEqAAAAAHMNpZN8FEN0ECFC4jJlhTpW1iBD";
   const navigate = useNavigate();
   const user = useContext(UserContext);
   const [messageText, setMessageText] = useState("");
@@ -23,7 +21,6 @@ function Login() {
     draggable: true,
     progress: undefined,
     theme: "light",
-   // transition: Slide,
   });
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -33,8 +30,6 @@ function Login() {
       setMessageText(v.error.details[0]);
       return;
     }
-    // const token = captchaRef.current.getValue();
-    // captchaRef.current.reset();
     const req = {
       method: "POST",
       route: "auth",
@@ -53,7 +48,6 @@ function Login() {
               id:responseJson.result.id
             })
           );
-          Cookies.set("token", responseJson.token)
           user.setUser(responseJson.result);
           console.log(responseJson.result)
           navigate("/" + responseJson.result.username + "/home");
@@ -63,13 +57,7 @@ function Login() {
       }).catch(err=> notify(err.errorCode,err.errorText)
       )
   };
-  function callback() {
-    console.log("load chapta");
-  }
-  function verifyCallback(response) {
-    if (response) console.log("vertify chapta");
-    else console.log("No");
-  }
+
   return (
     <>
      <ToastContainer />
@@ -80,13 +68,9 @@ function Login() {
             type="text"
             className="form-control"
             id="username"
-            //aria-describedby="emailHelp"
             placeholder="Enter User Name"
             {...register("username")}
           />
-          {/* <small id="emailHelp" class="form-text text-muted">
-          We'll never share your email with anyone else.
-        </small> */}
         </div>
         <div className="container">
           <label htmlFor="password">Password</label>

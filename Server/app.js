@@ -13,13 +13,14 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.use('/uploads', express.static('uploads'))
 app.use(express.json());
-app.use(cors({ credentials: true }));
-//app.use(cors(corsOptions))
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}));
+app.use(cookieParser());
+
 app.use(logActions);
-
 app.use('/auth', authRouter);
-app.use(cookieParser())
-
 app.use('/album', verifyToken, albumRouter)
 app.use('/children', verifyToken, childrenRouter)
 app.use('/items', verifyToken, itemsRouter)

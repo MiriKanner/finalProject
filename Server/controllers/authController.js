@@ -34,8 +34,8 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.verifyUserAuth(req.body);
-      res.cookie('jwt', resultItem.refreshtoken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 259200000 });
-      res.json({ result: resultItem.result[0], token: resultItem.token });
+      res.cookie('jwt', resultItem.token, { httpOnly: true, secure: false})//, sameSite: 'None', maxAge: 259200000 });
+      res.json({ result: resultItem.result[0]})//, token: resultItem.token });
     }
     catch (ex) {
       next({ statusCode: ex.errno || 500, message: ex.message || ex });
@@ -50,7 +50,8 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
-      res.json({ result: resultItem.result, token: resultItem.token });
+      res.cookie('jwt', resultItem.token, { httpOnly: true, secure: false})//, sameSite: 'None', maxAge: 259200000 });
+      res.json({ result: resultItem.result})//, token: resultItem.token });
     } catch (ex) {
       next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message || ex });
     }
@@ -67,7 +68,8 @@ export class AuthController {
       const resultItem = await authService.addUserAndAuth(req.body);
       const emailSent = { email: req.body.email, emailBody: "Welcome", subject: "Hello " }
       sendEmail(emailSent)
-      res.json({ result: resultItem.result, token: resultItem.token });
+      res.cookie('jwt', resultItem.token, { httpOnly: true, secure: false})//, sameSite: 'None', maxAge: 259200000 });
+      res.json({ result: resultItem.result})//, token: resultItem.token });
     } catch (ex) {
       next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message || ex });
     }

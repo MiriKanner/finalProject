@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import { getReq, postReq } from "../../serverquests";
+import React, { useState } from "react";
+import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
-import { Link, json, useNavigate } from "react-router-dom";
-import { createContext, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { UserContext } from "../../App";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { childSignupSchema, childSchema } from "../../clientValidations";
@@ -56,7 +56,7 @@ function SignUpChild() {
       password: data.password,
       email: data.email,
     };
-    let v = childSignupSchema.validate(user); // ValidateForm('userSchema', user)
+    let v = childSignupSchema.validate(user); 
     console.log(v);
     if (v.error) {
       setMessageText(v.error.details[0]);
@@ -66,15 +66,12 @@ function SignUpChild() {
     const req = { method: "POST", route: "auth/signUpChild", body: user };
     postReq(req).then((response) => response.json())
       .then((responseJson) => {
-        // if (responseJson.length != 0)
-        console.log(responseJson.result.userResult)
         const userLocal = {
           username: data.username,
           email: data.email,
           id: responseJson.result.userResult.id,
         };
         Cookies.set("currentUser", JSON.stringify(userLocal));
-        Cookies.set("token", responseJson.token)
         userCo.setUser(userLocal);
         navigate("/" + userLocal.username + "/home");
       }).catch((err) => {

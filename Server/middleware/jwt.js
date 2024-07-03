@@ -4,10 +4,7 @@ const secretKey = "secret4123key456for798token"
 const issuer = "JOYFULJOURNEYS"
 
 export const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization;
-    const cookies = req.cookies;
-    if (cookies)
-        console.log(cookies)
+    const token = req.cookies.jwt;
     if (!token)
         return res.sendStatus(403).send("no access Token");
     try {

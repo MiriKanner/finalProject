@@ -58,7 +58,6 @@ function SignUp() {
               userLocal
             )
           );
-          Cookies.set("token", responseJson.token)
           userCo.setUser(userLocal);
           navigate("/" + userLocal.username + "/home");
         }
