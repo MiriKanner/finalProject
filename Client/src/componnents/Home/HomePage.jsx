@@ -2,7 +2,8 @@ import React from "react";
 
 function HomePage() {
   return (
-    <div id="welcome-section">
+    <div className="overlay">
+      
       <div className="home-page">
         <h1>Welcome to the Joyful Journries</h1>
 
