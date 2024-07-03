@@ -13,16 +13,18 @@ const transporter = NodeMailer.createTransport({
 const __dirname = path.resolve();
 const styledEmailContent = fs.readFileSync(path.resolve(__dirname, './template/welcome-template.html'));
 
-const replacedEmailContent = styledEmailContent
-//   .replace("${emailBody}", emailBody)
-//   .replace("${params}", params)
-//   .replace("${mail}", process.env.MAIL_EMAIL);
+
 export const sendEmail = (mailObj) => {
+  console.log(styledEmailContent)
+  const replacedEmailContent = styledEmailContent
+  // .replace("${emailBody}", emailBody)
+  // .replace("${params}", params)
+//.replace("${username}", mailObj.username);
   const mailOptions = {
     from: "joyfuljourneyscapturethejoy@gmail.com",
     to: mailObj.email,
     subject: mailObj.subject,
-    text: mailObj.emailBody,
+    // text: mailObj.emailBody,
     html: replacedEmailContent,
   };
   try {

@@ -131,7 +131,7 @@ function SingleAlbum() {
                 <TimelineItem>
                   <TimelineOppositeContent color="textSecondary">
                     {format(item.creationdate, "dd/MM/yyyy")}
-                    <span onClick={() => deleteItem(item.id)}>🗑️</span>
+                    <span onClick={() => deleteItem(item.id)} style={{cursor:"pointer"}}>🗑️</span>
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineDot />
