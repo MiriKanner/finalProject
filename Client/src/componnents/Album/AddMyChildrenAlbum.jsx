@@ -21,14 +21,11 @@ function AddMyChildrenAlbum(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-       // transition: Slide,
       });
-    //const options = []
     const [selectChild, setSelectChild] = useState(null)
     useEffect(() => {
         if (options.length < 1) {
             const req = {
-                method: "GET",
                 route: `children/myChildren/${user.username}`,
             };
             let tempOption = []
@@ -45,6 +42,7 @@ function AddMyChildrenAlbum(props) {
         //need to check if selectChild.value is not null.
         // if it is null -   dataForm.append takes "undefined" and passes validation
         // it is a problem
+        console.log(selectChild)
         const dataForm = new FormData();
         dataForm.append('name', data.name)
         dataForm.append('childUserName', selectChild.value)
@@ -60,27 +58,17 @@ function AddMyChildrenAlbum(props) {
             setMessageText(v.error.details[0])
             return
         }
-
-        //does not need to be in client validation
         dataForm.append('creationdate', new Date().toISOString().split('T')[0])
         const req = {
-            method: "POST",
             route: `album/myChildrenAlbum/${user.username}`,
-            body: dataForm//{ ...album, creationdate: new Date().toISOString().split('T')[0] },
+            body: dataForm
         };
         postMediaReq(req).then((response) => response.json()).then((responseJson) => {
             console.log(responseJson);
             props.setDisplayAddMyChildrenalbums(false)
-            // if (responseJson.length != 0) {
-            // } else {
-            //     alert("wrong authentication");
-            // }
-        }).catch(err=>          notify(err.errorCode,err.errorText)
+        }).catch(err=>   notify(err.errorCode,err.errorText)
         )
     };
-
-
-
     return (
         <> <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -89,7 +77,6 @@ function AddMyChildrenAlbum(props) {
                     <input type="text"
                         className="form-control"
                         id="name"
-                        //aria-describedby="emailHelp"
                         placeholder="Enter Name of Album"
                         {...register("name")} />
                     <small id="emailHelp" class="form-text text-muted">

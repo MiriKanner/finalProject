@@ -104,13 +104,12 @@ export async function deleteReq(req) {
 
 export async function postMediaReq(req) {
     let answer;
-    const token = getToken()
     await fetch(`${URL}/${req.route}`, {
         method: 'POST',
         body: req.body,
         headers: {
-            authorization: token,
-        },
+            'Origin': 'http://localhost:8080'
+        },credentials:"include"
     }).then(response => {
         if (response.ok)
             return response
