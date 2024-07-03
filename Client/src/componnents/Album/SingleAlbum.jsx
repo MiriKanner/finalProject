@@ -111,6 +111,12 @@ function SingleAlbum() {
       <button className="gallery-display-button" onClick={() => setGalleryDisplay(!galleryDisplay)}>
         {!galleryDisplay ? <GrGallery /> : <LiaListUlSolid />}
       </button>
+      <button className="add-to-album"onClick={() => setDisplayAddItem(!displayAddItem)}>
+        Add to album!
+      </button>
+      {displayAddItem && (
+        <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
+      )}
       {!galleryDisplay && (
         <div className="timeLine">
           <Timeline
@@ -125,6 +131,7 @@ function SingleAlbum() {
                 <TimelineItem>
                   <TimelineOppositeContent color="textSecondary">
                     {format(item.creationdate, "dd/MM/yyyy")}
+                    <span onClick={() => deleteItem(item.id)}>🗑️</span>
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineDot />
@@ -147,7 +154,7 @@ function SingleAlbum() {
                           <p style={{display:"block", overflow:"hidden"}}>{item.data}</p>
                         )}{" "}
                       </>{" "}
-                      <span onClick={() => deleteItem(item.id)}>🗑️</span>
+                    
                     </div>
                     <br />
                   </TimelineContent>
@@ -191,12 +198,7 @@ function SingleAlbum() {
           </ImageList>
         </div>
       )}
-      <button onClick={() => setDisplayAddItem(!displayAddItem)}>
-        Add to album!
-      </button>
-      {displayAddItem && (
-        <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
-      )}
+
       <ToastContainer />
     </>
   );

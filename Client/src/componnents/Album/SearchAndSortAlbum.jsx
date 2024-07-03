@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function SearchAndSortAlbum(props) {
   const [searchType, setSearchType] = useState();
-  const albums = props.albums
+  const albums = props.albums;
 
   function selectSearchType(event) {
     let foundsArr;
@@ -31,7 +31,11 @@ function SearchAndSortAlbum(props) {
         props.setalbums(sortArr.sort((a, b) => a.albumId - b.albumId));
         break;
       case "alphabet":
-        props.setalbums(sortArr.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)));
+        props.setalbums(
+          sortArr.sort((a, b) =>
+            a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+          )
+        );
         break;
       case "random":
         props.setalbums(sortArr.sort(() => (Math.random() > 0.5 ? -1 : 1)));
@@ -40,46 +44,53 @@ function SearchAndSortAlbum(props) {
   }
   return (
     <>
-      <br />
-      <label htmlFor="sort">order by</label>
-      <select onChange={sortalbums} name="sort" >
-        <option value="all"> </option>
-        <option value="id">id</option>
-        <option value="alphabet">alphabet</option>
-        <option value="random">random</option>
-      </select>
-
-      <label htmlFor="search">search by</label>
-      <select onChange={selectSearchType} name="search">
-        <option value="all"></option>
-        <option value="albumId">id</option>
-        <option value="name">title</option>
-        <option value="childName">child name</option>
-      </select>
-      <br />
-      <div className="input-con">
-        {searchType ? (
-          searchType == "id" ? (
-            <>
-              <label htmlFor="id">id</label>
-              <input
-                type="text"
-                name="id"
-                onChange={(event) => searchalbums(event)}
-              />
-            </>
+      <div className="search-sort">
+        <div className="sort">
+        <label htmlFor="sort">order by</label>
+        <select onChange={sortalbums} name="sort">
+          <option value="all"> </option>
+          <option value="id">id</option>
+          <option value="alphabet">alphabet</option>
+          <option value="random">random</option>
+        </select>
+        <br />
+        </div>
+        <div className="search">
+        <label htmlFor="search">search by</label>
+        <select onChange={selectSearchType} name="search">
+          <option value="all"></option>
+          <option value="albumId">id</option>
+          <option value="name">title</option>
+          <option value="childName">child name</option>
+        </select>
+        <div 
+        className="input-con"
+        >
+          {searchType ? (
+            searchType == "id" ? (
+              <>
+                <label htmlFor="id">id</label>
+                <input
+                  type="text"
+                  name="id"
+                  onChange={(event) => searchalbums(event)}
+                />
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  name={searchType}
+                  onChange={(event) => searchalbums(event)}
+                />
+              </>
+            )
           ) : (
-            <>
-              <input
-                type="text"
-                name={searchType}
-                onChange={(event) => searchalbums(event)}
-              />
-            </>
-          )
-        ) : (
-          <></>
-        )}</div>
+            <></>
+          )}
+        </div>
+        </div>
+      </div>
     </>
   );
 }
