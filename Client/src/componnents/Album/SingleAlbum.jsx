@@ -108,7 +108,7 @@ function SingleAlbum() {
   }
   return (
     <>
-      <button onClick={() => setGalleryDisplay(!galleryDisplay)}>
+      <button className="gallery-display-button" onClick={() => setGalleryDisplay(!galleryDisplay)}>
         {!galleryDisplay ? <GrGallery /> : <LiaListUlSolid />}
       </button>
       {!galleryDisplay && (

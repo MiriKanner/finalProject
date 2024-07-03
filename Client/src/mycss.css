@@ -12,6 +12,21 @@ body {
     bottom: 0;
 }
 
+.home-page{
+    
+    margin: 0;
+    padding: 0;
+    background-color: #F0EBF4;
+    font-family: sans-serif;
+    padding-top: 60px;
+    margin-left: 60px;
+}
+.home-page p{
+    display: block;
+    width: 100%;
+    background-color: #f371a1;
+}
+
 body button {
     background-color: #f371a1;
     color: #F0EBF4;
@@ -260,7 +275,12 @@ button:hover {
     color: #F0EBF4;
 }
 
+
 @media only screen and (max-width: 768px) {
+    .gallery-display-button{
+        display: none
+      
+    }
     .childContanier {
         display: block;
     }
