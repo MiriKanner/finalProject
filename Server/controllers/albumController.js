@@ -28,10 +28,7 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: 500, message: ex })
         }
     }
     async getMyChildrenAlbum(req, res, next) {
@@ -41,10 +38,7 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: 500, message: ex })
         }
     }
 
@@ -56,10 +50,7 @@ export class AlbumController {
             }
             let v = newAlbum.validate(formDataObject)
             if (v.error) {
-                const err = {}
-                err.statusCode = 400;
-                err.message = v.error.message;
-                next(err)
+                next({ statusCode: 400, message: v.error.message })
                 return
             }
             const albumService = new AlbumService();
@@ -68,10 +59,7 @@ export class AlbumController {
             res.json(resultItem);
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({ statusCode: 500, message: ex })
         }
     }
     // async addalbumAndUser(req, res, next) {
