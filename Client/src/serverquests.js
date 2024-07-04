@@ -5,7 +5,7 @@ export async function getReq(req) {
     await fetch(`${URL}/${req.route}`, {
         method: 'GET',
         headers: {
-            'Origin': 'http://localhost:8080',
+            'Origin': URL,
         },
         credentials: 'include'
     }).then(response => {
@@ -31,7 +31,7 @@ export async function postReq(req) {
         method: 'POST',
         body: JSON.stringify(req.body),
         headers: {
-            'Origin': 'http://localhost:8080',
+            'Origin': URL,
             'Content-type': 'application/json; charset=UTF-8',
         },
         credentials: 'include'
@@ -58,7 +58,7 @@ export async function putReq(req) {
         body: JSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
-            'Origin': 'http://localhost:8080'
+            'Origin': URL
         },
         credentials: 'include',
     }).then(response => {
@@ -83,6 +83,7 @@ export async function deleteReq(req) {
     await fetch(urlReq, {
         method: 'DELETE',
         headers: {
+            'Origin': URL,
             'Content-type': 'application/json; charset=UTF-8', 'Origin': 'http://localhost:8080'
         }, credentials: 'include'
 
@@ -108,8 +109,8 @@ export async function postMediaReq(req) {
         method: 'POST',
         body: req.body,
         headers: {
-            'Origin': 'http://localhost:8080'
-        },credentials:"include"
+            'Origin': URL
+        }, credentials: "include"
     }).then(response => {
         if (response.ok)
             return response

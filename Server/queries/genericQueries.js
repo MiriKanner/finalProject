@@ -14,8 +14,10 @@ export function getSpecialParamsQuery(tableName, query) {
       : "";
   });
   if (query._sort) addToQuery = addToQuery + "  ORDER BY " + query._sort;
-  if (query._limit) addToQuery = addToQuery + "  LIMIT " + query._limit;
-  else if (query._page) addToQuery = addToQuery + "  LIMIT " + query._page;
+  if (query._start)
+    if (query._limit) addToQuery = addToQuery + "  LIMIT " + query._start + "," + query._limit;
+    else if (query._page) addToQuery = addToQuery + "  LIMIT " + query._start + "," + query._page;
+    else if (query._end) addToQuery = addToQuery + "  LIMIT " + query._start + "," + query._end;
   return addToQuery;
 }
 
@@ -35,7 +37,7 @@ export function addQuery(tableName, itemKeys) {
 
 
 export function addQuery(tableName) {
-  const itemKeys=Keys[tableName]
+  const itemKeys = Keys[tableName]
   let keys = "",
     QuestionMark = "";
   itemKeys.forEach((element) => {

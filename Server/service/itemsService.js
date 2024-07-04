@@ -9,7 +9,6 @@ export class ItemsService {
     }
     async allItemTypes() {
         let allItemTypes = getItemTypesQuery();
-        allItemTypes+=getSpecialParamsQuery('itemsofalbum')
         const result = await executeQuery(allItemTypes);
         return result;
     }

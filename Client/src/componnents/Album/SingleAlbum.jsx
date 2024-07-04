@@ -25,6 +25,9 @@ function SingleAlbum() {
   const [displayAddItem, setDisplayAddItem] = useState(false);
   const [deleteItemNum, setDelteItemNum] = useState(0);
   const [galleryDisplay, setGalleryDisplay] = useState(false);
+  const [start, setStart] = useState(0);
+  const [amountOfDisplayedPhotos, setAmountOfDisplayedPhotos] = useState(8);
+  const [loadMore, setLoadMore] = useState(true)
   const notify = (errorCode, errorMessage) =>
     toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
       position: "top-right",
@@ -51,8 +54,7 @@ function SingleAlbum() {
   useEffect(() => {
     if (!displayAddItem) {
       const req = {
-        method: "GET",
-        route: `items/${params.albumId}`,
+        route: `items/${params.albumId}?_start=0&_end=10`,
       };
       getReq(req)
         .then((response) => response.json())
@@ -64,10 +66,24 @@ function SingleAlbum() {
         });
     }
   }, [displayAddItem, deleteItemNum]);
-  function AllAlbumMatrix(allItems) {
-    let col = allItems.length / 3;
-    let row = 3;
-  }
+  useEffect(() => {
+    const req = { route: `items/${params.albumId}?_start=${start}&_end=${start + 10}` };
+    if (start)
+      getReq(req)
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.length)
+            setLoadMore(false)
+          setAllItems((prevPhotos) => [...prevPhotos, ...data]);
+        })
+        .catch((err) => {
+          notify(err.errorCode, err.errorText);
+        });
+  }, [start]);
+  const handleLoadMore = () => {
+    setStart(prev => prev + 10);
+    setAmountOfDisplayedPhotos(prev => prev + 8)
+  };
   function srcset(image, size, rows = 1, cols = 1) {
     return {
       src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
@@ -110,78 +126,77 @@ function SingleAlbum() {
         Add to album!
       </button>
       {displayAddItem && (<AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />)}
-      {allItems.length>0?<>
-      {!galleryDisplay && (
-        <div className="timeLine">
-          <Timeline sx={{ [`& .${timelineOppositeContentClasses.root}`]: { flex: 0.2, }, }}          >
-            {allItems.map((item) => {
-              return (
-                <TimelineItem>
-                  <TimelineOppositeContent color="textSecondary">
-                    {format(item.creationdate, "dd/MM/yyyy")}
-                    <span onClick={() => deleteItem(item.id)} style={{ cursor: "pointer" }}>🗑️</span>
-                  </TimelineOppositeContent>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                  </TimelineSeparator>
-                  <TimelineContent>
-                    <div className="timeLineItem">
-                      <>
-                        {item.idtype == 1 ? (
-                          <img className="imgItem" src={item.data} />
-                        ) : item.idtype == 3 ? (
-                          <video className="imgItem" controls>
-                            <source src={item.data} />
-                          </video>
-                        ) : item.idtype == 2 ? (
-                          <span className="icon">
-                            {String.fromCodePoint("0x" + item.data)}
-                          </span>
-                        ) : (
-                          <p style={{ display: "block", overflow: "hidden" }}>{item.data}</p>
-                        )}{" "}
-                      </>{" "}
-                    </div>
-                    <br />
-                  </TimelineContent>
-                </TimelineItem>
-              );
-            })}
-          </Timeline>
-        </div>
-      )}
-      {galleryDisplay && (
-        <div className="imgeGallery">
-          <ImageList
-            sx={{
-              width: 500
-              , height: 450
-            }}
-            variant="quilted"
-            cols={galleryDisplay.length > 20 ? 4 : 3}
-            rowHeight={150}
-          >
-            {allItemsImageMatrix(allItems).map((item) => (
-              <ImageListItem
-                key={item.id}
-                cols={item.cols || 1}
-                rows={item.rows || 1}
-              >
-                <img
-                  {...srcset(item.data, 150, item.rows, item.cols)}
-                  alt={item.title}
-                  loading="lazy"
-                />
-                <ImageListItemBar
-                  title={format(item.creationdate, "dd/MM/yyyy")}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </div>
-      )}</>
-      :<p>no items. why don't you add some?</p>}
+      {allItems.length > 0 ? <>
+        {!galleryDisplay && (
+          <div className="timeLine">
+            <Timeline sx={{ [`& .${timelineOppositeContentClasses.root}`]: { flex: 0.2, }, }}          >
+              {allItems.map((item, index) => {
+                if (index < amountOfDisplayedPhotos)
+                  return (
+                    <TimelineItem>
+                      <TimelineOppositeContent color="textSecondary">
+                        {format(item.creationdate, "dd/MM/yyyy")}
+                        <span onClick={() => deleteItem(item.id)} style={{ cursor: "pointer" }}>🗑️</span>
+                      </TimelineOppositeContent>
+                      <TimelineSeparator>
+                        <TimelineDot />
+                        <TimelineConnector />
+                      </TimelineSeparator>
+                      <TimelineContent>
+                        <div className="timeLineItem">
+                          <>
+                            {item.idtype == 1 ? (
+                              <img className="imgItem" src={item.data} />
+                            ) : item.idtype == 3 ? (
+                              <video className="imgItem" controls>
+                                <source src={item.data} />
+                              </video>
+                            ) : item.idtype == 2 ? (
+                              <span className="icon">
+                                {String.fromCodePoint("0x" + item.data)}
+                              </span>
+                            ) : (
+                              <p style={{ display: "block", overflow: "hidden" }}>{item.data}</p>
+                            )}{" "}
+                          </>{" "}
+                        </div>
+                        <br />
+                      </TimelineContent>
+                    </TimelineItem>
+                  );
+              })}
+            </Timeline>
+            {loadMore && <button onClick={handleLoadMore}>Load More</button>}
+          </div>
+        )}
+        {galleryDisplay && (
+          <div className="imgeGallery">
+            <ImageList
+              sx={{ width: 500, height: 450 }}
+              variant="quilted"
+              cols={galleryDisplay.length > 20 ? 4 : 3}
+              rowHeight={150}
+            >
+              {allItemsImageMatrix(allItems).map((item) => (
+                <ImageListItem
+                  key={item.id}
+                  cols={item.cols || 1}
+                  rows={item.rows || 1}
+                >
+                  <img
+                    {...srcset(item.data, 150, item.rows, item.cols)}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                  <ImageListItemBar
+                    title={format(item.creationdate, "dd/MM/yyyy")}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </div>
+        )}</>
+        : <p>no items. why don't you add some?</p>}
       <ToastContainer />
     </>
   );

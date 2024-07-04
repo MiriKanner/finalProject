@@ -2,29 +2,6 @@ import { AuthService } from "../service/authService.js";
 import { addUserSchema, minUserSchema, addAuthScema, childSchema } from "../serverValidations.js";
 import { sendEmail } from "../utils/mailer.js";
 export class AuthController {
-  // async updateAuth(req, res, next) {
-  //     try {
-  //         const authService = new AuthService();
-  //         const resultItem = await authService.updateAuth(req.body);
-  //         res.status(200).json({ status: 200, data: resultItem });
-  //     }
-  //     catch (ex) {
-  //         console.log('Authication error')
-  //         const err = {}
-  //         switch (ex.message) {
-  //             case "Authentication failed":
-  //                 err.statusCode = 408;
-  //                 break;
-  //             default:
-  //                 err.statusCode = 500;
-  //                 break;
-  //         }
-  //         err.message = ex;
-  //         next(err)
-  //     }
-  // }
-  // async updateAuth(req, res, next) {
-
   async verifyUserAuth(req, res, next) {
     try {
       const v = minUserSchema.validate(req.body);
@@ -91,20 +68,4 @@ export class AuthController {
       next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message || ex });
     }
   }
-
-  // async deleteAuthAndUser(req, res, next) {
-
-  //     try {
-  //         const authService = new AuthService();
-  //         const result = await authService.deleteAuthAndUser(req.body);
-  //         res.status(200).json({status: 200, data: result});
-  //     }
-  //     catch (ex) {
-  //         console.log('Authication error')
-  //         const err = {}
-  //         err.statusCode = 500;
-  //         err.message = ex;
-  //         next(err)
-  //     }
-  // }
 }

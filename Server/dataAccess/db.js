@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise';
 import 'dotenv/config'
 
-async function executeQuery(query, params){
+async function executeQuery(query, params) {
     let results;
     const connection = await mysql.createConnection({
         host: 'localhost',
@@ -10,7 +10,7 @@ async function executeQuery(query, params){
         password: process.env.PASSWORD
     });
     try {
-        [results] = await connection.execute(query,params);
+        [results] = await connection.execute(query, params);
     } catch (err) {
         // console.log(err);
         throw err
@@ -21,6 +21,6 @@ async function executeQuery(query, params){
     return results;
 }
 
-export{
+export {
     executeQuery
 }
