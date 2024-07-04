@@ -1,6 +1,6 @@
 import { executeQuery } from '../dataAccess/db.js';
-import { getMyChildrenQuery, isChildQuery, addQuery } from '../dataAccess/queries.js'
-
+import { addQuery } from '../queries/genericQueries.js';
+import { getMyChildrenQuery,isChildQuery } from '../queries/childrenQueries.js';
 export class ChildrenService {
     async getMyChildren(username) {
         const myChildrenQuery = getMyChildrenQuery();
