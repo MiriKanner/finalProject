@@ -5,7 +5,7 @@ export class ChildrenController {
   async getMyChildren(req, res, next) {
     try {
       const childrenService = new ChildrenService();
-      const resultItem = await childrenService.getMyChildren(req.params.username);
+      const resultItem = await childrenService.getMyChildren(req.params.username,req.body);
       res.json(resultItem);
     } catch (ex) {
       next({ statusCode: ex.errno || 500, message: ex.message || ex })

@@ -8,7 +8,7 @@ const Keys = {
 
 export function getSpecialParamsQuery(tableName, query) {
   let addToQuery = "";
-  Keys.tableName.forEach((element) => {
+  Keys[tableName].forEach((element) => {
     !(typeof query[element] === "undefined")
       ? (addToQuery += " and " + element + " LIKE '%" + query[element] + "%'")
       : "";

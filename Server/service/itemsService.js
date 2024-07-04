@@ -9,13 +9,13 @@ export class ItemsService {
     }
     async allItemTypes() {
         let allItemTypes = getItemTypesQuery();
-       // allItemTypes+=getSpecialParamsQuery('itemsofalbum')
+        allItemTypes+=getSpecialParamsQuery('itemsofalbum')
         const result = await executeQuery(allItemTypes);
         return result;
     }
-    async getMyItmes(albumId) {
+    async getMyItmes(albumId,query) {
         let myItmesQuery = getMyItmesQuery();
-    //    getMyItmesQuery+=getSpecialParamsQuery('itemsofalbum')
+        myItmesQuery+=getSpecialParamsQuery('itemsofalbum',query);
         const result = await executeQuery(myItmesQuery, [albumId]);
         return result;
     }

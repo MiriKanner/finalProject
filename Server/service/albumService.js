@@ -1,18 +1,20 @@
 import { executeQuery } from "../dataAccess/db.js";
-import { addQuery } from "../queries/genericQueries.js";
+import { addQuery ,getSpecialParamsQuery} from "../queries/genericQueries.js";
 import {
   getMyChildrenAlbumQuery,
   getParentChildRelationIdQuery,
   myAlbumsQuery,
 } from "../queries/albumQueries.js";
 export class AlbumService {
-  async getMyAlbums(username) {
-    const myAlbumQuery = myAlbumsQuery();
+  async getMyAlbums(username,query) {
+    let myAlbumQuery = myAlbumsQuery();
+    myAlbumsQuery+=getSpecialParamsQuery('album',query)
     const result = await executeQuery(myAlbumQuery, [username]);
     return result;
   }
-  async getMyChildrenAlbum(username) {
-    const myChildrenAlbumQuery = getMyChildrenAlbumQuery();
+  async getMyChildrenAlbum(username,query) {
+    let myChildrenAlbumQuery = getMyChildrenAlbumQuery();
+    myChildrenAlbumQuery+=getSpecialParamsQuery('album',query)
     const result = await executeQuery(myChildrenAlbumQuery, [username]);
     return result;
   }

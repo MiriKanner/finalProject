@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const navigate = useNavigate();
-  const [password, setPassword] = useState("");
   const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
@@ -90,17 +89,11 @@ function SignUp() {
             className="form-control"
             id="password"
             placeholder="Password"
-            //value={password}
             onChange={(event) => {
               setInputValue(event.target.value);
             }}
             {...register("password")}
-          />
-          <PasswordStrengthBar
-            password={password}
-            onChangeScore={(score, feedback) => {
-              console.log(score, feedback);
-            }}
+          
           />
         </div>
 

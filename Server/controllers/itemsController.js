@@ -14,7 +14,7 @@ export class ItemsController {
     async getMyItems(req, res, next) {
         try {
             const itmesService = new ItemsService();
-            const resultItem = await itmesService.getMyItmes(req.params.idAlbum);
+            const resultItem = await itmesService.getMyItmes(req.params.idAlbum, req.query);
             res.json(resultItem);
         }
         catch (ex) {

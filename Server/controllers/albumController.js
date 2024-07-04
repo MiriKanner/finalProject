@@ -4,7 +4,7 @@ export class AlbumController {
     async getMyAlbums(req, res, next) {
         try {
             const albumService = new AlbumService();
-            const resultItem = await albumService.getMyAlbums(req.params.username);
+            const resultItem = await albumService.getMyAlbums(req.params.username,req.query);
             res.json(resultItem);
         }
         catch (ex) {
@@ -14,7 +14,7 @@ export class AlbumController {
     async getMyChildrenAlbum(req, res, next) {
         try {
             const albumService = new AlbumService();
-            const resultItem = await albumService.getMyChildrenAlbum(req.params.username);
+            const resultItem = await albumService.getMyChildrenAlbum(req.params.username,req.body);
             res.json(resultItem);
         }
         catch (ex) {
