@@ -24,7 +24,6 @@ app.use('/auth', authRouter);
 app.use('/album', verifyToken, albumRouter)
 app.use('/children', verifyToken, childrenRouter)
 app.use('/items', verifyToken, itemsRouter)
-
 app.use(logErrors);
 
 app.listen(port, (err) => {

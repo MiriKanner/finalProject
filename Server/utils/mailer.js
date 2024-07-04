@@ -15,16 +15,11 @@ const styledEmailContent = fs.readFileSync(path.resolve(__dirname, './template/w
 
 
 export const sendEmail = (mailObj) => {
-  console.log(styledEmailContent)
   const replacedEmailContent = styledEmailContent
-  // .replace("${emailBody}", emailBody)
-  // .replace("${params}", params)
-//.replace("${username}", mailObj.username);
   const mailOptions = {
     from: "joyfuljourneyscapturethejoy@gmail.com",
     to: mailObj.email,
     subject: mailObj.subject,
-    // text: mailObj.emailBody,
     html: replacedEmailContent,
   };
   try {
@@ -40,15 +35,3 @@ export const sendEmail = (mailObj) => {
   }
 };
 
-// import otpGenerator from "otp-generator";
-
-// const generateOTP = () => {
-//   const OTP = otpGenerator.generate(6, {
-//     upperCaseAlphabets: false,
-//     specialChars: false,
-//     lowerCaseAlphabets: false,
-//   });
-//   var salt = bcrypt.genSaltSync(10);
-//   var hashOtp = bcrypt.hashSync(OTP, salt);
-//   return [OTP, hashOtp];
-// };

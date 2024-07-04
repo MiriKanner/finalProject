@@ -24,9 +24,3 @@ export const signToken = (username) => {
         expiresIn: "20m",
     })
 }
-
-export const signRefreshtoken = (username) => {
-    return jwt.sign({ id: username }, secretKey, {
-        expiresIn: "1d",
-    })
-}

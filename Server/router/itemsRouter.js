@@ -4,7 +4,7 @@ import upload from "../middleware/multerSetup.js";
 const itemsRouter = express.Router();
 
 const itmesController = new ItemsController();
-itemsRouter.get('/itemoptions', itmesController.getItemOptions);//getting options for adding to album
+itemsRouter.get('/itemoptions', itmesController.getItemOptions);
 itemsRouter.post('/:idAlbum', upload, itmesController.addItem);
 itemsRouter.get('/:idAlbum', itmesController.getMyItems)
 itemsRouter.delete('/:idItem',itmesController.deleteItem)

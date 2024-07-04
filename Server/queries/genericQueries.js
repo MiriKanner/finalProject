@@ -21,21 +21,6 @@ export function getSpecialParamsQuery(tableName, query) {
   return addToQuery;
 }
 
-/*
-export function addQuery(tableName, itemKeys) {
-    let keys = "", QuestionMark = "";
-    itemKeys.forEach(element => {
-        keys += element + ',';
-        QuestionMark += "?,"
-    })
-    const query = `INSERT INTO db.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)})`
-    return query
-}*/
-
-
-
-
-
 export function addQuery(tableName) {
   const itemKeys = Keys[tableName]
   let keys = "",
@@ -50,7 +35,6 @@ export function addQuery(tableName) {
   )}) VALUES (${QuestionMark.slice(0, -1)})`;
   return query;
 }
-
 
 export function getQuery(tableName) {
   const query = `SELECT * FROM db.${tableName} where ${tableName}.isActive = 1`;

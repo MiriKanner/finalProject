@@ -10,9 +10,6 @@ authRouter.post("/signUp", validate(addUserSchema), authController.addAuthAndUse
 authRouter.post("/signUpChild", validate(addAuthScema), authController.addAuth);
 authRouter.post("/isChild", validate(childSchema), authController.getChildUser);
 
-// authRouter.put("/", authController.updateAuth);
-// authRouter.delete("/:userId", authController.deleteAuthAndUser);
-
 export {
     authRouter
 }
