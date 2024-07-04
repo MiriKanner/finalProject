@@ -38,7 +38,6 @@ function Home() {
     <>
       <nav className="sticky">
         {" "}
-
         <i className="material-icons"
           onClick={() => setDisplaySideBar((prev) => !prev)}>
           menu
@@ -48,7 +47,12 @@ function Home() {
       <aside className={drawerClass.join(" ")}>
         <ul>
           <li className="help-li" />
-          {/* <img className="imgInHome" src="../../../images/צילום מסך 2024-06-26 012458.png" /> */}
+          <Link to={"/"+ user.username + "/home"}>
+            <li>
+              <i className="material-icons">home</i>
+              <span>home</span>
+            </li>
+          </Link>
           <Link to={"/" + user.username + "/mychildren'salbums"}>
             <li>
               <i className="material-icons">burst_mode</i>
