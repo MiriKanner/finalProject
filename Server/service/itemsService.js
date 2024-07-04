@@ -1,5 +1,6 @@
 import { executeQuery } from '../dataAccess/db.js';
-import { getItemTypesQuery, getMyItmesQuery, addQuery, deleteQuery } from '../dataAccess/queries.js'
+import { addQuery ,deleteQuery,getSpecialParamsQuery} from '../queries/genericQueries.js';
+import { getItemTypesQuery ,getMyItmesQuery} from '../queries/itemsQueries.js';
 export class ItemsService {
     async deleteItem(itemId) {
         const deleteItemQuery = deleteQuery('itemsofalbum')
@@ -7,12 +8,14 @@ export class ItemsService {
         return result
     }
     async allItemTypes() {
-        const allItemTypes = getItemTypesQuery();
+        let allItemTypes = getItemTypesQuery();
+       // allItemTypes+=getSpecialParamsQuery('itemsofalbum')
         const result = await executeQuery(allItemTypes);
         return result;
     }
     async getMyItmes(albumId) {
-        const myItmesQuery = getMyItmesQuery();
+        let myItmesQuery = getMyItmesQuery();
+    //    getMyItmesQuery+=getSpecialParamsQuery('itemsofalbum')
         const result = await executeQuery(myItmesQuery, [albumId]);
         return result;
     }

@@ -7,7 +7,6 @@ function SearchAndSortAlbum(props) {
   const albums = props.albums;
   const [options, setOptions] = useState([])
   const user = useContext(UserContext).user;
-  const [selectChild, setSelectChild] = useState(null)
 
   function selectSearchType(event) {
     let foundsArr;
@@ -46,8 +45,8 @@ function SearchAndSortAlbum(props) {
     event.preventDefault();
     let sortArr = albums.slice();
     switch (event.target.value) {
-      case "id":
-        props.setalbums(sortArr.sort((a, b) => a.albumId - b.albumId));
+      case "creation date":
+        props.setalbums(sortArr.sort((a, b) => a.creationdate - b.creationdate));
         break;
       case "alphabet":
         props.setalbums(sortArr.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
@@ -61,14 +60,14 @@ function SearchAndSortAlbum(props) {
     <>
       <div className="search-sort">
         <div className="sort">
-          <label htmlFor="sort">order by</label>
-          <select onChange={sortalbums} name="sort">
-            <option value="all"> </option>
-            <option value="id">id</option>
-            <option value="alphabet">alphabet</option>
-            <option value="random">random</option>
-          </select>
-          <br />
+        <label htmlFor="sort">order by</label>
+        <select onChange={sortalbums} name="sort">
+          <option value="all"> </option>
+          <option value="creation date">creation date</option>
+          <option value="alphabet">alphabet</option>
+          <option value="random">random</option>
+        </select>
+        <br />
         </div>
         <div className="search">
           <label htmlFor="search">search by</label>
