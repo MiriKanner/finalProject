@@ -143,7 +143,7 @@ function SingleAlbum() {
                         <TimelineConnector />
                       </TimelineSeparator>
                       <TimelineContent>
-                        <div className="timeLineItem">
+                        <div className="timeLineItem" >
                           <>
                             {item.idtype == 1 ? (
                               <img className="imgItem" src={item.data} />
@@ -156,7 +156,7 @@ function SingleAlbum() {
                                 {String.fromCodePoint("0x" + item.data)}
                               </span>
                             ) : (
-                              <p style={{ display: "block", overflow: "hidden" }}>{item.data}</p>
+                              <p style={{ display: "block", overflow: "hidden",wordWrap:"break-word" }}>{item.data}</p>
                             )}{" "}
                           </>{" "}
                         </div>

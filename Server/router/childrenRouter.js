@@ -7,7 +7,7 @@ const childrenRouter = express.Router();
 const childrenController = new ChildrenController();
 childrenRouter.get('/myChildren/:username', childrenController.getMyChildren);
 childrenRouter.post('/', validate(newChild), childrenController.addChild);
-childrenRouter.get('/isChild', validate(childSchema), childrenController.verifyIsChild);
+// childrenRouter.get('/isChild', validate(childSchema), childrenController.verifyIsChild);
 
 export {
     childrenRouter

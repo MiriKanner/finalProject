@@ -8,7 +8,7 @@ import {
 export class AlbumService {
   async getMyAlbums(username, query) {
     let myAlbumQuery = myAlbumsQuery();
-    myAlbumsQuery += getSpecialParamsQuery('album', query)
+    myAlbumQuery += getSpecialParamsQuery('album', query)
     const result = await executeQuery(myAlbumQuery, [username]);
     return result;
   }

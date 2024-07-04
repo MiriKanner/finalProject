@@ -9,7 +9,7 @@ export class ChildrenController {
     } catch (ex) {
       next({ statusCode: ex.errno || 500, message: ex.message || ex })
     }
-  }
+  }/*
   async verifyIsChild(req, res, next) {
     try {
       const childrenService = new ChildrenService();
@@ -18,7 +18,7 @@ export class ChildrenController {
     } catch (ex) {
       next({ statusCode: ex.errno || 500, message: ex.message || ex })
     }
-  }
+  }*/
   async addChild(req, res, next) {
     try {
       const childrenService = new ChildrenService();

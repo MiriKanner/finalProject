@@ -89,7 +89,7 @@ function Login() {
       </form>
       <Link to="/signup">don't have acount? please sign up</Link>
       <br />
-      <Link to="/signup/child">child of user? complate your account</Link>
+      <Link to="/signup/child">child of user? complete your account</Link>
     </>
   );
 }
