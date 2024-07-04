@@ -135,7 +135,7 @@ function SignUp() {
           Submit
         </button>
       </form>
-      <Link to="/login">don't have acount? please log in</Link>
+      <Link to="/login">have acount? please log in</Link>
       {/* <Link to="/sighUp">child of user? please create auth</Link> */}
     </>
   );
