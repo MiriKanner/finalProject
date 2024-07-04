@@ -155,7 +155,7 @@ function SignUpChild() {
           </button>
         </form>
       )}
-      <Link to="/login">don't have acount? please log in</Link>
+      <Link to="/login">already have acount? please log in</Link>
     </>
   );
 }
