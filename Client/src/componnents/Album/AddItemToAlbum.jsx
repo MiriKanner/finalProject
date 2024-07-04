@@ -3,17 +3,16 @@ import { postReq, getReq, postMediaReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import Select from "react-select";
-import { UserContext } from "../../App";
 import EmojiPicker from 'emoji-picker-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function AddItemToAlbum(props) {
-  const user = useContext(UserContext).user;
   let { albumId } = useParams();
   const { register, handleSubmit } = useForm();
   const [options, setOptions] = useState([]);
   const [selectOption, setSelectOption] = useState(null);
+
   const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
@@ -23,14 +22,11 @@ function AddItemToAlbum(props) {
     draggable: true,
     progress: undefined,
     theme: "light",
-    // transition: Slide,
   });
+
   useEffect(() => {
     if (options.length < 1) {
-      const req = {
-        method: "GET",
-        route: `items/itemOptions`,
-      };
+      const req = { route: `items/itemOptions` };
       let tempOption = [];
       getReq(req)
         .then((response) => response.json())
@@ -47,9 +43,7 @@ function AddItemToAlbum(props) {
   }, []);
 
   const onSubmit = (data) => {
-    // console.log(selectOption.value == 1 ? file : data.name + "erd");
     const req = {
-      method: "POST",
       route: `items/${albumId}`,
       body: {
         creationdate: new Date().toISOString().split("T")[0],
@@ -57,27 +51,19 @@ function AddItemToAlbum(props) {
         data: data.name,
       },
     };
-
     postReq(req)
       .then((response) => response.json())
       .then((responseJson) => {
         props.setDisplayAddItem(false);
-        //  console.log(responseJson);
-        //    props.setDisplayAddMyChildrenAlbum(false)
-        // if (responseJson.length != 0) {
-        // } else {
-        //     alert("wrong authentication");
-        // }
-      }).catch(err => notify(err.errorCode, err.errorText)
-      )
+      }).catch(err => notify(err.errorCode, err.errorText))
   };
+
   const onSubmitPhoto = (data) => {
     const dataForm = new FormData();
     dataForm.append("idtype", selectOption.value);
     dataForm.append("creationdate", new Date().toISOString().split("T")[0]);
     dataForm.append("image", data.image[0]);
     const req = {
-      method: "POST",
       route: `items/${albumId}`,
       body: dataForm,
     };
@@ -85,9 +71,9 @@ function AddItemToAlbum(props) {
       .then((response) => response.json())
       .then((responseJson) => {
         props.setDisplayAddItem(false);
-      }).catch(err => notify(err.errorCode, err.errorText)
-      )
+      }).catch(err => notify(err.errorCode, err.errorText))
   };
+
   function onEmojiSelect(emj) {
     let hex = emj.emoji.codePointAt(0).toString(16)
     onSubmit({ name: hex });
@@ -100,13 +86,15 @@ function AddItemToAlbum(props) {
         <label htmlFor="option">What are we adding to the album?</label>
         <Select id="option"
           options={options}
-          styles={{control: (provided) => ({
-            ...provided,
-            boxShadow: "none",
-            border: "none",
-            color: "#000",
-            width:"100%"
-          })}}
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              boxShadow: "none",
+              border: "none",
+              color: "#000",
+              width: "100%"
+            })
+          }}
           onChange={(choise) => setSelectOption(choise)} />
       </div>
 
@@ -148,13 +136,8 @@ function AddItemToAlbum(props) {
       )}
 
       {selectOption?.label == "icon" && (
-        <form onSubmit={handleSubmit(onSubmit)}
-        // encType="multipart/form-data"
-        >
+        <form onSubmit={handleSubmit(onSubmit)}        >
           <div>
-            {/* <FaBeer 
-              {...register("image")} 
-            /> */}
             <EmojiPicker onEmojiClick={(emj) => onEmojiSelect(emj)} />
           </div>
           <button type="submit" >
@@ -162,7 +145,7 @@ function AddItemToAlbum(props) {
           </button>
         </form>
       )}
-
+      
       {selectOption?.label == "video" && (
         <form onSubmit={handleSubmit(onSubmitPhoto)}
           encType="multipart/form-data">

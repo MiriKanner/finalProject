@@ -12,9 +12,7 @@ function SearchAndSortAlbum(props) {
   function selectSearchType(event) {
     let foundsArr;
     if (event.target.value == "childName" && options.length < 1) {
-      const req = {
-        route: `children/myChildren/${user.username}`,
-      };
+      const req = { route: `children/myChildren/${user.username}`, };
       let tempOption = []
       getReq(req).then((response) => response.json()).then((responseJson) => {
         responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
@@ -57,7 +55,7 @@ function SearchAndSortAlbum(props) {
         break;
     }
   }
-  
+
   return (
     <div className="search-sort">
       <div className="sort">

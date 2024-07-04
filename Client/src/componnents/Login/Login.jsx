@@ -1,4 +1,4 @@
-import React, { useRef, useState, createContext, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,8 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
+  const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
-  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+
+  const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -22,19 +24,15 @@ function Login() {
     progress: undefined,
     theme: "light",
   });
-  const { register, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
     let userToValidate = { username: data.username, password: data.password };
-    let v = userLoginSchema.validate(userToValidate);
-    if (v.error) {
-      setMessageText(v.error.details[0]);
+    let valid = userLoginSchema.validate(userToValidate);
+    if (valid.error) {
+      setMessageText(valid.error.details[0]);
       return;
     }
-    const req = {
-      method: "POST",
-      route: "auth",
-      body: userToValidate,
-    };
+    const req = { route: "auth", body: userToValidate };
     postReq(req)
       .then((response) => {
         return response.json();
@@ -45,22 +43,21 @@ function Login() {
             JSON.stringify({
               username: responseJson.result.username,
               email: responseJson.result.email,
-              id:responseJson.result.id
+              id: responseJson.result.id
             })
           );
           user.setUser(responseJson.result);
-          console.log(responseJson.result)
           navigate("/" + responseJson.result.username + "/home");
         } else {
           alert("wrong authentication");
         }
-      }).catch(err=> notify(err.errorCode,err.errorText)
+      }).catch(err => notify(err.errorCode, err.errorText)
       )
   };
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
           <label htmlFor="username">Enter UserName</label>

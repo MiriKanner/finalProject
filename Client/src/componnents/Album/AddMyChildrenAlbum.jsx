@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getReq, postMediaReq } from "../../serverquests";
-//import { Form } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import { UserContext } from "../../App";
 import { newAlbum } from '../../clientValidations.js'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function AddMyChildrenAlbum(props) {
     const user = useContext(UserContext).user;
     const [messageText, setMessageText] = useState("")
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState([])
-    const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+    const [selectChild, setSelectChild] = useState(null)
+
+    const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -21,54 +23,48 @@ function AddMyChildrenAlbum(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-      });
-    const [selectChild, setSelectChild] = useState(null)
+    });
+
     useEffect(() => {
         if (options.length < 1) {
-            const req = {
-                route: `children/myChildren/${user.username}`,
-            };
+            const req = { route: `children/myChildren/${user.username}` };
             let tempOption = []
             getReq(req).then((response) => response.json()).then((responseJson) => {
                 responseJson.map((childItem) => tempOption.push({ label: childItem.nickname, value: childItem.childName }))
                 setOptions(tempOption)
-            }).catch((err) =>
-                notify(err.errorCode, err.errorText)
-            )
-            console.log(options)
+            }).catch((err) => notify(err.errorCode, err.errorText))
         }
     }, [])
+
     const onSubmit = (data) => {
-        //need to check if selectChild.value is not null.
-        // if it is null -   dataForm.append takes "undefined" and passes validation
-        // it is a problem
-        console.log(selectChild)
-        const dataForm = new FormData();
-        dataForm.append('name', data.name)
-        dataForm.append('childUserName', selectChild.value)
-        dataForm.append('image', data.image[0])
+        if (selectChild.value) {
+            const dataForm = new FormData();
+            dataForm.append('name', data.name)
+            dataForm.append('childUserName', selectChild.value)
+            dataForm.append('image', data.image[0])
 
-        const formDataObject = {};
-        dataForm.forEach((value, key) => {
-            formDataObject[key] = value;
-        });
+            const formDataObject = {};
+            dataForm.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
 
-        let v = newAlbum.validate(formDataObject)
-        if (v.error) {
-            setMessageText(v.error.details[0])
-            return
+            let valid = newAlbum.validate(formDataObject)
+            if (valid.error) {
+                setMessageText(valid.error.details[0])
+                return
+            }
+            dataForm.append('creationdate', new Date().toISOString().split('T')[0])
+            const req = {
+                route: `album/myChildrenAlbum/${user.username}`,
+                body: dataForm
+            };
+            postMediaReq(req).then((response) => response.json()).then((responseJson) => {
+                console.log(responseJson);
+                props.setDisplayAddMyChildrenalbums(false)
+            }).catch(err => notify(err.errorCode, err.errorText))
         }
-        dataForm.append('creationdate', new Date().toISOString().split('T')[0])
-        const req = {
-            route: `album/myChildrenAlbum/${user.username}`,
-            body: dataForm
-        };
-        postMediaReq(req).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson);
-            props.setDisplayAddMyChildrenalbums(false)
-        }).catch(err=>   notify(err.errorCode,err.errorText)
-        )
     };
+    
     return (
         <> <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -89,12 +85,11 @@ function AddMyChildrenAlbum(props) {
                 </div>
                 <div className="container">
                     <label htmlFor="name">Select Album's Image</label>
-                    <input //onInput={(event) => console.log(URL.createObjectURL(event.target.files[0]))}
+                    <input
                         accept="image/*"
                         type="file"
                         className="form-control"
                         id="image"
-                        //aria-describedby="emailHelp"
                         placeholder="Select image"
                         {...register("image")}
                     />
@@ -106,6 +101,6 @@ function AddMyChildrenAlbum(props) {
             </form>
         </>
     )
-
 }
+
 export default AddMyChildrenAlbum;

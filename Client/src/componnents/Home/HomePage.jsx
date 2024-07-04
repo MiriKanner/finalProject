@@ -3,10 +3,8 @@ import React from "react";
 function HomePage() {
   return (
     <div className="overlay">
-      
       <div className="home-page">
         <h1>Welcome to Joyful Journries</h1>
-
         <h2>About Us</h2>
         <p>
           This site helps you save stories, videos, icons, achievements and

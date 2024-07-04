@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../App";
-import PasswordStrengthBar from "react-password-strength-bar";
 import { childSignupSchema, childSchema } from "../../clientValidations";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,11 +12,11 @@ import Cookies from "js-cookie";
 
 function SignUpChild() {
   const navigate = useNavigate();
-  const [password, setPassword] = useState("");
   const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
   const [correctUser, setCorrectUser] = useState(undefined);
+
   const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
@@ -28,19 +27,20 @@ function SignUpChild() {
     progress: undefined,
     theme: "light",
   });
+
   const onSubmitIsUser = (data) => {
     let child = {
       username: data.username,
       birthday: data.birthday,
-      usernameParent: data.usernameParent,
+      usernameParent: data.usernameParent
     };
 
-    let v = childSchema.validate(child);
-    if (v.error) {
-      setMessageText(v.error.details[0]);
+    let valid = childSchema.validate(child);
+    if (valid.error) {
+      setMessageText(valid.error.details[0]);
       return;
     }
-    const req = { method: "POST", route: "auth/isChild", body: child };
+    const req = { route: "auth/isChild", body: child };
     postReq(req)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -56,20 +56,19 @@ function SignUpChild() {
       password: data.password,
       email: data.email,
     };
-    let v = childSignupSchema.validate(user); 
-    console.log(v);
-    if (v.error) {
-      setMessageText(v.error.details[0]);
+    let valid = childSignupSchema.validate(user);
+    if (valid.error) {
+      setMessageText(valid.error.details[0]);
       return;
     }
 
-    const req = { method: "POST", route: "auth/signUpChild", body: user };
+    const req = { route: "auth/signUpChild", body: user };
     postReq(req).then((response) => response.json())
       .then((responseJson) => {
         const userLocal = {
           username: data.username,
           email: data.email,
-          id: responseJson.result.userResult.id,
+          id: responseJson.result.userResult.id
         };
         Cookies.set("currentUser", JSON.stringify(userLocal));
         userCo.setUser(userLocal);
@@ -130,10 +129,6 @@ function SignUpChild() {
               placeholder="Password"
               onChange={(event) => { setInputValue(event.target.value) }}
               {...register("password")} />
-            <PasswordStrengthBar
-              password={password}
-              onChangeScore={(score, feedback) => { console.log(score, feedback) }}
-            />
           </div>
 
           <div className="container">

@@ -8,30 +8,29 @@ import { RiContactsBook2Fill } from "react-icons/ri";
 
 function Home() {
   const [displaySideBar, setDisplaySideBar] = useState(false);
-  const [isShowInfo, setIsShowInfo] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   let user = useContext(UserContext).user;
-  let user2 = useContext(UserContext)
+  let userContext = useContext(UserContext);
+
   useEffect(() => {
     if (user.username != params.username) logOut();
   });
+
   function logOut() {
     const cookies = Object.keys(Cookies.get());
     cookies.forEach((cookie) => {
       Cookies.remove(cookie);
     });
-    user2.setUser(null)
+    userContext.setUser(null)
     navigate("/login");
   }
 
   let drawerClass = [];
   if (displaySideBar) {
     drawerClass.push("drawerOpen");
-    //mainClass.push("mainMin")
   } else {
     drawerClass.push("drawerMin");
-    //  mainClass.push("mainOpen");
   }
 
   return (
@@ -68,20 +67,17 @@ function Home() {
           </Link>
           <Link to={"/" + user.username + "/albums"}>
             <li>
-              {/* <i className="material-icons">show_chart</i> */}
               <i><RiContactsBook2Fill size={31} /></i>
               <span>My Albums</span>
             </li>
           </Link>
           <li onClick={() => logOut()}>
-            {/* <i className="material-icons">table_chart</i> */}
             <i> <IoMdLogOut size={31} /></i>
             <span>Log out</span>
           </li>
         </ul>
       </aside>
       <Outlet />
-      {/* <HomePage/> */}
     </>
   );
 }

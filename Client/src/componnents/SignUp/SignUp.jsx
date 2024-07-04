@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { postReq } from "../../serverquests";
 import { useForm } from "react-hook-form";
-import { Link, json, useNavigate } from "react-router-dom";
-import { createContext, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { UserContext } from "../../App";
 import Cookies from "js-cookie";
 import { userSignupSchema } from "../../clientValidations";
@@ -14,6 +14,7 @@ function SignUp() {
   const userCo = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [messageText, setMessageText] = useState("");
+
   const onSubmit = (data) => {
     let user = {
       username: data.username,
@@ -22,12 +23,12 @@ function SignUp() {
       birthday: data.birthday,
       email: data.email,
     };
-    let v = userSignupSchema.validate(user); // ValidateForm('userSchema', user)
-    console.log(v);
-    if (v.error) {
-      setMessageText(v.error.details[0]);
+    let valid = userSignupSchema.validate(user);
+    if (valid.error) {
+      setMessageText(valid.error.details[0]);
       return;
     }
+
     const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
       position: "top-right",
       autoClose: 3000,
@@ -37,32 +38,24 @@ function SignUp() {
       draggable: true,
       progress: undefined,
       theme: "light",
-      // transition: Slide,
     });
-    const req = { method: "POST", route: "auth/signUp", body: user };
+
+    const req = { route: "auth/signUp", body: user };
     postReq(req)
       .then((res) => res.json())
       .then((responseJson) => {
-        // if (responseJson.length != 0)
-        {
-          console.log(responseJson);
-          const userLocal = {
-            username: data.username,
-            email: data.email,
-            id: responseJson.result.userResult.insertId,
-          };
-          Cookies.set("currentUser",
-            JSON.stringify(
-              userLocal
-            )
-          );
-          userCo.setUser(userLocal);
-          navigate("/" + userLocal.username + "/home");
-        }
+        console.log(responseJson);
+        const userLocal = {
+          username: data.username,
+          email: data.email,
+          id: responseJson.result.userResult.insertId,
+        };
+        Cookies.set("currentUser", JSON.stringify(userLocal));
+        userCo.setUser(userLocal);
+        navigate("/" + userLocal.username + "/home");
       })
       .catch((err) => {
-        notify(err.errorCode,err.errorText)
-
+        notify(err.errorCode, err.errorText)
       });
   };
 
@@ -76,7 +69,6 @@ function SignUp() {
             type="text"
             className="form-control"
             id="username"
-            //aria-describedby="emailHelp"
             placeholder="Enter User Name"
             {...register("username")}
           />
@@ -92,7 +84,6 @@ function SignUp() {
               setInputValue(event.target.value);
             }}
             {...register("password")}
-          
           />
         </div>
 
@@ -135,7 +126,6 @@ function SignUp() {
         </button>
       </form>
       <Link to="/login">have acount? please log in</Link>
-      {/* <Link to="/sighUp">child of user? please create auth</Link> */}
     </>
   );
 }

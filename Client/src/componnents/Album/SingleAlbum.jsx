@@ -28,6 +28,7 @@ function SingleAlbum() {
   const [start, setStart] = useState(0);
   const [amountOfDisplayedPhotos, setAmountOfDisplayedPhotos] = useState(8);
   const [loadMore, setLoadMore] = useState(true)
+
   const notify = (errorCode, errorMessage) =>
     toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
       position: "top-right",
@@ -42,15 +43,13 @@ function SingleAlbum() {
 
   function deleteItem(idItem) {
     if (confirm("Are You Sure To Delete Item " + idItem) == true) {
-      const req = {
-        method: "DELETE",
-        route: `items/${idItem}`,
-      };
+      const req = { route: `items/${idItem}` };
       deleteReq(req)
         .then(setDelteItemNum(deleteItemNum + 1))
         .catch((err) => notify(err.errorCode, err.errorText));
     }
   }
+
   useEffect(() => {
     if (!displayAddItem) {
       const req = {
@@ -66,6 +65,7 @@ function SingleAlbum() {
         });
     }
   }, [displayAddItem, deleteItemNum]);
+
   useEffect(() => {
     const req = { route: `items/${params.albumId}?_start=${start}&_end=${start + 10}` };
     if (start)
@@ -80,10 +80,12 @@ function SingleAlbum() {
           notify(err.errorCode, err.errorText);
         });
   }, [start]);
+
   const handleLoadMore = () => {
     setStart(prev => prev + 10);
     setAmountOfDisplayedPhotos(prev => prev + 8)
   };
+
   function srcset(image, size, rows = 1, cols = 1) {
     return {
       src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
@@ -91,13 +93,12 @@ function SingleAlbum() {
         }&fit=crop&auto=format&dpr=2 2x`,
     };
   }
+
   function allItemsImageMatrix(items) {
     const filteredItems = items.filter((item) => item.idtype === 1);
     const numRows = Math.ceil(Math.sqrt(filteredItems.length));
     const numCols = numRows;
-    const matrix = Array.from({ length: numRows }, () =>
-      new Array(numCols).fill(null)
-    );
+    const matrix = Array.from({ length: numRows }, () => new Array(numCols).fill(null));
     filteredItems.forEach((item, index) => {
       const row = Math.floor(index / numCols);
       const col = index % numCols;
@@ -117,6 +118,7 @@ function SingleAlbum() {
       }
     return array;
   }
+
   return (
     <>
       <button className="gallery-display-button" onClick={() => setGalleryDisplay(!galleryDisplay)}>
@@ -156,7 +158,7 @@ function SingleAlbum() {
                                 {String.fromCodePoint("0x" + item.data)}
                               </span>
                             ) : (
-                              <p style={{ display: "block", overflow: "hidden",wordWrap:"break-word" }}>{item.data}</p>
+                              <p style={{ display: "block", overflow: "hidden", wordWrap: "break-word" }}>{item.data}</p>
                             )}{" "}
                           </>{" "}
                         </div>
@@ -202,24 +204,3 @@ function SingleAlbum() {
   );
 }
 export default SingleAlbum;
-
-// export default function QuiltedImageList() {
-//   return (
-//     <ImageList
-//       sx={{ width: 500, height: 450 }}
-//       variant="quilted"
-//       cols={4}
-//       rowHeight={121}
-//     >
-//       {itemData.map((item) => (
-//         <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-//           <img
-//             {...srcset(item.img, 121, item.rows, item.cols)}
-//             alt={item.title}
-//             loading="lazy"
-//           />
-//         </ImageListItem>
-//       ))}
-//     </ImageList>
-//   );
-// }

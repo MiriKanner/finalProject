@@ -5,10 +5,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useParams } from "react-router-dom";
+
 function AllAlbums(props) {
   const navigate = useNavigate();
   const albums = props.albums;
- const {username}=useParams();
+  const { username } = useParams();
+
   return (
     <>
       <div>
@@ -21,12 +23,12 @@ function AllAlbums(props) {
                   component="img"
                   height="250"
                   width="276"
-                  image={item.albumPhoto || "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg"}
+                  image={item.albumPhoto}
                   alt={item.name}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h8" component="div">
-                    {item.name.length>30? item.name.substring(0, 30) + "...":item.name}
+                    {item.name.length > 30 ? item.name.substring(0, 30) + "..." : item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {new Date(item.creationdate).toLocaleDateString()}
