@@ -104,6 +104,7 @@ aside ul li {
     font-weight: 400;
     transition: transform 1s;
     cursor: pointer;
+    height: 92px;
 }
 
 aside ul li i {
@@ -224,7 +225,7 @@ video {
 }
 
 .help-li {
-    height: 60px;
+    height: 70px;
 }
 
 .css-uym98a-MuiImageList-root {
