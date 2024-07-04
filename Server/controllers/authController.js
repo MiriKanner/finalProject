@@ -50,6 +50,8 @@ export class AuthController {
       }
       const authService = new AuthService();
       const resultItem = await authService.addAuth(req.body);
+      const emailSent = { email: req.body.email, emailBody: "Welcome", subject: `Hello ${req.body.username}` ,username: req.body.username}
+      sendEmail(emailSent)
       res.cookie('jwt', resultItem.token, { httpOnly: true, secure: false})//, sameSite: 'None', maxAge: 259200000 });
       res.json({ result: resultItem.result})//, token: resultItem.token });
     } catch (ex) {
