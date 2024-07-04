@@ -67,8 +67,9 @@ nav i:hover {
     transform: rotate(360deg);
 }
 
-nav h3 {
+nav h5 {
     margin: auto;
+    margin-right: 5px;
 }
 
 aside {
@@ -285,7 +286,7 @@ button:hover {
     height: auto;
 }
 
-.sticky h3 {
+.sticky h5 {
     color: #F0EBF4;
 }
 
@@ -343,7 +344,6 @@ body {
     margin: 20px;
     margin-left: 5px;
     width: 100%;
-    color: #f0f0f0;
     background-color: #F172A1;
     right: 0;
     left: 0;

@@ -42,7 +42,7 @@ function Home() {
           onClick={() => setDisplaySideBar((prev) => !prev)}>
           menu
         </i>{" "}
-        <h3> Hello {user.username}</h3>{" "}
+        <h5> {user.username}</h5>{" "}
       </nav>
       <aside className={drawerClass.join(" ")}>
         <ul>
