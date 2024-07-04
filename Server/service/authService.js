@@ -30,28 +30,42 @@ export class AuthService {
       throw { message: "authertaction as child failed", errno: 401 };
     return result;
   }
+  async addAuthOnly(authItem) {
+    const authQuery = addQuery("auth");
+    const password = SHA256(authItem.password).toString(enc.Hex);
+    const authResult = await executeQuery(authQuery, [
+      authItem.username,
+      password,
+    ]);
+    const token = signToken(authItem.username);
+    const refreshtoken = signRefreshtoken(authItem.username);
+    return { token: token, refreshtoken: refreshtoken, authResultQ: authResult };
+  }
   async addAuth(authItem) {
     try {
-      const authQuery = addQuery("auth");
-      const updateQuery = updateEmailUserQuery();
-      const password = SHA256(authItem.password).toString(enc.Hex);
-      const authResult = await executeQuery(authQuery, [
-        authItem.username,
-        password,
-      ]);
+      
+      // const authQuery = addQuery("auth");
+      // const updateQuery = updateEmailUserQuery();
+      // const password = SHA256(authItem.password).toString(enc.Hex);
+
+      // const authResult = await executeQuery(authQuery, [
+      //   authItem.username,
+      //   password,
+      // ]);
+      const authResult=this.addAuthOnly(authItem)
       const updateResult = await executeQuery(updateQuery, [
         authItem.email,
         authItem.username,
       ]);
       const getUserIdQ = getUserId();
       const userId = await executeQuery(getUserIdQ, [authItem.username]);
-      const token = signToken(authItem.username);
-      const refreshtoken = signRefreshtoken(authItem.username);
+      // const token = signToken(authItem.username);
+      // const refreshtoken = signRefreshtoken(authItem.username);
       const result = {
-        authResult: authResult,
+        authResult: authResult.authResultQ,
         userResult: { result: updateResult, id: userId[0].id },
       };
-      return { token: token, refreshtoken: refreshtoken, result: result };
+      return { token: authResult.token, refreshtoken:  authResult.refreshtoken, result: result };
     } catch (ex) {
       throw ex;
     }
@@ -60,24 +74,26 @@ export class AuthService {
     try {
       const userQuery = addQuery("users");
       const authQuery = addQuery("auth");
-      const password = SHA256(userAndAuthItem.password).toString(enc.Hex);
+      
       const userResult = await executeQuery(userQuery, [
         userAndAuthItem.username,
         userAndAuthItem.nickname,
         userAndAuthItem.email,
         userAndAuthItem.birthday,
       ]);
-      const authResult = await executeQuery(authQuery, [
-        userAndAuthItem.username,
-        password,
-      ]);
-      const token = signToken(userAndAuthItem.username);
-      const refreshtoken = signRefreshtoken(userAndAuthItem.username);
+      // const password = SHA256(userAndAuthItem.password).toString(enc.Hex);
+      // const authResult = await executeQuery(authQuery, [
+      //   userAndAuthItem.username,
+      //   password,
+      // ]);
+      // const token = signToken(userAndAuthItem.username);
+      // const refreshtoken = signRefreshtoken(userAndAuthItem.username);
+      const authResult=this.addAuthOnly(userAndAuthItem)
       const result = {
-        authResult: authResult,
+        authResult: authResult.authResult,
         userResult: userResult,
       };
-      return { token: token, refreshtoken: refreshtoken, result: result };
+      return { token:  authResult.token, refreshtoken: authResult. refreshtoken, result: result };
     } catch (ex) {
       throw ex;
     }

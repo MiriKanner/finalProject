@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 function AllAlbums(props) {
   const navigate = useNavigate();
   const albums = props.albums;
-  const { username } = useParams();
+ const {username}=useParams();
   return (
     <>
       <div>
@@ -26,7 +26,7 @@ function AllAlbums(props) {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h8" component="div">
-                    {item.name.substring(0, 30) + "..."}
+                    {item.name.length>30? item.name.substring(0, 30) + "...":item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {new Date(item.creationdate).toLocaleDateString()}
