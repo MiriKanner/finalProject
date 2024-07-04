@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Link, json, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { UserContext } from "../../App";
-import PasswordStrengthBar from "react-password-strength-bar";
 import Cookies from "js-cookie";
 import { userSignupSchema } from "../../clientValidations";
 import { ToastContainer, toast } from 'react-toastify';
@@ -135,7 +134,7 @@ function SignUp() {
           Submit
         </button>
       </form>
-      <Link to="/login">don't have acount? please log in</Link>
+      <Link to="/login">have acount? please log in</Link>
       {/* <Link to="/sighUp">child of user? please create auth</Link> */}
     </>
   );
