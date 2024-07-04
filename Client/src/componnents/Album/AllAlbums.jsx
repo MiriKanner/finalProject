@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 function AllAlbums(props) {
   const navigate = useNavigate();
   const albums = props.albums;
- const {username}=useParams();
+  const { username } = useParams();
   return (
     <>
       <div>

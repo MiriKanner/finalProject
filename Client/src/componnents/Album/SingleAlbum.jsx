@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getReq, deleteReq } from "../../serverquests";
 import { format } from "date-fns";
 import * as React from "react";
@@ -9,9 +9,7 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import TimelineOppositeContent, {
-  timelineOppositeContentClasses,
-} from "@mui/lab/TimelineOppositeContent";
+import TimelineOppositeContent, { timelineOppositeContentClasses } from "@mui/lab/TimelineOppositeContent";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import AddItemToAlbum from "./AddItemToAlbum";
 import ImageList from "@mui/material/ImageList";
@@ -37,7 +35,6 @@ function SingleAlbum() {
       draggable: true,
       progress: undefined,
       theme: "light",
-      // transition: Slide,
     });
 
   function deleteItem(idItem) {
@@ -61,8 +58,6 @@ function SingleAlbum() {
         .then((response) => response.json())
         .then((responseJson) => {
           setAllItems(responseJson);
-
-          // console.log(responseJson);
         })
         .catch((err) => {
           notify(err.errorCode, err.errorText);
@@ -111,27 +106,20 @@ function SingleAlbum() {
       <button className="gallery-display-button" onClick={() => setGalleryDisplay(!galleryDisplay)}>
         {!galleryDisplay ? <GrGallery /> : <LiaListUlSolid />}
       </button>
-      <button className="add-to-album"onClick={() => setDisplayAddItem(!displayAddItem)}>
+      <button className="add-to-album" onClick={() => setDisplayAddItem(!displayAddItem)}>
         Add to album!
       </button>
-      {displayAddItem && (
-        <AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />
-      )}
+      {displayAddItem && (<AddItemToAlbum setDisplayAddItem={setDisplayAddItem} />)}
+      {allItems.length>0?<>
       {!galleryDisplay && (
         <div className="timeLine">
-          <Timeline
-            sx={{
-              [`& .${timelineOppositeContentClasses.root}`]: {
-                flex: 0.2,
-              },
-            }}
-          >
+          <Timeline sx={{ [`& .${timelineOppositeContentClasses.root}`]: { flex: 0.2, }, }}          >
             {allItems.map((item) => {
               return (
                 <TimelineItem>
                   <TimelineOppositeContent color="textSecondary">
                     {format(item.creationdate, "dd/MM/yyyy")}
-                    <span onClick={() => deleteItem(item.id)}>🗑️</span>
+                    <span onClick={() => deleteItem(item.id)} style={{ cursor: "pointer" }}>🗑️</span>
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineDot />
@@ -151,20 +139,14 @@ function SingleAlbum() {
                             {String.fromCodePoint("0x" + item.data)}
                           </span>
                         ) : (
-                          <p style={{display:"block", overflow:"hidden"}}>{item.data}</p>
+                          <p style={{ display: "block", overflow: "hidden" }}>{item.data}</p>
                         )}{" "}
                       </>{" "}
-                    
                     </div>
                     <br />
                   </TimelineContent>
                 </TimelineItem>
               );
-              {
-                /* <>{item.idtype == 1 ? <img src={item.data} />
-        : item.idtype == 3 ? <video controls><source src={item.data} /></video> :
-          <span>{item.data}</span>} <br /></> */
-              }
             })}
           </Timeline>
         </div>
@@ -172,9 +154,10 @@ function SingleAlbum() {
       {galleryDisplay && (
         <div className="imgeGallery">
           <ImageList
-            sx={{ width: 500
+            sx={{
+              width: 500
               , height: 450
-             }}
+            }}
             variant="quilted"
             cols={galleryDisplay.length > 20 ? 4 : 3}
             rowHeight={150}
@@ -197,8 +180,8 @@ function SingleAlbum() {
             ))}
           </ImageList>
         </div>
-      )}
-
+      )}</>
+      :<p>no items. why don't you add some?</p>}
       <ToastContainer />
     </>
   );

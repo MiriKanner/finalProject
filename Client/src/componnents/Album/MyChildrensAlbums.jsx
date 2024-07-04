@@ -29,13 +29,13 @@ function MyChildrensAlbums() {
           setalbums(responseJson);
           // console.log(responseJson);
         })
-        .catch((err) =>           notify(err.errorCode,err.errorText)
+        .catch((err) => notify(err.errorCode, err.errorText)
         );
 
     }
   }, [displayAddMyChildrenalbums]);
- 
-  const notify = (errorCode,errorMessage) =>toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
+
+  const notify = (errorCode, errorMessage) => toast.error(`error code:${errorCode}. error message:${errorMessage}`, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -44,14 +44,14 @@ function MyChildrensAlbums() {
     draggable: true,
     progress: undefined,
     theme: "light",
-   // transition: Slide,
+    // transition: Slide,
   });
 
- 
+
   return (
     <>
-     <ToastContainer />
-         <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums}/>
+      <ToastContainer />
+      <SearchAndSortAlbum originalAlbums={originalAlbums} setOriginalAlbums={setOriginalAlbums} albums={albums} setalbums={setalbums} />
 
       <button
         onClick={() =>
@@ -61,15 +61,13 @@ function MyChildrensAlbums() {
         Add albums to my child
       </button>
       {displayAddMyChildrenalbums && (
-        <AddMyChildrenAlbum 
+        <AddMyChildrenAlbum
           setDisplayAddMyChildrenalbums={setDisplayAddMyChildrenalbums}
         />
       )}
-      <div
-        className="album"
-        // style={{ display: "flex", flexDirection: "row" }}
-      >
-        <AllAlbums albums={albums} displayAddMyChildrenalbums={displayAddMyChildrenalbums} />
+      <div className="album">
+        {albums.length > 0 ? <AllAlbums albums={albums} displayAddMyChildrenalbums={displayAddMyChildrenalbums} />
+          : <p>no items. why don't you add some?</p>}
       </div>
     </>
   );
