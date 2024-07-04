@@ -23,7 +23,7 @@ function AddChild(props) {
         const req = {
             method: "POST",
             route: `children/`,
-            body: { child },
+            body: child ,
         };
         postReq(req).then((response) => response.json()).then((responseJson) => {
             props.setDisplayAddChild(false)

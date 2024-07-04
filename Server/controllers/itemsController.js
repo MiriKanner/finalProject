@@ -27,9 +27,8 @@ export class ItemsController {
             const resultItem = await itmesService.deleteItem(req.params.idItem);
             if (resultItem.affectedRows > 0)
                 res.json(resultItem);
-            else {
+            else
                 next({ statusCode: 404, message: "item not found" })
-            }
         }
         catch (ex) {
             next({ statusCode: ex.errno || 500, message: ex.message || ex })
@@ -40,7 +39,6 @@ export class ItemsController {
         try {
             let objectForDB = {};
             if (req.body.idtype == 1 || req.body.idtype == 3) {
-                console.log(process.env.PORT)
                 for (let [key, value] of Object.entries(req.body)) {
                     objectForDB[key] = value;
                 }
