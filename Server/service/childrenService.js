@@ -11,14 +11,6 @@ export class ChildrenService {
         return result;
     }
 
-    /*
-    async verifyIsChild(childItem) {
-        const ischildQuery = isChildQuery();
-        const result = await executeQuery(ischildQuery, [childItem.username, childItem.usernameParent, childItem.birthday]);
-        if (result.length == 0) throw new { errno: 404, message: "no such child" }
-        return result;
-    }*/
-
     async addChildToParent(childItem) {
         const addChildAsUserQ = addQuery('users');
         const addChildToParentQ = addQuery('childandparent');

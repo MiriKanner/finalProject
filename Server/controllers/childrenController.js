@@ -10,16 +10,7 @@ export class ChildrenController {
       next({ statusCode: ex.errno || 500, message: ex.message || ex })
     }
   }
-  /*
-  async verifyIsChild(req, res, next) {
-    try {
-      const childrenService = new ChildrenService();
-      const resultItem = await childrenService.verifyIsChild(req.body);
-      res.json(resultItem);
-    } catch (ex) {
-      next({ statusCode: ex.errno || 500, message: ex.message || ex })
-    }
-  }*/
+  
   async addChild(req, res, next) {
     try {
       const childrenService = new ChildrenService();
