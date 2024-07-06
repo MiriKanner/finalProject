@@ -58,7 +58,7 @@ function AddItemToAlbum(props) {
       }).catch(err => notify(err.errorCode, err.errorText))
   };
 
-  const onSubmitPhoto = (data) => {
+  const onSubmitMedia = (data) => {
     const dataForm = new FormData();
     dataForm.append("idtype", selectOption.value);
     dataForm.append("creationdate", new Date().toISOString().split("T")[0]);
@@ -118,7 +118,7 @@ function AddItemToAlbum(props) {
       )}
 
       {selectOption?.label == "image" && (
-        <form onSubmit={handleSubmit(onSubmitPhoto)}
+        <form onSubmit={handleSubmit(onSubmitMedia)}
           encType="multipart/form-data">
           <div className="container">
             <label htmlFor="name">Select Image</label>
@@ -147,7 +147,7 @@ function AddItemToAlbum(props) {
       )}
       
       {selectOption?.label == "video" && (
-        <form onSubmit={handleSubmit(onSubmitPhoto)}
+        <form onSubmit={handleSubmit(onSubmitMedia)}
           encType="multipart/form-data">
           <div className="container">
             <label htmlFor="name">Select Video</label>
