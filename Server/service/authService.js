@@ -36,6 +36,7 @@ export class AuthService {
       password
     ]);
     const token = signToken(authItem.username);
+    console.log(token)
     return { token: token, authResultQ: authResult };
   }
 
@@ -43,7 +44,7 @@ export class AuthService {
     try {
       const updateQuery = updateEmailUserQuery();
       const updateResult = await executeQuery(updateQuery, [authItem.email, authItem.username]);
-      const authResult = this.addAuthOnly(authItem)
+      const authResult =await this.addAuthOnly(authItem)
       const getUserIdQ = getUserId();
       const userId = await executeQuery(getUserIdQ, [authItem.username]);
       const result = {
@@ -65,7 +66,7 @@ export class AuthService {
         userAndAuthItem.email,
         userAndAuthItem.birthday
       ]);
-      const authResult = this.addAuthOnly(userAndAuthItem)
+      const authResult = await this.addAuthOnly(userAndAuthItem)
       const result = {
         authResult: authResult.authResult,
         userResult: userResult,
